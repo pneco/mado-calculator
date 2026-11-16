@@ -1,0 +1,11 @@
+{
+  "name": "마도 저항 계산기",
+  "short_name": "마도 계산기",
+  "description": "마비노기 모바일 마도 저항 및 잔영·해연 장비 시뮬레이터",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f1726",
+  "theme_color": "#11192b"
+}
