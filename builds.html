@@ -1,202 +1,187 @@
-<!doctype html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101c31">
-<title>눈송이 · 직업별 세팅 연구소</title><style>
-*{box-sizing:border-box}body{margin:0;background:#0f1727;color:#edf5ff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:920px;margin:0 auto;padding:18px 15px 65px}a{color:#a6d2ff}h1{font-size:23px;margin:12px 0 5px}h2{font-size:17px;margin:0 0 13px}h3{font-size:15px;margin:18px 0 8px}p{line-height:1.6}small,.muted{color:#9db2d0}.muted{font-size:13px}.card{background:#1b2a42;border:1px solid #334962;border-radius:16px;padding:17px;margin:13px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.field{margin:10px 0}label{display:block;color:#bdcde4;font-size:13px;margin:0 0 7px}select,input,button,textarea{font:inherit;color:inherit;border-radius:10px}select,input,textarea{width:100%;background:#101f35;border:1px solid #4b6180;padding:12px;font-size:16px}button{cursor:pointer;background:#3a659b;padding:12px;border:1px solid #6189b5}button.secondary{background:#1a3555}.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #32435c}.row:last-child{border:0}.row span{font-size:13px;color:#bed0e8}.good{color:#9ee4c1}.warn{color:#ffd998}.chip{display:inline-block;border:1px solid #4b698b;background:#213b5d;border-radius:8px;font-size:12px;margin:3px 3px 3px 0;padding:6px 9px}.chip.good{border-color:#4e9d84}.banner{border-radius:13px;background:#132b46;padding:14px;margin-bottom:12px}.score{font-size:28px;font-weight:800}.flex{display:flex;gap:10px;flex-wrap:wrap}.flex>button{flex:1}.hint{font-size:12px;line-height:1.7;color:#afc1d9}.headerlink{text-decoration:none}.progress{height:8px;border-radius:5px;background:#0c192b;overflow:hidden;margin:9px 0}.progress i{display:block;height:100%;background:#80d7b3}.subheading{color:#cae9ff}.hidden{display:none!important}@media(max-width:560px){.grid{grid-template-columns:1fr 1fr}.three{grid-template-columns:1fr}.card{padding:14px}h1{font-size:21px}}
-.gear-v2{background:#102038;border:1px solid #39536f;border-radius:12px;padding:12px;margin:10px 0}.gear-v2-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}.gear-v2-head small{color:#b2c5dc}.v2-attack{color:#9fe8c4;font-weight:700}.v2-metric{font-size:27px;font-weight:800;color:#9ce9cd}.v2-cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:9px}@media(max-width:560px){.v2-cols{grid-template-columns:1fr 1fr}.v2-cols>.field:first-child{grid-column:span 2}}.gear-v2 select,.gear-v2 input{padding:10px;font-size:16px}</style></head><body><main>
-<a class="headerlink" href="./">❄️ 눈송이 홈으로 돌아가기</a><h1>직업별 세팅 연구소</h1>
-<p class="muted">직업 선택 → 추천 장신구 룬·세공 확인 → 내 세팅과 비교 → 교체 우선순위</p>
-<section class="card"><div class="grid">
-<div><label for="group">직업 계열</label><select id="group"></select></div>
-<div><label for="job">전직 클래스</label><select id="job"></select></div>
-</div><p class="hint">추천 자료는 2026년 시즌 2 커뮤니티 후보를 참고합니다. 공식 종결 조합이나 확정 딜 순위가 아닙니다.</p></section>
-<section class="card"><h2 id="recommendTitle">추천 세팅</h2><div id="recommend"></div></section>
-<section class="card"><h2>내 장비 세팅</h2>
-<p class="muted">무기·방어구·엠블럼을 드롭다운에서 선택하고 장신구 룬·세공과 비교할 수 있어요. 데이터는 이 브라우저에 직업별 자동 저장됩니다.</p>
-<div class="hidden" aria-hidden="true"><h3>무기 · 방어구 · 엠블럼</h3><div class="three"><div class="field"><label for="myWeapon">현재 무기 룬</label><select id="myWeapon"></select></div><div class="field"><label for="myArmor">현재 방어구/세트</label><select id="myArmor"></select></div><div class="field"><label for="myEmblem">현재 엠블럼</label><select id="myEmblem"></select></div></div>
-<h3>무기 강화 및 공격력 비율 비교</h3>
-<div class="three"><div class="field"><label for="baseAttack">기본 공격력 (직접 입력)</label><input type="number" min="0" max="999999999" inputmode="numeric" id="baseAttack" placeholder="예: 12000"></div>
-<div class="field"><label for="weaponLevel">현재 무기 강화 단계</label><select id="weaponLevel"></select></div>
-<div class="field"><label for="targetWeaponLevel">목표 무기 강화 단계</label><select id="targetWeaponLevel"></select></div>
-<div class="field"><label for="attackRate">현재 공격력 보정 비율 (%)</label><select id="attackRate"></select></div>
-<div class="field"><label for="targetAttackRate">목표 공격력 보정 비율 (%)</label><select id="targetAttackRate"></select></div>
-<div class="field"><label for="stageRate">단계당 추가 공격력 비율 (%)</label><select id="stageRate"></select></div></div>
-<p class="hint">강화 단계에 따른 실제 공식은 확인되지 않아 단계당 증가율을 직접 선택하는 비교 모델입니다. 기본 공격력에는 이 모델의 증가분이 아직 포함되지 않은 값을 입력하세요.</p><h3>현재 장신구 룬 (3개)</h3><div class="three" id="runeInputs"></div>
-</div><h3>착용 장비 · 10개 슬롯</h3>
-<p class="hint">방어구 5부위를 독립적으로 선택해요. 룬을 바꾸면 현재 옵션 합계가 다시 계산돼요. ‘기타 룬 직접 추가’도 지원합니다.</p>
-<div class="field"><label for="v2Base">장비 옵션 적용 전 공격력 (선택)</label><input id="v2Base" type="number" min="0" inputmode="numeric" placeholder="모르면 비워두세요"></div>
-<div id="v2Slots"></div>
-<div class="banner" id="v2Summary"></div>
-<p class="hint">룬 효과의 공격력 증가율과 강화 단계별 수치를 무조건 자동 추정하지 않습니다. 선택한 장비에 표시된 <strong>상시 공격력 증가 %</strong>를 입력하면 합산합니다. 지속시간·중첩·조건부 효과는 제외하고, 실제 최종 공격력이나 DPS와는 다를 수 있어요.</p>
-<div class="grid"><div class="field"><label for="myMods">사용 중인 개조 (예: 135)</label><input id="myMods" maxlength="15" placeholder="135"></div>
-<div class="field"><label for="style">플레이 스타일</label><select id="style"><option>범용</option><option>보스 중심</option><option>사냥 중심</option><option>자동 사냥</option><option>수동 조작</option></select></div></div>
-<h3>보석 세공 태그 (최대 3줄)</h3><div class="three" id="tagInputs"></div>
-<div class="flex"><button id="save">이 직업 세팅 저장</button><button class="secondary" id="prefill">추천 세팅 적용</button></div>
-<p id="saveInfo" class="hint"></p>
-</section>
-<section class="card"><h2>현재 세팅 vs 추천 세팅</h2><div id="comparison"></div></section>
-<section class="card"><h2>내 세팅 메모</h2><textarea id="memo" rows="3" maxlength="700" placeholder="룬 옵션, 장비 이름, 테스트 결과 등을 기록하세요."></textarea>
-<div class="flex" style="margin-top:10px"><button id="backup">전체 직업 세팅 JSON 백업</button><button class="secondary" id="restore">JSON 복원</button></div><input id="restoreFile" type="file" accept=".json,application/json" class="hidden">
-<p class="hint">현재는 룬 일치도·세공 우선순위·개조 조합만 비교합니다. 검증된 전투 공식을 확보하기 전까지 실제 DPS 상승률을 임의로 산출하지 않습니다.</p></section>
-<footer class="hint">추천 기준: <a target="_blank" rel="noopener noreferrer" href="https://www.kakao.gg/games/mabinogi-mobile/%EB%A7%88%EB%B9%84%EB%85%B8%EA%B8%B0-%EB%AA%A8%EB%B0%94%EC%9D%BC-%EC%A7%81%EC%97%85%EB%B3%84-%EC%B6%94%EC%B2%9C-%EC%84%B8%ED%8C%85-%EC%9E%A5%EC%8B%A0%EA%B5%AC-%EB%A3%AC%C2%B7%EC%8A%A4%ED%82%AC-%EA%B0%9C%EC%A1%B0%C2%B7%EB%B3%B4%EC%84%9D-%EC%84%B8%EA%B3%B5-%EC%A0%95%EB%A6%AC">시즌2 직업별 추천 세팅 정리 (2026.09)</a> · 게임 패치에 따라 변경될 수 있습니다.</footer>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0f1727"><title>눈송이 · 직업별 세팅 연구소</title><style>
+:root{color-scheme:dark;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f1727;color:#e8f3ff}
+*{box-sizing:border-box}body{margin:0}main{max-width:960px;margin:auto;padding:18px 14px 60px}a{color:#b4d9ff}
+h1{font-size:23px;margin:12px 0 5px}h2{font-size:18px;margin:0 0 14px}h3{font-size:15px;margin:15px 0 9px}
+p{line-height:1.65}.muted,.note{font-size:13px;color:#a9c0d9}.note{line-height:1.65}
+.panel{background:#1b2b44;border:1px solid #344b69;border-radius:16px;padding:17px;margin:14px 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.slots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.slot{padding:14px;background:#112139;border:1px solid #395270;border-radius:13px;min-width:0}
+.slot-header{display:flex;justify-content:space-between;gap:7px;align-items:center;margin-bottom:9px}
+.slot-header small{color:#a8bdd6}.slot-title{font-weight:700}
+.slot-fields{display:grid;grid-template-columns:1fr 1fr;gap:9px}.slot-fields .full{grid-column:span 2}
+label{display:block;font-size:12px;color:#b8cce4;margin-bottom:6px}
+input,select,textarea,button{font:inherit;color:inherit;max-width:100%;border-radius:10px}
+input,select,textarea{background:#0d1c32;border:1px solid #496484;padding:11px;font-size:16px;width:100%}
+button{background:#3c68a7;border:1px solid #608fc3;padding:12px;cursor:pointer}button.secondary{background:#213b5e}
+.buttons{display:flex;gap:9px;flex-wrap:wrap}.buttons button{flex:1 1 140px}
+.line{display:flex;align-items:start;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid #354963}.line:last-child{border:0}
+.line span{font-size:13px;color:#bdd1e8}.line strong{text-align:right;overflow-wrap:anywhere}
+.chip{display:inline-block;background:#274465;border:1px solid #47698f;border-radius:8px;font-size:12px;margin:3px 3px 3px 0;padding:5px 8px}
+.good{color:#a0e7c5}.warn{color:#f9cf95}
+.banner{border-radius:13px;background:#142f48;padding:15px;margin:13px 0}.value{font-size:28px;font-weight:800;color:#9debc9}
+.notice{border-left:3px solid #e3bd75;padding:10px 13px;background:#303047;border-radius:8px}
+.hidden{display:none!important}
+@media(max-width:620px){.slots{grid-template-columns:1fr}.panel{padding:13px}h1{font-size:21px}}
+</style></head><body><main>
+<a href="./">❄️ 눈송이 홈으로 돌아가기</a><h1>💎 직업별 세팅 연구소</h1><p class="muted">직업별 추천 · 장비 10개 슬롯 · 장착 장비 옵션 합산</p>
+<section class="panel"><h2>직업 선택</h2><div class="grid"><div><label for="group">직업 계열</label><select id="group"></select></div><div><label for="job">전직 클래스</label><select id="job"></select></div></div>
+<p class="note">직업별 추천은 커뮤니티 참고 후보이며, 게임 버전과 운용 방식에 따라 달라질 수 있어.</p></section>
+<section class="panel"><h2 id="recommendTitle">직업 추천</h2><div id="recommend"></div><div class="buttons"><button id="applyRec" class="secondary" type="button">추천 장신구 룬을 내 세팅에 적용</button></div></section>
+<section class="panel"><h2>현재 착용 장비</h2><p class="note">방어구 5개 부위를 독립적으로 선택하고, 착용 장비의 룬·강화 단계·상시 공격력 증가 수치를 입력해. 선택 가능한 룬이 없으면 직접 추가할 수 있어.</p>
+<div class="notice note">강화 단계는 장비 기록용이야. 공격력 증가율을 자동 추측하지 않아. 직접 입력한 <b>상시 공격력 증가 옵션</b>만 합산해 표시해.</div>
+<div class="grid" style="margin-top:12px"><div><label for="baseAttack">옵션 반영 전 기준 공격력 (선택)</label><input id="baseAttack" type="number" min="0" inputmode="decimal" placeholder="예: 12000"></div><div><label for="style">플레이 스타일</label><select id="style"><option>범용</option><option>보스 중심</option><option>사냥 중심</option><option>자동 사냥</option><option>수동 조작</option></select></div></div>
+<h3>무기 · 투구 · 상의 · 하의 · 장갑 · 신발 · 엠블럼 · 장신구</h3><div class="slots" id="slots"></div>
+<div class="grid"><div><label for="mods">스킬 개조</label><select id="mods"></select></div><div><label for="tag0">보석 세공 태그 1</label><select id="tag0"></select></div><div><label for="tag1">보석 세공 태그 2</label><select id="tag1"></select></div><div><label for="tag2">보석 세공 태그 3</label><select id="tag2"></select></div></div>
+<div class="buttons" style="margin-top:13px"><button id="save" type="button">현재 세팅 저장</button></div><p id="savedStatus" class="note"></p></section>
+<section class="panel"><h2>현재 장비 기준 공격력 분석</h2><div id="analysis"></div></section>
+<section class="panel"><h2>내 세팅 기록 및 백업</h2><label for="memo">세팅 메모</label><textarea id="memo" rows="3" maxlength="700" placeholder="보스 테스트, 다른 룬 후보, 개조 기록 등"></textarea>
+<div class="buttons" style="margin-top:12px"><button id="backup" type="button">JSON 백업</button><button id="restore" class="secondary" type="button">JSON 복원</button></div><input id="restoreFile" type="file" accept=".json,application/json" class="hidden">
+<p class="note">설정은 이 기기의 브라우저에 직업별로 자동 저장돼. 브라우저 데이터가 삭제될 수 있으니 JSON 백업을 권장해.</p></section>
+<footer class="note">표시되는 공격력 보정 합계는 사용자가 입력한 옵션의 단순 합이야. 게임 내부 곱연산·조건부 발동·룬 계수·실제 DPS를 뜻하지 않아. 룬 목록은 계속 보완되는 후보 목록이며 게임 전체 룬 목록을 보장하지 않아.</footer>
 </main><script>
 (function(){
 'use strict';
+const JOBS=[{"group":"전사","name":"기사","runes":["용기","돌파","지진"],"mods":["135"],"tags":["강타","보조","생존","연타","소환"]},{"group":"전사","name":"전사","runes":["붕괴","돌격","패기"],"mods":["246"],"tags":["강타","방해","이동","생존"]},{"group":"전사","name":"대검전사","runes":["탄력","광전사","절단"],"mods":["456"],"tags":["강타","보조","강타쿨","보조쿨"]},{"group":"전사","name":"검술사","runes":["관통","평정","일섬"],"mods":["456"],"tags":["강타","연타","이동","보조"]},{"group":"궁수","name":"궁수","runes":["닻","매","몰아침"],"mods":["156"],"tags":["연타","강타","방해"]},{"group":"궁수","name":"장궁병","runes":["초음파","돌개","호응"],"mods":["234","236"],"tags":["강타","방해","연타"]},{"group":"궁수","name":"석궁사수","runes":["꿰뚫음","화약","산탄"],"mods":["146","346"],"tags":["원소","강타","연타"]},{"group":"마법사","name":"마법사","runes":["운석","우레","서리가시"],"mods":["123"],"tags":["원소","방해","강타"]},{"group":"마법사","name":"빙결술사","runes":["빙하","설원","북풍"],"mods":["456"],"tags":["원소","소환","생존","강타"]},{"group":"마법사","name":"화염술사","runes":["폭격","분출","청염"],"mods":["136"],"tags":["원소","강타","연타","방해"]},{"group":"마법사","name":"전격술사","runes":["섬광","폭풍우","도관"],"mods":["245"],"tags":["원소","강타","보조","방해","보조쿨"]},{"group":"힐러","name":"힐러","runes":["광륜","가호","물결"],"mods":["345"],"tags":["보조","연타","보조쿨","소환"]},{"group":"힐러","name":"사제","runes":["심판","집행","성전"],"mods":["135","235","345"],"tags":["보조","강타","방해"]},{"group":"힐러","name":"수도사","runes":["인과","등불","뇌정"],"mods":["123"],"tags":["보조","연타","이동","방해"]},{"group":"힐러","name":"암흑술사","runes":["구속","절제","광기"],"mods":["135"],"tags":["소환","방해","연타","보조","강타"]},{"group":"도적","name":"도적","runes":["폭발","덫","땅거미"],"mods":["134","234"],"tags":["방해","강타","이동"]},{"group":"도적","name":"듀얼블레이드","runes":["천침","교차","강화"],"mods":["145"],"tags":["연타","이동","보조","강타"]},{"group":"도적","name":"격투가","runes":["승천","전진","강격"],"mods":["145","456"],"tags":["강타","이동","보조"]},{"group":"음유시인","name":"악사","runes":["조율","종장","순환"],"mods":["345"],"tags":["방해","강타","연타"]},{"group":"음유시인","name":"음유시인","runes":["무아","합주","변주"],"mods":["134"],"tags":["방해","보조","연타","강타"]},{"group":"음유시인","name":"댄서","runes":["발걸음","전환","환호"],"mods":["135","356"],"tags":["연타","이동","보조","강타"]}];
 const EQUIP={"기사":{"weapon":"물결 (잔영은 광역 대안)","armor":"열의 · 공허 · 금 간 봉인 · 교차하는 사슬 (후보)","emblem":"백금 천칭"},"전사":{"weapon":"대군주 / 바위 칼날 (후보)","armor":"서광 · 승전 · 칼바람 (후보)","emblem":"위대함 / 초월"},"대검전사":{"weapon":"거대한 분노 (후보)","armor":"첫 번째 서약 · 금 간 봉인 · 무너진 경계 · 용의 문장 2세트 (후보)","emblem":"위대함"},"검술사":{"weapon":"거대한 분노 / 죽음 (후보)","armor":"공세+ · 무형 · 무너진 경계 · 용의 문장 2세트 (후보)","emblem":"영원한 밤"},"석궁사수":{"weapon":"바위 칼날 (후보)","armor":"용의 문장 2세트 · 침식 · 승전 (후보)","emblem":"검증 자료 부족"},"도적":{"weapon":"거대한 분노 (후보)","armor":"날선 적의 · 용사냥꾼 · 잠들지 않는 불 · 별바라기 · 열의 (후보)","emblem":"백금 천칭"},"음유시인":{"weapon":"대군주 / 바위 칼날 (후보)","armor":"긍지 · 비늘 덮인 현자 · 바다뱀 (후보)","emblem":"해방"},"댄서":{"weapon":"바위 칼날 / 타오르는 영광 (후보)","armor":"교차하는 사슬 · 계승자 (후보)","emblem":"영원한 밤 / 초월"}};
-const jobs=[{"group":"전사","name":"기사","runes":["용기","돌파","지진"],"mods":["135"],"tags":["강타","보조","생존","연타","소환"]},{"group":"전사","name":"전사","runes":["붕괴","돌격","패기"],"mods":["246"],"tags":["강타","방해","이동","생존"]},{"group":"전사","name":"대검전사","runes":["탄력","광전사","절단"],"mods":["456"],"tags":["강타","보조","강타쿨","보조쿨"]},{"group":"전사","name":"검술사","runes":["관통","평정","일섬"],"mods":["456"],"tags":["강타","연타","이동","보조"]},{"group":"궁수","name":"궁수","runes":["닻","매","몰아침"],"mods":["156"],"tags":["연타","강타","방해"]},{"group":"궁수","name":"장궁병","runes":["초음파","돌개","호응"],"mods":["234","236"],"tags":["강타","방해","연타"]},{"group":"궁수","name":"석궁사수","runes":["꿰뚫음","화약","산탄"],"mods":["146","346"],"tags":["원소","강타","연타"]},{"group":"마법사","name":"마법사","runes":["운석","우레","서리가시"],"mods":["123"],"tags":["원소","방해","강타"]},{"group":"마법사","name":"빙결술사","runes":["빙하","설원","북풍"],"mods":["456"],"tags":["원소","소환","생존","강타"]},{"group":"마법사","name":"화염술사","runes":["폭격","분출","청염"],"mods":["136"],"tags":["원소","강타","연타","방해"]},{"group":"마법사","name":"전격술사","runes":["섬광","폭풍우","도관"],"mods":["245"],"tags":["원소","강타","보조","방해","보조쿨"]},{"group":"힐러","name":"힐러","runes":["광륜","가호","물결"],"mods":["345"],"tags":["보조","연타","보조쿨","소환"]},{"group":"힐러","name":"사제","runes":["심판","집행","성전"],"mods":["135","235","345"],"tags":["보조","강타","방해"]},{"group":"힐러","name":"수도사","runes":["인과","등불","뇌정"],"mods":["123"],"tags":["보조","연타","이동","방해"]},{"group":"힐러","name":"암흑술사","runes":["구속","절제","광기"],"mods":["135"],"tags":["소환","방해","연타","보조","강타"]},{"group":"도적","name":"도적","runes":["폭발","덫","땅거미"],"mods":["134","234"],"tags":["방해","강타","이동"]},{"group":"도적","name":"듀얼블레이드","runes":["천침","교차","강화"],"mods":["145"],"tags":["연타","이동","보조","강타"]},{"group":"도적","name":"격투가","runes":["승천","전진","강격"],"mods":["145","456"],"tags":["강타","이동","보조"]},{"group":"음유시인","name":"악사","runes":["조율","종장","순환"],"mods":["345"],"tags":["방해","강타","연타"]},{"group":"음유시인","name":"음유시인","runes":["무아","합주","변주"],"mods":["134"],"tags":["방해","보조","연타","강타"]},{"group":"음유시인","name":"댄서","runes":["발걸음","전환","환호"],"mods":["135","356"],"tags":["연타","이동","보조","강타"]}];
-const ACCESSORY_RUNES=[...new Set(jobs.flatMap(x=>x.runes))].sort((a,b)=>a.localeCompare(b,'ko'));
-const WEAPON_NAMES=['대군주','바위 칼날','거대한 분노','죽음','물결','타오르는 영광'];
-const ARMOR_NAMES=['열의','공허','금 간 봉인','교차하는 사슬','서광','승전','칼바람','첫 번째 서약','무너진 경계','용의 문장 2세트','공세+','무형','침식','날선 적의','용사냥꾼','잠들지 않는 불','별바라기','긍지','비늘 덮인 현자','바다뱀','계승자'];
-const EMBLEM_NAMES=['백금 천칭','위대함','초월','영원한 밤','해방'];
-const TAGS=['미설정','강타','연타','원소','방해','이동','보조','소환','생존','강타쿨','보조쿨','연타쿨','원소쿨','방해쿨','이동쿨','소환쿨'];
-const KEY='snow-builds-v1',SELECT='snow-selected-job-v1';const $=id=>document.getElementById(id);
-let store={};try{store=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){}
-let jobName='';
-const clean=v=>String(v||'').trim();
-const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function persist(){try{localStorage.setItem(KEY,JSON.stringify(store));localStorage.setItem(SELECT,jobName)}catch(e){}}
-function selected(){return jobs.find(x=>x.name===jobName)||jobs[0]}
-function empty(){return {runes:['','',''],tags:['미설정','미설정','미설정'],mods:'',style:'범용',memo:'',weapon:'',armor:'',emblem:'',baseAttack:0,weaponLevel:0,targetWeaponLevel:0,attackRate:0,targetAttackRate:0,stageRate:0}}
-function current(){return store[jobName]||empty()}
-function groups(){return [...new Set(jobs.map(x=>x.group))]}
-function fillGroup(){const selectedName=localStorage.getItem(SELECT);const selectedJob=jobs.find(x=>x.name===selectedName)||jobs[0];$('group').innerHTML=groups().map(g=>'<option value="'+esc(g)+'">'+esc(g)+'</option>').join('');$('group').value=selectedJob.group;fillJob(selectedJob.name)}
-function fillJob(want){const items=jobs.filter(x=>x.group===$('group').value);$('job').innerHTML=items.map(x=>'<option value="'+esc(x.name)+'">'+esc(x.name)+'</option>').join('');if(want&&items.some(x=>x.name===want))$('job').value=want;jobName=$('job').value;load();}
-function tagOptions(value){return TAGS.map(t=>'<option value="'+esc(t)+'"'+(t===value?' selected':'')+'>'+esc(t)+'</option>').join('')}
-function options(values,value){return values.map(v=>'<option value="'+esc(v)+'"'+(String(v)===String(value)?' selected':'')+'>'+esc(v===''?'미설정':v)+'</option>').join('')}
-function choices(type,old){const names=type==='weapon'?WEAPON_NAMES:type==='armor'?ARMOR_NAMES:EMBLEM_NAMES;return [...new Set(['',...names,...(old?[old]:[])])]}
-function percentOptions(value,max,step){const values=[];for(let v=0;v<=max+0.00001;v+=step)values.push(Number(v.toFixed(2)));return options(values,value)}
-function levelOptions(value){return options(Array.from({length:31},(_,i)=>i),value)}
-function accessoryOptions(value){return options([...new Set(['',...selected().runes,...ACCESSORY_RUNES,...(value?[value]:[])])],value)}
-function formatValue(v){return Math.round(Number(v)||0).toLocaleString('ko-KR')}
-function load(){
- const x=current();
- $('runeInputs').innerHTML=[0,1,2].map(i=>'<div><label>장신구 룬 '+(i+1)+'</label><select data-rune="'+i+'">'+accessoryOptions(x.runes[i]||'')+'</select></div>').join('');
- $('tagInputs').innerHTML=[0,1,2].map(i=>'<div><label>세공 '+(i+1)+'순위</label><select data-tag="'+i+'">'+tagOptions(x.tags[i]||'미설정')+'</select></div>').join('');
- $('myWeapon').innerHTML=options(choices('weapon',x.weapon),x.weapon||'');$('myArmor').innerHTML=options(choices('armor',x.armor),x.armor||'');$('myEmblem').innerHTML=options(choices('emblem',x.emblem),x.emblem||'');
-$('baseAttack').value=x.baseAttack||'';$('weaponLevel').innerHTML=levelOptions(x.weaponLevel||0);$('targetWeaponLevel').innerHTML=levelOptions(x.targetWeaponLevel||0);
-$('attackRate').innerHTML=percentOptions(x.attackRate||0,100,1);$('targetAttackRate').innerHTML=percentOptions(x.targetAttackRate||0,100,1);$('stageRate').innerHTML=percentOptions(x.stageRate||0,5,0.25);
-$('myMods').value=x.mods||'';$('style').value=x.style||'범용';$('memo').value=x.memo||'';render();
-}
-function snapshot(){
- return {runes:[...document.querySelectorAll('[data-rune]')].map(e=>clean(e.value).slice(0,30)),tags:[...document.querySelectorAll('[data-tag]')].map(e=>e.value),mods:clean($('myMods').value).slice(0,15),weapon:clean($('myWeapon').value).slice(0,60),armor:clean($('myArmor').value).slice(0,120),emblem:clean($('myEmblem').value).slice(0,60),baseAttack:Math.max(0,Number($('baseAttack').value)||0),weaponLevel:Number($('weaponLevel').value)||0,targetWeaponLevel:Number($('targetWeaponLevel').value)||0,attackRate:Number($('attackRate').value)||0,targetAttackRate:Number($('targetAttackRate').value)||0,stageRate:Number($('stageRate').value)||0,style:$('style').value,memo:$('memo').value.slice(0,700)};
-}
-function save(){store[jobName]=snapshot();persist();render();}
-function chips(values){return values.map(t=>'<span class="chip">'+esc(t)+'</span>').join('')}
-function row(label,val){return '<div class="row"><span>'+label+'</span><strong>'+val+'</strong></div>'}
-function render(){
- const x=selected(),c=current(),equipment=EQUIP[x.name]||null;
- const matched=x.runes.filter(t=>c.runes.map(clean).includes(t)).length;
- const tagMatched=c.tags.filter(t=>x.tags.includes(t)).length;
- const modMatch=x.mods.includes(clean(c.mods))&&clean(c.mods)!=='';
- const missing=x.runes.filter(t=>!c.runes.includes(t));
- const atk=Number(c.baseAttack)||0,oldRatio=(Number(c.attackRate)||0)+(Number(c.weaponLevel)||0)*(Number(c.stageRate)||0),newRatio=(Number(c.targetAttackRate)||0)+(Number(c.targetWeaponLevel)||0)*(Number(c.stageRate)||0);
- const oldAtk=atk*(1+oldRatio/100),newAtk=atk*(1+newRatio/100),relative=oldAtk>0?((newAtk/oldAtk)-1)*100:0;
- const rateMarkup='<h3>강화 / 공격력 비교 (사용자 가정)</h3>'+
- row('현재 / 목표 강화 단계',esc(String(c.weaponLevel||0))+' → '+esc(String(c.targetWeaponLevel||0)))+
- row('현재 / 목표 합산 공격력 보정',oldRatio.toFixed(2)+'% → '+newRatio.toFixed(2)+'%')+
- row('현재 가정 공격력',formatValue(oldAtk))+row('목표 가정 공격력',formatValue(newAtk))+
- row('공격력 환산 변화',atk>0?'<span class="'+(relative>=0?'good':'warn')+'">'+(relative>=0?'+':'')+relative.toFixed(2)+'%</span>':'기본 공격력 입력 필요')+
- '<p class="hint">공격력만 비교한 단순 환산값이며 실제 게임의 최종 피해량, DPS, 전투력 증가율이 아닙니다.</p>';
- $('recommendTitle').textContent=x.group+' · '+x.name+' 추천 세팅';
- $('recommend').innerHTML='<div class="banner"><strong>추천 장신구 룬</strong><div>'+chips(x.runes)+'</div></div>'+row('스킬 개조 후보',x.mods.map(esc).join(' 또는 '))+row('세공 우선순위',x.tags.map(esc).join(' → ')) + '<h3>추천 장비 후보</h3>' + row('무기 룬',esc(equipment?.weapon||'검증 자료 부족'))+row('방어구 룬·세트',esc(equipment?.armor||'검증 자료 부족'))+row('엠블럼',esc(equipment?.emblem||'검증 자료 부족'))+'<p class="hint">보유 장비와 콘텐츠에 따라 다른 조합이 더 좋을 수 있습니다.</p>';
- $('comparison').innerHTML=rateMarkup+'<div class="grid"><div class="banner"><div class="muted">장신구 룬 일치</div><div class="score">'+matched+' / 3</div><div class="progress"><i style="width:'+(matched/3*100)+'%"></i></div></div><div class="banner"><div class="muted">세공 우선 태그 일치</div><div class="score">'+tagMatched+' / 3</div><div class="progress"><i style="width:'+(tagMatched/3*100)+'%"></i></div></div></div>'+
- row('현재 무기 룬',esc(c.weapon||'미입력'))+row('현재 방어구 구성',esc(c.armor||'미입력'))+row('현재 엠블럼',esc(c.emblem||'미입력'))+row('개조 후보',modMatch?'<span class="good">추천 후보와 일치</span>':'<span class="warn">개조 검토 필요</span>')+
- row('확보하면 좋은 장신구 룬',missing.length?chips(missing):'<span class="good">추천 후보 모두 보유</span>')+
- row('우선 검토할 세공 태그',chips(x.tags.filter(t=>!c.tags.includes(t)).slice(0,3)))+
- '<p class="hint">일치도가 높다고 실제 DPS가 비례해 증가하는 것은 아닙니다. 세공/룬의 옵션 수치와 운용 사이클을 따로 검증해야 합니다.</p>';
-}
-$('group').addEventListener('change',()=>fillJob());
-$('job').addEventListener('change',()=>{jobName=$('job').value;persist();load()});
-$('save').addEventListener('click',()=>{save();$('saveInfo').textContent='저장 완료 · '+jobName+' 세팅이 이 브라우저에 저장됐어요.'});
-$('prefill').addEventListener('click',()=>{const x=selected();store[jobName]={...current(),runes:x.runes.slice(),mods:x.mods[0],tags:x.tags.slice(0,3)};persist();load();$('saveInfo').textContent='추천 후보를 입력란에 적용했어요. 실제 아이템 보유 여부를 확인하세요.'});
-['runeInputs','tagInputs','myMods','style','memo','myWeapon','myArmor','myEmblem','baseAttack','weaponLevel','targetWeaponLevel','attackRate','targetAttackRate','stageRate'].forEach(id=>$(id).addEventListener('input',save));
-$('backup').addEventListener('click',()=>{save();const url=URL.createObjectURL(new Blob([JSON.stringify({schema:1,builds:store},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='snow-builds.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)});
-$('restore').addEventListener('click',()=>$('restoreFile').click());
-$('restoreFile').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const obj=JSON.parse(reader.result);if(obj.schema!==1||!obj.builds||typeof obj.builds!=='object')throw Error('format');store=obj.builds;persist();load();alert('세팅을 복원했어요.')}catch(err){alert('올바른 백업 파일이 아닙니다.')}};reader.readAsText(file)});
-fillGroup();
-})();
-</script><script>
-(function(){
-'use strict';
 const CAT={"weapon":["가시 덩굴","거대한 분노","검무+","대군주","바위 칼날","죽음","물결","타오르는 영광","만 갈래 물길","메아리치는 진노","불꽃으로 새긴 문장","가속","가속+"],"armor":["가라앉은 왕국","무형","사슬로 묶은 법전","여신","용 사냥꾼","유폐된 어둠","검게 물든 후광","그림자로 엮은 회랑","닫힌 운명","타오르는 심장","빗발치는 화염","열의","공허","금 간 봉인","교차하는 사슬","서광","승전","칼바람","첫 번째 서약","무너진 경계","용의 문장 2세트","공세+","침식","날선 적의","용사냥꾼","잠들지 않는 불","별바라기","긍지","비늘 덮인 현자","바다뱀","계승자","모래 폭풍","무도가+","무한한 탐욕","바위 거인","방랑 기사","봉인술사","분쇄+","불사","영원","이름 없는 혼돈"],"emblem":["여신의 가호","여신의 권능","백금 천칭","위대함","초월","영원한 밤","해방","가호"],"accessory":["가호+","간결함+","갈채+","감쌈+","감전+","강격+","강화+","개화+","검투사+","겨울+","격돌+","격파+","결속+","결의+","고갈+","고동침+","고드름+","공명+","관통+","광기+","광륜+","광전사+","광휘+","교차+","교활함+","구속+","균열+","극점+","급습+","기만+","기본+","깜빡임+"]};
-const RECS=[{"name":"기사","runes":["용기","돌파","지진"]},{"name":"전사","runes":["붕괴","돌격","패기"]},{"name":"대검전사","runes":["탄력","광전사","절단"]},{"name":"검술사","runes":["관통","평정","일섬"]},{"name":"궁수","runes":["닻","매","몰아침"]},{"name":"장궁병","runes":["초음파","돌개","호응"]},{"name":"석궁사수","runes":["꿰뚫음","화약","산탄"]},{"name":"마법사","runes":["운석","우레","서리가시"]},{"name":"빙결술사","runes":["빙하","설원","북풍"]},{"name":"화염술사","runes":["폭격","분출","청염"]},{"name":"전격술사","runes":["섬광","폭풍우","도관"]},{"name":"힐러","runes":["광륜","가호","물결"]},{"name":"사제","runes":["심판","집행","성전"]},{"name":"수도사","runes":["인과","등불","뇌정"]},{"name":"암흑술사","runes":["구속","절제","광기"]},{"name":"도적","runes":["폭발","덫","땅거미"]},{"name":"듀얼블레이드","runes":["천침","교차","강화"]},{"name":"격투가","runes":["승천","전진","강격"]},{"name":"악사","runes":["조율","종장","순환"]},{"name":"음유시인","runes":["무아","합주","변주"]},{"name":"댄서","runes":["발걸음","전환","환호"]}];
-const ITEMS=[['무기','weapon'],['투구','armor'],['상의','armor'],['하의','armor'],['장갑','armor'],['신발','armor'],['엠블럼','emblem'],['장신구 1','accessory'],['장신구 2','accessory'],['장신구 3','accessory']];
-const KEY='snow-gear-v2',CUSTOM='snow-gear-custom-v2',OLD='snow-builds-v1';
-const el=id=>document.getElementById(id);
-function read(key){try{return JSON.parse(localStorage.getItem(key)||'{}')}catch(e){return {}}}
-let store=read(KEY),custom=read(CUSTOM),old=read(OLD),job='';
-function getJob(){return el('job').value}
-function blank(){return {base:'',slots:ITEMS.map(()=>({rune:'',level:0,atk:0}))}}
-function load(){
- job=getJob();let v=store[job];
- if(!v||!Array.isArray(v.slots)||v.slots.length!==ITEMS.length){
- v=blank();let previous=old[job]||{};
- v.slots[0].rune=previous.weapon||'';v.slots[1].rune=previous.armor||'';v.slots[6].rune=previous.emblem||'';
- (previous.runes||[]).slice(0,3).forEach((x,i)=>{v.slots[7+i].rune=x||''});
- store[job]=v;
+const TAGS=['미설정','강타','연타','원소','방해','이동','보조','소환','생존','강타쿨','보조쿨','연타쿨','원소쿨','방해쿨','이동쿨','소환쿨'];
+const SLOT_DEF=[['weapon','무기','weapon'],['helmet','투구','armor'],['chest','상의','armor'],['pants','하의','armor'],['gloves','장갑','armor'],['boots','신발','armor'],['emblem','엠블럼','emblem'],['ring1','장신구 1','accessory'],['ring2','장신구 2','accessory'],['ring3','장신구 3','accessory']];
+const KEY='snow-builds-unified-v3',OLD1='snow-builds-v1',OLD2='snow-gear-v2',CUSTOM='snow-gear-custom-v2',SELECT='snow-selected-job-v1';
+const $=id=>document.getElementById(id);
+const clamp=(n,min,max)=>Math.min(max,Math.max(min,Number.isFinite(Number(n))?Number(n):0));
+const text=v=>String(v??'');
+const esc=v=>text(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const unique=arr=>[...new Set(arr.filter(v=>text(v).trim()))];
+const format=v=>(Number(v)||0).toLocaleString('ko-KR',{maximumFractionDigits:2});
+function read(k){try{return JSON.parse(localStorage.getItem(k)||'null')}catch(e){return null}}
+let profiles=read(KEY)||{},old1=read(OLD1)||{},old2=read(OLD2)||{},custom=read(CUSTOM)||{},jobName='';
+function defaultSlot(){return {rune:'',level:0,attackPercent:0}}
+function fresh(){return {slots:Object.fromEntries(SLOT_DEF.map(([id])=>[id,defaultSlot()])),baseAttack:'',style:'범용',mods:'',tags:['미설정','미설정','미설정'],memo:''}}
+function migrate(name){
+ const v=fresh(),a=old1[name]||{},b=old2[name]||{};
+ if(Array.isArray(b.slots)&&b.slots.length===10){
+  SLOT_DEF.forEach(([id],i)=>{const t=b.slots[i]||{};v.slots[id]={rune:text(t.rune||''),level:clamp(t.level,0,30),attackPercent:clamp(t.atk,-100,500)}});
+  v.baseAttack=b.base||'';
+ }else{
+  v.slots.weapon.rune=text(a.weapon||'');v.slots.weapon.level=clamp(a.weaponLevel,0,30);
+  v.slots.helmet.rune=text(a.armor||'');v.slots.emblem.rune=text(a.emblem||'');
+  (a.runes||[]).slice(0,3).forEach((r,i)=>v.slots['ring'+(i+1)].rune=r||'');
+  v.baseAttack=a.baseAttack||'';
  }
- draw();write();
+ v.mods=a.mods||'';v.tags=Array.isArray(a.tags)?a.tags.slice(0,3):v.tags;v.memo=a.memo||'';v.style=a.style||'범용';
+ return v;
 }
-function write(){try{localStorage.setItem(KEY,JSON.stringify(store));localStorage.setItem(CUSTOM,JSON.stringify(custom))}catch(e){}}
-function option(value,selected){let o=document.createElement('option');o.value=value;o.textContent=value||'미선택';o.selected=value===selected;return o}
-function num(v){const n=Number(v);return Number.isFinite(n)?n:0}
-function draw(){
- const v=store[job],root=el('v2Slots');root.replaceChildren();el('v2Base').value=v.base||'';
- ITEMS.forEach(([name,type],i)=>{
- const row=document.createElement('div');row.className='gear-v2';
- const head=document.createElement('div');head.className='gear-v2-head';
- const title=document.createElement('strong');title.textContent=name;const sub=document.createElement('small');sub.textContent='각 부위 개별 설정';head.append(title,sub);
- const cols=document.createElement('div');cols.className='v2-cols';
- const f1=document.createElement('div');f1.className='field',l1=document.createElement('label');l1.textContent='착용 룬';const sel=document.createElement('select');sel.dataset.index=i;sel.dataset.field='rune';
- const all=[...new Set(['',...(CAT[type]||[]),...(custom[type]||[]),...(v.slots[i].rune?[v.slots[i].rune]:[])])].sort((a,b)=>a.localeCompare(b,'ko'));
- all.forEach(x=>sel.append(option(x,v.slots[i].rune)));
- sel.append(option('__add__',''));sel.lastChild.textContent='＋ 목록에 없는 룬 추가';f1.append(l1,sel);
- const f2=document.createElement('div');f2.className='field',l2=document.createElement('label');l2.textContent='강화 단계';const level=document.createElement('select');level.dataset.index=i;level.dataset.field='level';
- for(let n=0;n<=30;n++){const o=document.createElement('option');o.value=n;o.textContent='+'+n;o.selected=n===num(v.slots[i].level);level.append(o)}f2.append(l2,level);
- const f3=document.createElement('div');f3.className='field',l3=document.createElement('label');l3.textContent='상시 공격력 증가(%)';const atk=document.createElement('input');atk.type='number';atk.step='0.1';atk.min='-100';atk.max='500';atk.inputMode='decimal';atk.dataset.index=i;atk.dataset.field='atk';atk.value=v.slots[i].atk||0;f3.append(l3,atk);cols.append(f1,f2,f3);row.append(head,cols);root.append(row);
- });
- summary();
+function normalized(name){
+ let v=profiles[name];if(!v||!v.slots)v=migrate(name);
+ const next=fresh();
+ SLOT_DEF.forEach(([id])=>{const x=v.slots?.[id]||{};next.slots[id]={rune:text(x.rune||''),level:clamp(x.level,0,30),attackPercent:clamp(x.attackPercent,-100,500)}});
+ next.baseAttack=v.baseAttack??'';next.style=v.style||'범용';next.mods=v.mods||'';next.tags=Array.isArray(v.tags)?v.tags.slice(0,3):next.tags;next.memo=v.memo||'';
+ profiles[name]=next;return next;
 }
-function summary(){
- const v=store[job],total=v.slots.reduce((s,x)=>s+num(x.atk),0);
- const base=num(v.base),fmt=x=>x.toLocaleString('ko-KR',{maximumFractionDigits:2});
- const root=el('v2Summary');root.replaceChildren();
- const title=document.createElement('div');title.className='muted';title.textContent='현재 착용한 장비 10개 슬롯의 상시 공격력 증가율 합계';
- const value=document.createElement('div');value.className='v2-metric';value.textContent=(total>0?'+':'')+fmt(total)+'%';
- root.append(title,value);
- if(base>0){const note=document.createElement('div');note.className='muted';note.textContent='옵션 반영 전 공격력 '+fmt(base)+' → 단순 환산 '+fmt(base*(1+total/100));root.append(note)}
- const explanation=document.createElement('div');explanation.className='muted';explanation.textContent='실제 공격력 계산식이 아닌 사용자 입력 옵션의 단순 합산입니다.';root.append(explanation);
- const comparison=el('comparison');
- if(comparison){
-  const jobInfo=RECS.find(x=>x.name===job);
-  const selectedAccessory=v.slots.slice(7,10).map(x=>x.rune);
-  const rec=jobInfo?jobInfo.runes:[];
-  const matching=rec.filter(x=>selectedAccessory.includes(x));
-  comparison.replaceChildren();
-  const title=document.createElement('h3');title.textContent='현재 선택 장신구 vs 직업 추천';
-  const desc=document.createElement('p');desc.className='muted';desc.textContent='추천 장신구 룬 일치 '+matching.length+' / '+rec.length+'개 · 실제 DPS 순위는 아님';
-  comparison.append(title,desc);
-  rec.forEach(function(name){
-   const line=document.createElement('div');line.className='row';
-   const label=document.createElement('span');label.textContent=name;
-   const value=document.createElement('strong');const yes=selectedAccessory.includes(name);
-   value.className=yes?'good':'warn';value.textContent=yes?'착용 중':'미착용';
-   line.append(label,value);comparison.append(line);
-  });
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(profiles));localStorage.setItem(CUSTOM,JSON.stringify(custom));localStorage.setItem(SELECT,jobName)}catch(e){}}
+const current=()=>profiles[jobName];const job=()=>JOBS.find(j=>j.name===jobName)||JOBS[0];
+function options(values,selected){
+ return values.map(v=>'<option value="'+esc(v)+'"'+(text(v)===text(selected)?' selected':'')+'>'+esc(v===''?'미선택':v)+'</option>').join('');
+}
+function catalog(type,selected){
+ const recommended=type==='accessory'?JOBS.flatMap(x=>x.runes):[];
+ const list=unique([...(CAT[type]||[]),...recommended,...(custom[type]||[]),selected]);
+ return ['',...list.sort((a,b)=>a.localeCompare(b,'ko'))];
+}
+function renderSlots(){
+ const v=current();
+ $('slots').innerHTML=SLOT_DEF.map(([id,label,type])=>{
+  const slot=v.slots[id];
+  return '<div class="slot"><div class="slot-header"><span class="slot-title">'+esc(label)+'</span><small>현재 착용</small></div><div class="slot-fields">'+
+   '<div class="full"><label>착용 룬</label><select data-id="'+id+'" data-field="rune">'+options(catalog(type,slot.rune),slot.rune)+'<option value="__custom__">＋ 목록에 없는 룬 추가</option></select></div>'+
+   '<div><label>강화 단계</label><select data-id="'+id+'" data-field="level">'+options(Array.from({length:31},(_,i)=>i),slot.level)+'</select></div>'+
+   '<div><label>상시 공격력 증가 (%)</label><input data-id="'+id+'" data-field="attackPercent" type="number" inputmode="decimal" step="0.1" min="-100" max="500" value="'+esc(slot.attackPercent)+'"></div></div></div>';
+ }).join('');
+}
+function renderOther(){
+ const v=current(),j=job();
+ $('mods').innerHTML=options(unique(['',...j.mods,v.mods]),v.mods);
+ for(let i=0;i<3;i++)$('tag'+i).innerHTML=options(TAGS,v.tags[i]||'미설정');
+ $('baseAttack').value=v.baseAttack;$('style').value=v.style;$('memo').value=v.memo;
+ const e=EQUIP[j.name]||{},chips=arr=>arr.map(x=>'<span class="chip">'+esc(x)+'</span>').join('');
+ $('recommendTitle').textContent=j.group+' · '+j.name+' 추천 후보';
+ $('recommend').innerHTML='<div class="banner"><strong>장신구 룬</strong><div>'+chips(j.runes)+'</div></div>'+
+ line('무기 룬 후보',esc(e.weapon||'검증 자료 부족'))+line('방어구 룬·세트 후보',esc(e.armor||'검증 자료 부족'))+
+ line('엠블럼 후보',esc(e.emblem||'검증 자료 부족'))+line('개조 후보',chips(j.mods))+line('세공 우선순위',chips(j.tags))+
+ '<p class="note">추천 후보는 특정 직업과 콘텐츠의 종결 장비를 보장하지 않아.</p>';
+}
+function line(label,value){return '<div class="line"><span>'+label+'</span><strong>'+value+'</strong></div>'}
+function renderAnalysis(){
+ const v=current(),sum=SLOT_DEF.reduce((n,[id])=>n+v.slots[id].attackPercent,0),base=Number(v.baseAttack),j=job();
+ const rings=['ring1','ring2','ring3'].map(id=>v.slots[id].rune);
+ const matched=j.runes.filter(r=>rings.includes(r));
+ let html='<div class="banner"><div class="muted">현재 착용 장비 상시 공격력 증가 옵션 · 단순 합계</div><div class="value">'+(sum>0?'+':'')+format(sum)+'%</div></div>';
+ if(Number.isFinite(base)&&base>0)html+=line('옵션 반영 전 기준 공격력',format(base))+line('단순 환산 공격력',format(base*(1+sum/100)));
+ else html+='<p class="note">기준 공격력을 입력하면 단순 환산 공격력도 표시돼.</p>';
+ html+=line('장신구 추천 룬 일치',matched.length+' / '+j.runes.length)+line('세공 추천 태그 일치',v.tags.filter(t=>j.tags.includes(t)).length+' / 3')+
+ line('개조 추천 여부',j.mods.includes(v.mods)&&v.mods?'<span class="good">후보와 일치</span>':'<span class="warn">미선택 또는 후보 외</span>');
+ html+='<h3>부위별 입력한 공격력 옵션</h3>';
+ SLOT_DEF.forEach(([id,label])=>{const s=v.slots[id];html+=line(label+' · '+esc(s.rune||'미선택')+' · +'+s.level,(s.attackPercent>=0?'+':'')+format(s.attackPercent)+'%')});
+ html+='<p class="note">입력한 수치가 서로 동일한 합연산 그룹이라고 가정한 값이야. 룬 효과·강화 스탯·조건부 피해 증가량은 자동 계산하지 않아.</p>';
+ $('analysis').innerHTML=html;
+}
+function redraw(){renderSlots();renderOther();renderAnalysis()}
+function loadJob(name){jobName=name;normalized(name);persist();redraw()}
+function fillJobs(preferred){
+ const items=JOBS.filter(j=>j.group===$('group').value);$('job').innerHTML=options(items.map(x=>x.name),preferred||items[0].name);
+ loadJob($('job').value);
+}
+function setup(){
+ const remembered=JOBS.find(j=>j.name===localStorage.getItem(SELECT))||JOBS[0];
+ $('group').innerHTML=options(unique(JOBS.map(j=>j.group)),remembered.group);fillJobs(remembered.name);
+}
+function saveChanges(){
+ const v=current();v.baseAttack=$('baseAttack').value;v.style=$('style').value;v.mods=$('mods').value;v.memo=$('memo').value.slice(0,700);
+ v.tags=[0,1,2].map(i=>$('tag'+i).value);persist();renderAnalysis();
+}
+$('group').addEventListener('change',()=>fillJobs());
+$('job').addEventListener('change',()=>loadJob($('job').value));
+$('slots').addEventListener('change',e=>{
+ const id=e.target.dataset.id,field=e.target.dataset.field;
+ if(!id||!field)return;
+ if(field==='rune'&&e.target.value==='__custom__'){
+  const type=SLOT_DEF.find(x=>x[0]===id)[2],answer=prompt('룬 이름을 입력해 줘');
+  if(answer&&answer.trim()){const name=answer.trim().slice(0,60);custom[type]=unique([...(custom[type]||[]),name]);current().slots[id].rune=name;persist();}
+  renderSlots();renderAnalysis();return;
  }
-}
-el('v2Slots').addEventListener('change',function(e){
- const i=Number(e.target.dataset.index),field=e.target.dataset.field;
- if(!field||!Number.isInteger(i))return;
- if(field==='rune'&&e.target.value==='__add__'){
- const type=ITEMS[i][1],name=prompt('룬 이름을 입력하세요');
- if(name&&name.trim()){const v=name.trim().slice(0,60);custom[type]=[...new Set([...(custom[type]||[]),v])];store[job].slots[i].rune=v;write();}
- draw();return;
- }
- store[job].slots[i][field]=field==='rune'?e.target.value:num(e.target.value);write();summary();
+ current().slots[id][field]=field==='rune'?e.target.value:clamp(e.target.value,field==='level'?0:-100,field==='level'?30:500);
+ persist();renderAnalysis();
 });
-el('v2Slots').addEventListener('input',function(e){if(e.target.dataset.field!=='atk')return;const i=Number(e.target.dataset.index);store[job].slots[i].atk=num(e.target.value);write();summary()});
-el('v2Base').addEventListener('input',function(e){store[job].base=e.target.value;write();summary()});
-el('job').addEventListener('change',load);el('group').addEventListener('change',()=>setTimeout(load,0));
-load();
+$('slots').addEventListener('input',e=>{
+ const id=e.target.dataset.id,field=e.target.dataset.field;
+ if(!id||field!=='attackPercent')return;current().slots[id].attackPercent=clamp(e.target.value,-100,500);persist();renderAnalysis();
+});
+['baseAttack','style','mods','memo','tag0','tag1','tag2'].forEach(id=>$(id).addEventListener('input',saveChanges));
+$('applyRec').addEventListener('click',()=>{
+ if(!confirm('현재 장신구 3개 룬만 추천 후보로 바꿀까? 기존 강화 단계와 공격력 옵션은 유지돼.'))return;
+ job().runes.forEach((r,i)=>current().slots['ring'+(i+1)].rune=r);
+ persist();renderSlots();renderAnalysis();
+});
+$('save').addEventListener('click',()=>{saveChanges();$('savedStatus').textContent='저장 완료 · '+jobName});
+$('backup').addEventListener('click',()=>{
+ saveChanges();const blob=new Blob([JSON.stringify({schema:3,profiles,custom},null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='snow-builds-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1200);
+});
+$('restore').addEventListener('click',()=>$('restoreFile').click());
+$('restoreFile').addEventListener('change',e=>{
+ const f=e.target.files[0];if(!f)return;const reader=new FileReader();
+ reader.onload=()=>{try{
+  const obj=JSON.parse(reader.result);
+  if(!obj||typeof obj!=='object')throw Error('Invalid');
+  if(obj.schema===3&&obj.profiles&&typeof obj.profiles==='object'){profiles=obj.profiles;custom=obj.custom||custom;}
+  else if((obj.schema===1||obj.schema===2)&&obj.builds){old1=obj.builds;if(obj.custom)custom=obj.custom;profiles={};}
+  else throw Error('Unsupported');
+  try{localStorage.setItem(OLD1,JSON.stringify(old1))}catch(e){}
+  loadJob(jobName);$('savedStatus').textContent='백업 복원 완료';
+ }catch(error){alert('지원하지 않는 JSON 백업 파일이야.')}};
+ reader.readAsText(f);
+});
+setup();
 })();
 </script></body></html>
