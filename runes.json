@@ -1,285 +1,12 @@
 {
-  "version": "2026-11-17-legendary-mythic-only",
-  "notes": "전설·신화만 포함. 별 등급을 검증하지 못한 항목은 stars=null. 효과가 없는 항목은 0%가 아닌 정보 미확인. 수치를 추정하지 않습니다.",
+  "version": "2026-11-17-mabimobi-r1",
+  "notes": "Curated partial legendary/mythic rune reference. Individual effects sourced from linked mabimobi.life pages; old provisional entries remain pending verification. Effects that activate by condition, stacking or transcendence are excluded from unconditional attack totals. star grade specific.",
   "sourceLinks": [
     "https://erinn.kr/codex?type=rune",
     "https://mobilab.me/mobidex/runes/",
     "https://mabinogimobile.nexon.com/Info/Guide/2751136"
   ],
   "runes": [
-    {
-      "id": "r001",
-      "name": "가라앉은 왕국",
-      "slot": "armor",
-      "rarity": "신화",
-      "stars": 10,
-      "season": "S2",
-      "effects": [
-        {
-          "stat": "attack_pct",
-          "value": 15,
-          "mode": "always"
-        },
-        {
-          "stat": "ultimate_damage_pct",
-          "value": 10,
-          "mode": "always"
-        },
-        {
-          "stat": "cooldown_recovery_pct",
-          "value": 8,
-          "mode": "conditional",
-          "condition": "궁극기 사용 후 30초"
-        }
-      ],
-      "enhancementBonuses": [],
-      "source": "https://mobilab.me/mobidex/runes/",
-      "verified": true,
-      "reviewStatus": "needs_in_game_verification",
-      "class": "공용"
-    },
-    {
-      "id": "r002",
-      "name": "가시 덩굴",
-      "slot": "weapon",
-      "rarity": "전설",
-      "stars": 6,
-      "season": "",
-      "effects": [
-        {
-          "stat": "damage_dealt_pct",
-          "value": 25,
-          "mode": "always"
-        },
-        {
-          "stat": "damage_taken_pct",
-          "value": 25,
-          "mode": "always"
-        }
-      ],
-      "enhancementBonuses": [],
-      "source": "https://erinn.kr/codex?type=rune",
-      "verified": true,
-      "reviewStatus": "needs_in_game_verification"
-    },
-    {
-      "id": "r003",
-      "name": "가호",
-      "slot": "emblem",
-      "rarity": "전설",
-      "stars": 6,
-      "season": "",
-      "effects": [
-        {
-          "stat": "damage_dealt_pct",
-          "value": 25,
-          "mode": "conditional",
-          "condition": "전투 시작 또는 궁극기 사용 후 30초"
-        }
-      ],
-      "enhancementBonuses": [],
-      "source": "https://erinn.kr/codex?type=rune",
-      "verified": true,
-      "reviewStatus": "needs_in_game_verification"
-    },
-    {
-      "id": "r007",
-      "name": "거대한 분노",
-      "slot": "weapon",
-      "rarity": "전설",
-      "stars": 10,
-      "season": "",
-      "effects": [
-        {
-          "stat": "damage_dealt_pct",
-          "value": 21,
-          "mode": "always"
-        },
-        {
-          "stat": "skill_damage_pct",
-          "value": 3,
-          "mode": "stack",
-          "maxStacks": 4,
-          "condition": "강타 적중 시 중첩, 다른 공격 적중 시 해제"
-        }
-      ],
-      "enhancementBonuses": [],
-      "source": "https://erinn.kr/codex?type=rune",
-      "verified": true,
-      "reviewStatus": "needs_in_game_verification"
-    },
-    {
-      "id": "r008",
-      "name": "검게 물든 후광",
-      "slot": "armor",
-      "rarity": "신화",
-      "stars": 8,
-      "season": "S2",
-      "effects": [
-        {
-          "stat": "damage_dealt_pct",
-          "value": 15,
-          "mode": "always"
-        },
-        {
-          "stat": "damage_taken_pct",
-          "value": 15,
-          "mode": "conditional",
-          "condition": "회복 사용 시 일정 시간 무효"
-        }
-      ],
-      "enhancementBonuses": [
-        {
-          "level": 10,
-          "stat": "damage_dealt_pct",
-          "value": 6
-        },
-        {
-          "level": 15,
-          "stat": "damage_dealt_pct",
-          "value": 6
-        }
-      ],
-      "source": "https://erinn.kr/codex?type=rune",
-      "verified": true,
-      "reviewStatus": "needs_in_game_verification"
-    },
-    {
-      "id": "r009",
-      "name": "검무+",
-      "slot": "weapon",
-      "rarity": "전설",
-      "stars": 8,
-      "season": "",
-      "effects": [
-        {
-          "stat": "attack_pct",
-          "value": 2,
-          "mode": "stack",
-          "maxStacks": 10,
-          "condition": "공격 적중 때마다 10초 중첩"
-        },
-        {
-          "stat": "crit_chance_pct",
-          "value": 1,
-          "mode": "stack",
-          "maxStacks": 10,
-          "condition": "공격 적중 때마다 10초 중첩"
-        }
-      ],
-      "enhancementBonuses": [],
-      "source": "https://erinn.kr/codex?type=rune",
-      "verified": true,
-      "reviewStatus": "needs_in_game_verification"
-    },
-    {
-      "id": "r014",
-      "name": "결투+",
-      "slot": "weapon",
-      "rarity": "전설",
-      "stars": 6,
-      "season": "",
-      "effects": [
-        {
-          "stat": "attack_pct",
-          "value": 18,
-          "mode": "always"
-        },
-        {
-          "stat": "multi_hit_damage_pct",
-          "value": -6,
-          "mode": "always"
-        }
-      ],
-      "enhancementBonuses": [],
-      "source": "https://erinn.kr/codex?type=rune",
-      "verified": true,
-      "reviewStatus": "needs_in_game_verification"
-    },
-    {
-      "id": "r016",
-      "name": "계승자",
-      "slot": "armor",
-      "rarity": "전설",
-      "stars": 10,
-      "season": "",
-      "effects": [
-        {
-          "stat": "damage_dealt_pct",
-          "value": 13,
-          "mode": "always"
-        },
-        {
-          "stat": "skill_damage_pct",
-          "value": 7,
-          "mode": "stack",
-          "maxStacks": 5,
-          "condition": "스킬 사용 시 중첩, 초과 시 초기화"
-        }
-      ],
-      "enhancementBonuses": [],
-      "source": "https://erinn.kr/codex?type=rune",
-      "verified": true,
-      "reviewStatus": "needs_in_game_verification"
-    },
-    {
-      "id": "r017",
-      "name": "경이+",
-      "slot": "weapon",
-      "rarity": "전설",
-      "stars": 6,
-      "season": "",
-      "effects": [
-        {
-          "stat": "cooldown_reduction_pct",
-          "value": 8,
-          "mode": "conditional",
-          "condition": "기본 공격 적중 시"
-        }
-      ],
-      "enhancementBonuses": [],
-      "source": "https://erinn.kr/codex?type=rune",
-      "verified": true,
-      "reviewStatus": "needs_in_game_verification"
-    },
-    {
-      "id": "r018",
-      "name": "불사",
-      "slot": "armor",
-      "rarity": "전설",
-      "stars": null,
-      "season": "",
-      "effects": [
-        {
-          "stat": "damage_dealt_pct",
-          "value": 18,
-          "mode": "always"
-        }
-      ],
-      "enhancementBonuses": [],
-      "source": "https://erinn.kr/codex?type=rune",
-      "verified": true,
-      "reviewStatus": "needs_in_game_verification"
-    },
-    {
-      "id": "r021",
-      "name": "결정",
-      "slot": "weapon",
-      "rarity": "전설",
-      "stars": 8,
-      "season": "",
-      "effects": [
-        {
-          "stat": "attack_flat",
-          "value": 1756,
-          "mode": "always"
-        }
-      ],
-      "enhancementBonuses": [],
-      "source": "https://erinn.kr/codex?type=rune",
-      "verified": true,
-      "reviewStatus": "needs_in_game_verification"
-    },
     {
       "id": "r023",
       "name": "가호+",
@@ -299,6 +26,62 @@
       "verified": true,
       "reviewStatus": "needs_in_game_verification",
       "class": "힐러"
+    },
+    {
+      "id": "mobi-accessory-001",
+      "name": "간결함+",
+      "slot": "accessory",
+      "rarity": "전설",
+      "stars": null,
+      "season": "S2",
+      "class": "댄서",
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false,
+      "reviewStatus": "missing_effect_data"
+    },
+    {
+      "id": "mobi-accessory-002",
+      "name": "갈채+",
+      "slot": "accessory",
+      "rarity": "전설",
+      "stars": null,
+      "season": "S2",
+      "class": "댄서",
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false,
+      "reviewStatus": "missing_effect_data"
+    },
+    {
+      "id": "mobi-accessory-003",
+      "name": "감쌈+",
+      "slot": "accessory",
+      "rarity": "전설",
+      "stars": null,
+      "season": "S2",
+      "class": "힐러",
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false,
+      "reviewStatus": "missing_effect_data"
+    },
+    {
+      "id": "mobi-accessory-004",
+      "name": "감전+",
+      "slot": "accessory",
+      "rarity": "전설",
+      "stars": null,
+      "season": "S2",
+      "class": "석궁사수",
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false,
+      "reviewStatus": "missing_effect_data"
     },
     {
       "id": "r024",
@@ -364,6 +147,20 @@
       "class": "힐러"
     },
     {
+      "id": "mobi-accessory-005",
+      "name": "검투사+",
+      "slot": "accessory",
+      "rarity": "전설",
+      "stars": null,
+      "season": "S2",
+      "class": "전사",
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false,
+      "reviewStatus": "missing_effect_data"
+    },
+    {
       "id": "r027",
       "name": "겨울+",
       "slot": "accessory",
@@ -383,76 +180,6 @@
       "verified": true,
       "reviewStatus": "needs_in_game_verification",
       "class": "빙결술사"
-    },
-    {
-      "id": "mobi-accessory-001",
-      "name": "간결함+",
-      "slot": "accessory",
-      "rarity": "전설",
-      "stars": null,
-      "season": "S2",
-      "class": "댄서",
-      "effects": [],
-      "enhancementBonuses": [],
-      "source": "https://mobilab.me/mobidex/runes/",
-      "verified": false,
-      "reviewStatus": "missing_effect_data"
-    },
-    {
-      "id": "mobi-accessory-002",
-      "name": "갈채+",
-      "slot": "accessory",
-      "rarity": "전설",
-      "stars": null,
-      "season": "S2",
-      "class": "댄서",
-      "effects": [],
-      "enhancementBonuses": [],
-      "source": "https://mobilab.me/mobidex/runes/",
-      "verified": false,
-      "reviewStatus": "missing_effect_data"
-    },
-    {
-      "id": "mobi-accessory-003",
-      "name": "감쌈+",
-      "slot": "accessory",
-      "rarity": "전설",
-      "stars": null,
-      "season": "S2",
-      "class": "힐러",
-      "effects": [],
-      "enhancementBonuses": [],
-      "source": "https://mobilab.me/mobidex/runes/",
-      "verified": false,
-      "reviewStatus": "missing_effect_data"
-    },
-    {
-      "id": "mobi-accessory-004",
-      "name": "감전+",
-      "slot": "accessory",
-      "rarity": "전설",
-      "stars": null,
-      "season": "S2",
-      "class": "석궁사수",
-      "effects": [],
-      "enhancementBonuses": [],
-      "source": "https://mobilab.me/mobidex/runes/",
-      "verified": false,
-      "reviewStatus": "missing_effect_data"
-    },
-    {
-      "id": "mobi-accessory-005",
-      "name": "검투사+",
-      "slot": "accessory",
-      "rarity": "전설",
-      "stars": null,
-      "season": "S2",
-      "class": "전사",
-      "effects": [],
-      "enhancementBonuses": [],
-      "source": "https://mobilab.me/mobidex/runes/",
-      "verified": false,
-      "reviewStatus": "missing_effect_data"
     },
     {
       "id": "mobi-accessory-006",
@@ -763,102 +490,97 @@
       "reviewStatus": "missing_effect_data"
     },
     {
-      "id": "mobi-armor-028",
-      "name": "무형",
+      "id": "r001",
+      "name": "가라앉은 왕국",
       "slot": "armor",
       "rarity": "신화",
-      "stars": null,
+      "stars": 10,
       "season": "S2",
-      "class": "공용",
-      "effects": [],
+      "effects": [
+        {
+          "stat": "attack_pct",
+          "value": 15,
+          "mode": "always"
+        },
+        {
+          "stat": "ultimate_damage_pct",
+          "value": 10,
+          "mode": "always"
+        },
+        {
+          "stat": "cooldown_recovery_pct",
+          "value": 8,
+          "mode": "conditional",
+          "condition": "궁극기 사용 후 30초"
+        }
+      ],
       "enhancementBonuses": [],
       "source": "https://mobilab.me/mobidex/runes/",
-      "verified": false,
-      "reviewStatus": "missing_effect_data"
+      "verified": true,
+      "reviewStatus": "needs_in_game_verification",
+      "class": "공용"
     },
     {
-      "id": "mobi-armor-029",
-      "name": "사슬로 묶은 법전",
+      "id": "r008",
+      "name": "검게 물든 후광",
       "slot": "armor",
       "rarity": "신화",
-      "stars": null,
+      "stars": 8,
       "season": "S2",
-      "class": "공용",
-      "effects": [],
-      "enhancementBonuses": [],
-      "source": "https://mobilab.me/mobidex/runes/",
-      "verified": false,
-      "reviewStatus": "missing_effect_data"
+      "effects": [
+        {
+          "stat": "damage_dealt_pct",
+          "value": 15,
+          "mode": "always"
+        },
+        {
+          "stat": "damage_taken_pct",
+          "value": 15,
+          "mode": "conditional",
+          "condition": "회복 사용 시 일정 시간 무효"
+        }
+      ],
+      "enhancementBonuses": [
+        {
+          "level": 10,
+          "stat": "damage_dealt_pct",
+          "value": 6
+        },
+        {
+          "level": 15,
+          "stat": "damage_dealt_pct",
+          "value": 6
+        }
+      ],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true,
+      "reviewStatus": "needs_in_game_verification"
     },
     {
-      "id": "mobi-armor-030",
-      "name": "여신",
+      "id": "r016",
+      "name": "계승자",
       "slot": "armor",
-      "rarity": "신화",
-      "stars": null,
-      "season": "S2",
-      "class": "공용",
-      "effects": [],
+      "rarity": "전설",
+      "stars": 10,
+      "season": "",
+      "effects": [
+        {
+          "stat": "damage_dealt_pct",
+          "value": 13,
+          "mode": "always"
+        },
+        {
+          "stat": "skill_damage_pct",
+          "value": 7,
+          "mode": "stack",
+          "maxStacks": 5,
+          "condition": "스킬 사용 시 중첩, 초과 시 초기화"
+        }
+      ],
       "enhancementBonuses": [],
-      "source": "https://mobilab.me/mobidex/runes/",
-      "verified": false,
-      "reviewStatus": "missing_effect_data"
-    },
-    {
-      "id": "mobi-armor-031",
-      "name": "용 사냥꾼",
-      "slot": "armor",
-      "rarity": "신화",
-      "stars": null,
-      "season": "S2",
-      "class": "공용",
-      "effects": [],
-      "enhancementBonuses": [],
-      "source": "https://mobilab.me/mobidex/runes/",
-      "verified": false,
-      "reviewStatus": "missing_effect_data"
-    },
-    {
-      "id": "mobi-armor-032",
-      "name": "유폐된 어둠",
-      "slot": "armor",
-      "rarity": "신화",
-      "stars": null,
-      "season": "S2",
-      "class": "공용",
-      "effects": [],
-      "enhancementBonuses": [],
-      "source": "https://mobilab.me/mobidex/runes/",
-      "verified": false,
-      "reviewStatus": "missing_effect_data"
-    },
-    {
-      "id": "mobi-weapon-033",
-      "name": "불꽃으로 새긴 문장",
-      "slot": "weapon",
-      "rarity": "신화",
-      "stars": null,
-      "season": "S2",
-      "class": "공용",
-      "effects": [],
-      "enhancementBonuses": [],
-      "source": "https://mobilab.me/mobidex/runes/",
-      "verified": false,
-      "reviewStatus": "missing_effect_data"
-    },
-    {
-      "id": "mobi-weapon-034",
-      "name": "죽음",
-      "slot": "weapon",
-      "rarity": "신화",
-      "stars": null,
-      "season": "S2",
-      "class": "공용",
-      "effects": [],
-      "enhancementBonuses": [],
-      "source": "https://mobilab.me/mobidex/runes/",
-      "verified": false,
-      "reviewStatus": "missing_effect_data"
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true,
+      "reviewStatus": "needs_in_game_verification"
     },
     {
       "id": "mobi-armor-035",
@@ -1061,14 +783,25 @@
       "name": "무너진 경계",
       "slot": "armor",
       "rarity": "전설",
-      "stars": null,
+      "stars": 10,
       "season": "S2",
       "class": "공용",
-      "effects": [],
+      "effects": [
+        {
+          "stat": "additional_hit_chance_pct",
+          "value": 16.5,
+          "mode": "conditional",
+          "condition": "전투 중 침식 상태, 침식 100 이상에서 2배, 300 도달 시 15초간 미적용"
+        }
+      ],
       "enhancementBonuses": [],
-      "source": "https://mobilab.me/mobidex/runes/",
-      "verified": false,
-      "reviewStatus": "missing_effect_data"
+      "source": "https://mabimobi.life/codex/runes/1576",
+      "verified": true,
+      "reviewStatus": "source_checked_mabimobi_2026_11_17",
+      "flatStats": {
+        "defense": 445
+      },
+      "sourceCheckedAt": "2026-11-17"
     },
     {
       "id": "mobi-armor-050",
@@ -1089,6 +822,20 @@
       "name": "무한한 탐욕",
       "slot": "armor",
       "rarity": "전설",
+      "stars": null,
+      "season": "S2",
+      "class": "공용",
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false,
+      "reviewStatus": "missing_effect_data"
+    },
+    {
+      "id": "mobi-armor-028",
+      "name": "무형",
+      "slot": "armor",
+      "rarity": "신화",
       "stars": null,
       "season": "S2",
       "class": "공용",
@@ -1131,14 +878,30 @@
       "name": "별바라기",
       "slot": "armor",
       "rarity": "전설",
-      "stars": null,
+      "stars": 10,
       "season": "S2",
       "class": "공용",
-      "effects": [],
+      "effects": [
+        {
+          "stat": "damage_dealt_pct",
+          "value": 10,
+          "mode": "always"
+        },
+        {
+          "stat": "attack_pct",
+          "value": 14,
+          "mode": "conditional",
+          "condition": "공격 시 10초간 용의 문장 발동, 재사용 20초"
+        }
+      ],
       "enhancementBonuses": [],
-      "source": "https://mobilab.me/mobidex/runes/",
-      "verified": false,
-      "reviewStatus": "missing_effect_data"
+      "source": "https://mabimobi.life/codex/runes/1875",
+      "verified": true,
+      "reviewStatus": "source_checked_mabimobi_2026_11_17",
+      "flatStats": {
+        "defense": 445
+      },
+      "sourceCheckedAt": "2026-11-17"
     },
     {
       "id": "mobi-armor-055",
@@ -1183,6 +946,25 @@
       "reviewStatus": "missing_effect_data"
     },
     {
+      "id": "r018",
+      "name": "불사",
+      "slot": "armor",
+      "rarity": "전설",
+      "stars": null,
+      "season": "",
+      "effects": [
+        {
+          "stat": "damage_dealt_pct",
+          "value": 18,
+          "mode": "always"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true,
+      "reviewStatus": "needs_in_game_verification"
+    },
+    {
       "id": "mobi-armor-058",
       "name": "비늘 덮인 현자",
       "slot": "armor",
@@ -1225,6 +1007,20 @@
       "reviewStatus": "missing_effect_data"
     },
     {
+      "id": "mobi-armor-029",
+      "name": "사슬로 묶은 법전",
+      "slot": "armor",
+      "rarity": "신화",
+      "stars": null,
+      "season": "S2",
+      "class": "공용",
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false,
+      "reviewStatus": "missing_effect_data"
+    },
+    {
       "id": "mobi-armor-061",
       "name": "삼키는 모래",
       "slot": "armor",
@@ -1251,6 +1047,45 @@
       "source": "https://mobilab.me/mobidex/runes/",
       "verified": false,
       "reviewStatus": "missing_effect_data"
+    },
+    {
+      "id": "mbl-armor-04",
+      "name": "섬세한 손놀림",
+      "slot": "armor",
+      "rarity": "전설",
+      "season": "S2",
+      "stars": 8,
+      "flatStats": {
+        "defense": 310
+      },
+      "effects": [
+        {
+          "stat": "multi_hit_damage_pct",
+          "value": 6,
+          "mode": "always"
+        },
+        {
+          "stat": "attack_pct",
+          "value": 6,
+          "mode": "always"
+        },
+        {
+          "stat": "additional_hit_chance_pct",
+          "value": 4,
+          "mode": "always"
+        },
+        {
+          "stat": "rune_stat_multiplier",
+          "value": 2,
+          "mode": "conditional",
+          "condition": "엠블럼 각성 효과 활성화 시 20초간 이 룬의 능력치 2배"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://mabimobi.life/codex/runes/617",
+      "verified": true,
+      "reviewStatus": "source_checked_mabimobi_2026_11_17",
+      "sourceCheckedAt": "2026-11-17"
     },
     {
       "id": "mobi-armor-063",
@@ -1365,6 +1200,20 @@
       "reviewStatus": "missing_effect_data"
     },
     {
+      "id": "mobi-armor-030",
+      "name": "여신",
+      "slot": "armor",
+      "rarity": "신화",
+      "stars": null,
+      "season": "S2",
+      "class": "공용",
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false,
+      "reviewStatus": "missing_effect_data"
+    },
+    {
       "id": "mobi-armor-071",
       "name": "열의+",
       "slot": "armor",
@@ -1383,6 +1232,20 @@
       "name": "오팔 성배",
       "slot": "armor",
       "rarity": "전설",
+      "stars": null,
+      "season": "S2",
+      "class": "공용",
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false,
+      "reviewStatus": "missing_effect_data"
+    },
+    {
+      "id": "mobi-armor-031",
+      "name": "용 사냥꾼",
+      "slot": "armor",
+      "rarity": "신화",
       "stars": null,
       "season": "S2",
       "class": "공용",
@@ -1419,6 +1282,633 @@
       "source": "https://mobilab.me/mobidex/runes/",
       "verified": false,
       "reviewStatus": "missing_effect_data"
+    },
+    {
+      "id": "mobi-armor-032",
+      "name": "유폐된 어둠",
+      "slot": "armor",
+      "rarity": "신화",
+      "stars": null,
+      "season": "S2",
+      "class": "공용",
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false,
+      "reviewStatus": "missing_effect_data"
+    },
+    {
+      "id": "mbl-armor-05",
+      "name": "칼바람",
+      "slot": "armor",
+      "rarity": "전설",
+      "season": "S2",
+      "stars": 10,
+      "flatStats": {
+        "defense": 445
+      },
+      "effects": [
+        {
+          "stat": "break_skill_damage_pct",
+          "value": 29,
+          "mode": "always"
+        },
+        {
+          "stat": "crit_damage_pct",
+          "value": 10,
+          "mode": "conditional",
+          "condition": "브레이크 스킬 사용 후 7초"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://mabimobi.life/codex/runes/1427",
+      "verified": true,
+      "reviewStatus": "source_checked_mabimobi_2026_11_17",
+      "sourceCheckedAt": "2026-11-17"
+    },
+    {
+      "id": "r003",
+      "name": "가호",
+      "slot": "emblem",
+      "rarity": "전설",
+      "stars": 6,
+      "season": "",
+      "effects": [
+        {
+          "stat": "damage_dealt_pct",
+          "value": 25,
+          "mode": "conditional",
+          "condition": "전투 시작 또는 궁극기 사용 후 30초"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true,
+      "reviewStatus": "needs_in_game_verification"
+    },
+    {
+      "id": "r002",
+      "name": "가시 덩굴",
+      "slot": "weapon",
+      "rarity": "전설",
+      "stars": 6,
+      "season": "",
+      "effects": [
+        {
+          "stat": "damage_dealt_pct",
+          "value": 25,
+          "mode": "always"
+        },
+        {
+          "stat": "damage_taken_pct",
+          "value": 25,
+          "mode": "always"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true,
+      "reviewStatus": "needs_in_game_verification"
+    },
+    {
+      "id": "r007",
+      "name": "거대한 분노",
+      "slot": "weapon",
+      "rarity": "전설",
+      "stars": 10,
+      "season": "",
+      "effects": [
+        {
+          "stat": "damage_dealt_pct",
+          "value": 21,
+          "mode": "always"
+        },
+        {
+          "stat": "skill_damage_pct",
+          "value": 3,
+          "mode": "stack",
+          "maxStacks": 4,
+          "condition": "강타 적중 시 중첩, 다른 공격 적중 시 해제"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://mabimobi.life/codex/runes/1379",
+      "verified": true,
+      "reviewStatus": "source_checked_mabimobi_2026_11_17",
+      "flatStats": {
+        "attack": 1038
+      },
+      "sourceCheckedAt": "2026-11-17"
+    },
+    {
+      "id": "r009",
+      "name": "검무+",
+      "slot": "weapon",
+      "rarity": "전설",
+      "stars": 8,
+      "season": "",
+      "effects": [
+        {
+          "stat": "attack_pct",
+          "value": 2,
+          "mode": "stack",
+          "maxStacks": 10,
+          "condition": "공격 적중 때마다 10초 중첩"
+        },
+        {
+          "stat": "crit_chance_pct",
+          "value": 1,
+          "mode": "stack",
+          "maxStacks": 10,
+          "condition": "공격 적중 때마다 10초 중첩"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true,
+      "reviewStatus": "needs_in_game_verification"
+    },
+    {
+      "id": "r021",
+      "name": "결정",
+      "slot": "weapon",
+      "rarity": "전설",
+      "stars": 8,
+      "season": "",
+      "effects": [
+        {
+          "stat": "attack_flat",
+          "value": 1756,
+          "mode": "always"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true,
+      "reviewStatus": "needs_in_game_verification"
+    },
+    {
+      "id": "r014",
+      "name": "결투+",
+      "slot": "weapon",
+      "rarity": "전설",
+      "stars": 6,
+      "season": "",
+      "effects": [
+        {
+          "stat": "attack_pct",
+          "value": 18,
+          "mode": "always"
+        },
+        {
+          "stat": "multi_hit_damage_pct",
+          "value": -6,
+          "mode": "always"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true,
+      "reviewStatus": "needs_in_game_verification"
+    },
+    {
+      "id": "r017",
+      "name": "경이+",
+      "slot": "weapon",
+      "rarity": "전설",
+      "stars": 6,
+      "season": "",
+      "effects": [
+        {
+          "stat": "cooldown_reduction_pct",
+          "value": 8,
+          "mode": "conditional",
+          "condition": "기본 공격 적중 시"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true,
+      "reviewStatus": "needs_in_game_verification"
+    },
+    {
+      "id": "mbl-weapon-03",
+      "name": "눈부신 잔영",
+      "slot": "weapon",
+      "rarity": "전설",
+      "season": "S2",
+      "stars": 10,
+      "flatStats": {
+        "attack": 1038
+      },
+      "effects": [
+        {
+          "stat": "attack_speed_pct",
+          "value": 10,
+          "mode": "conditional",
+          "condition": "스킬 사용 후 다음 기본 공격 1회"
+        },
+        {
+          "stat": "attack_scale_pct",
+          "value": 111,
+          "mode": "conditional",
+          "condition": "스킬 후 기본 공격 적중 시 주변 추가 피해, 계수는 공격력 기준"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://mabimobi.life/codex/runes/1393",
+      "verified": true,
+      "reviewStatus": "source_checked_mabimobi_2026_11_17",
+      "sourceCheckedAt": "2026-11-17"
+    },
+    {
+      "id": "mbl-weapon-02",
+      "name": "바위 칼날",
+      "slot": "weapon",
+      "rarity": "전설",
+      "season": "S2",
+      "stars": 10,
+      "flatStats": {
+        "attack": 1038
+      },
+      "effects": [
+        {
+          "stat": "attack_pct",
+          "value": 0.7,
+          "mode": "stack",
+          "maxStacks": 30,
+          "condition": "적중마다 10초간 개별 중첩"
+        },
+        {
+          "stat": "crit_chance_pct",
+          "value": 0.5,
+          "mode": "stack",
+          "maxStacks": 30,
+          "condition": "적중마다 10초간 개별 중첩"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://mabimobi.life/codex/runes/1473",
+      "verified": true,
+      "reviewStatus": "source_checked_mabimobi_2026_11_17",
+      "sourceCheckedAt": "2026-11-17"
+    },
+    {
+      "id": "mobi-weapon-033",
+      "name": "불꽃으로 새긴 문장",
+      "slot": "weapon",
+      "rarity": "신화",
+      "stars": null,
+      "season": "S2",
+      "class": "공용",
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false,
+      "reviewStatus": "missing_effect_data"
+    },
+    {
+      "id": "mobi-weapon-034",
+      "name": "죽음",
+      "slot": "weapon",
+      "rarity": "신화",
+      "stars": null,
+      "season": "S2",
+      "class": "공용",
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false,
+      "reviewStatus": "missing_effect_data"
+    },
+    {
+      "id": "mbl-weapon-01",
+      "name": "타오르는 영광",
+      "slot": "weapon",
+      "rarity": "전설",
+      "season": "S2",
+      "stars": 10,
+      "flatStats": {
+        "attack": 1038
+      },
+      "effects": [
+        {
+          "stat": "attack_pct",
+          "value": 23.5,
+          "mode": "always"
+        },
+        {
+          "stat": "attack_pct",
+          "value": 3.5,
+          "mode": "stack",
+          "maxStacks": 12,
+          "condition": "궁극기 사용 시 불씨 소모, 15초 동안 중첩당 증가"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://mabimobi.life/codex/runes/1868",
+      "verified": true,
+      "reviewStatus": "source_checked_mabimobi_2026_11_17",
+      "sourceCheckedAt": "2026-11-17"
     }
-  ]
+  ],
+  "classRecommendations": {
+    "전사": {
+      "weapon": [
+        "바위 칼날",
+        "죽음",
+        "타오르는 영광"
+      ],
+      "emblem": [
+        "위대함",
+        "빛바랜 별",
+        "영원한 밤"
+      ],
+      "accessory": [
+        "붕괴+",
+        "돌격+",
+        "패기+"
+      ],
+      "armor": [
+        "칼바람",
+        "위엄",
+        "무너진 경계",
+        "아귀",
+        "첫 번째 서약"
+      ],
+      "source": "https://mabimobi.life/codex/runes",
+      "method": "모비라이프 상위 채용 후보, 채용률은 DPS가 아님",
+      "checkedAt": "2026-11-17"
+    },
+    "대검전사": {
+      "weapon": [
+        "거대한 분노",
+        "암운+",
+        "광채+"
+      ],
+      "emblem": [
+        "위대함",
+        "영원한 밤",
+        "빛바랜 별"
+      ],
+      "accessory": [
+        "탄력+",
+        "광전사+",
+        "절단+"
+      ],
+      "armor": [
+        "끓는 피",
+        "금 간 봉인",
+        "봉인술사",
+        "무너진 경계",
+        "첫 번째 서약"
+      ],
+      "source": "https://mabimobi.life/codex/runes",
+      "method": "모비라이프 상위 채용 후보, 채용률은 DPS가 아님",
+      "checkedAt": "2026-11-17"
+    },
+    "검술사": {
+      "weapon": [
+        "타오르는 영광",
+        "눈부신 잔영",
+        "거대한 분노"
+      ],
+      "emblem": [
+        "해방",
+        "영원한 밤",
+        "위대함"
+      ],
+      "accessory": [
+        "관통+",
+        "평정+",
+        "일섬+"
+      ],
+      "armor": [
+        "아귀",
+        "교차하는 사슬",
+        "무너진 경계",
+        "별바라기",
+        "잠들지 않는 불"
+      ],
+      "source": "https://mabimobi.life/codex/runes",
+      "method": "모비라이프 상위 채용 후보, 채용률은 DPS가 아님",
+      "checkedAt": "2026-11-17"
+    },
+    "기사": {
+      "weapon": [
+        "눈부신 잔영",
+        "두 갈래 뿔",
+        "죽음"
+      ],
+      "emblem": [
+        "백금 천칭",
+        "영원한 밤",
+        "초월"
+      ],
+      "accessory": [
+        "돌파+",
+        "용기+",
+        "지진+"
+      ],
+      "armor": [
+        "작열하는",
+        "열의+",
+        "첫 번째 서약",
+        "무너진 경계",
+        "서광"
+      ],
+      "source": "https://mabimobi.life/codex/runes",
+      "method": "모비라이프 상위 채용 후보, 채용률은 DPS가 아님",
+      "checkedAt": "2026-11-17"
+    },
+    "석궁사수": {
+      "weapon": [
+        "바위 칼날",
+        "죽음",
+        "타오르는 영광"
+      ],
+      "emblem": [
+        "해방",
+        "영원한 밤",
+        "위대함"
+      ],
+      "accessory": [
+        "꿰뚫음+",
+        "산탄+",
+        "화약+"
+      ],
+      "armor": [
+        "무한한 탐욕",
+        "무너진 경계",
+        "금 간 봉인",
+        "교차하는 사슬",
+        "계승자"
+      ],
+      "source": "https://mabimobi.life/codex/runes",
+      "method": "모비라이프 상위 채용 후보, 채용률은 DPS가 아님",
+      "checkedAt": "2026-11-17"
+    },
+    "빙결술사": {
+      "weapon": [
+        "바위 칼날",
+        "죽음",
+        "광채+"
+      ],
+      "emblem": [
+        "영원한 밤",
+        "해방",
+        "빛바랜 별"
+      ],
+      "accessory": [
+        "빙하+",
+        "설원+",
+        "북풍+"
+      ],
+      "armor": [
+        "위엄",
+        "칼바람",
+        "무너진 경계",
+        "금 간 봉인",
+        "서광"
+      ],
+      "source": "https://mabimobi.life/codex/runes",
+      "method": "모비라이프 상위 채용 후보, 채용률은 DPS가 아님",
+      "checkedAt": "2026-11-17"
+    },
+    "전격술사": {
+      "weapon": [
+        "계시+",
+        "타오르는 영광",
+        "죽음"
+      ],
+      "emblem": [
+        "영원한 밤",
+        "위대함",
+        "빛바랜 별"
+      ],
+      "accessory": [
+        "섬광+",
+        "도관+",
+        "폭풍우+"
+      ],
+      "armor": [
+        "봉인술사",
+        "금 간 봉인",
+        "무너진 경계",
+        "오팔 성배",
+        "흐릿한 형상"
+      ],
+      "source": "https://mabimobi.life/codex/runes",
+      "method": "모비라이프 상위 채용 후보, 채용률은 DPS가 아님",
+      "checkedAt": "2026-11-17"
+    },
+    "힐러": {
+      "weapon": [
+        "바위 칼날",
+        "죽음",
+        "햇살+"
+      ],
+      "emblem": [
+        "해방",
+        "영원한 밤",
+        "빛바랜 별"
+      ],
+      "accessory": [
+        "광륜+",
+        "가호+",
+        "물결+"
+      ],
+      "armor": [
+        "긍지",
+        "교차하는 사슬",
+        "금 간 봉인",
+        "무너진 경계",
+        "승전"
+      ],
+      "source": "https://mabimobi.life/codex/runes",
+      "method": "모비라이프 상위 채용 후보, 채용률은 DPS가 아님",
+      "checkedAt": "2026-11-17"
+    },
+    "사제": {
+      "weapon": [
+        "바위 칼날",
+        "죽음",
+        "광채+"
+      ],
+      "emblem": [
+        "위대함",
+        "영원한 밤",
+        "빛바랜 별"
+      ],
+      "accessory": [
+        "심판+",
+        "집행+",
+        "성전+"
+      ],
+      "armor": [
+        "뼈 인장",
+        "긍지",
+        "칼바람",
+        "무너진 경계",
+        "무한한 탐욕"
+      ],
+      "source": "https://mabimobi.life/codex/runes",
+      "method": "모비라이프 상위 채용 후보, 채용률은 DPS가 아님",
+      "checkedAt": "2026-11-17"
+    },
+    "암흑술사": {
+      "weapon": [
+        "바위 칼날",
+        "죽음",
+        "광채+"
+      ],
+      "emblem": [
+        "해방",
+        "영원한 밤",
+        "빛바랜 별"
+      ],
+      "accessory": [
+        "구속+",
+        "절제+",
+        "광기+"
+      ],
+      "armor": [
+        "무너진 경계",
+        "봉인술사",
+        "교차하는 사슬",
+        "첫 번째 서약",
+        "오팔 성배"
+      ],
+      "source": "https://mabimobi.life/codex/runes",
+      "method": "모비라이프 상위 채용 후보, 채용률은 DPS가 아님",
+      "checkedAt": "2026-11-17"
+    },
+    "악사": {
+      "weapon": [
+        "바위 칼날",
+        "죽음",
+        "광채+"
+      ],
+      "emblem": [
+        "영원한 밤",
+        "해방",
+        "빛바랜 별"
+      ],
+      "accessory": [
+        "조율+",
+        "종장+",
+        "순환+"
+      ],
+      "armor": [
+        "무너진 경계",
+        "칼바람",
+        "금 간 봉인",
+        "교차하는 사슬",
+        "계승자"
+      ],
+      "source": "https://mabimobi.life/codex/runes",
+      "method": "모비라이프 상위 채용 후보, 채용률은 DPS가 아님",
+      "checkedAt": "2026-11-17"
+    }
+  }
 }
