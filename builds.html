@@ -2,7 +2,7 @@
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101c31">
 <title>눈송이 · 직업별 세팅 연구소</title><style>
 *{box-sizing:border-box}body{margin:0;background:#0f1727;color:#edf5ff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:920px;margin:0 auto;padding:18px 15px 65px}a{color:#a6d2ff}h1{font-size:23px;margin:12px 0 5px}h2{font-size:17px;margin:0 0 13px}h3{font-size:15px;margin:18px 0 8px}p{line-height:1.6}small,.muted{color:#9db2d0}.muted{font-size:13px}.card{background:#1b2a42;border:1px solid #334962;border-radius:16px;padding:17px;margin:13px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.field{margin:10px 0}label{display:block;color:#bdcde4;font-size:13px;margin:0 0 7px}select,input,button,textarea{font:inherit;color:inherit;border-radius:10px}select,input,textarea{width:100%;background:#101f35;border:1px solid #4b6180;padding:12px;font-size:16px}button{cursor:pointer;background:#3a659b;padding:12px;border:1px solid #6189b5}button.secondary{background:#1a3555}.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #32435c}.row:last-child{border:0}.row span{font-size:13px;color:#bed0e8}.good{color:#9ee4c1}.warn{color:#ffd998}.chip{display:inline-block;border:1px solid #4b698b;background:#213b5d;border-radius:8px;font-size:12px;margin:3px 3px 3px 0;padding:6px 9px}.chip.good{border-color:#4e9d84}.banner{border-radius:13px;background:#132b46;padding:14px;margin-bottom:12px}.score{font-size:28px;font-weight:800}.flex{display:flex;gap:10px;flex-wrap:wrap}.flex>button{flex:1}.hint{font-size:12px;line-height:1.7;color:#afc1d9}.headerlink{text-decoration:none}.progress{height:8px;border-radius:5px;background:#0c192b;overflow:hidden;margin:9px 0}.progress i{display:block;height:100%;background:#80d7b3}.subheading{color:#cae9ff}.hidden{display:none!important}@media(max-width:560px){.grid{grid-template-columns:1fr 1fr}.three{grid-template-columns:1fr}.card{padding:14px}h1{font-size:21px}}
-</style></head><body><main>
+.gear-v2{background:#102038;border:1px solid #39536f;border-radius:12px;padding:12px;margin:10px 0}.gear-v2-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}.gear-v2-head small{color:#b2c5dc}.v2-attack{color:#9fe8c4;font-weight:700}.v2-metric{font-size:27px;font-weight:800;color:#9ce9cd}.v2-cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:9px}@media(max-width:560px){.v2-cols{grid-template-columns:1fr 1fr}.v2-cols>.field:first-child{grid-column:span 2}}.gear-v2 select,.gear-v2 input{padding:10px;font-size:16px}</style></head><body><main>
 <a class="headerlink" href="./">❄️ 눈송이 홈으로 돌아가기</a><h1>직업별 세팅 연구소</h1>
 <p class="muted">직업 선택 → 추천 장신구 룬·세공 확인 → 내 세팅과 비교 → 교체 우선순위</p>
 <section class="card"><div class="grid">
@@ -12,7 +12,7 @@
 <section class="card"><h2 id="recommendTitle">추천 세팅</h2><div id="recommend"></div></section>
 <section class="card"><h2>내 장비 세팅</h2>
 <p class="muted">무기·방어구·엠블럼을 드롭다운에서 선택하고 장신구 룬·세공과 비교할 수 있어요. 데이터는 이 브라우저에 직업별 자동 저장됩니다.</p>
-<h3>무기 · 방어구 · 엠블럼</h3><div class="three"><div class="field"><label for="myWeapon">현재 무기 룬</label><select id="myWeapon"></select></div><div class="field"><label for="myArmor">현재 방어구/세트</label><select id="myArmor"></select></div><div class="field"><label for="myEmblem">현재 엠블럼</label><select id="myEmblem"></select></div></div>
+<div class="hidden" aria-hidden="true"><h3>무기 · 방어구 · 엠블럼</h3><div class="three"><div class="field"><label for="myWeapon">현재 무기 룬</label><select id="myWeapon"></select></div><div class="field"><label for="myArmor">현재 방어구/세트</label><select id="myArmor"></select></div><div class="field"><label for="myEmblem">현재 엠블럼</label><select id="myEmblem"></select></div></div>
 <h3>무기 강화 및 공격력 비율 비교</h3>
 <div class="three"><div class="field"><label for="baseAttack">기본 공격력 (직접 입력)</label><input type="number" min="0" max="999999999" inputmode="numeric" id="baseAttack" placeholder="예: 12000"></div>
 <div class="field"><label for="weaponLevel">현재 무기 강화 단계</label><select id="weaponLevel"></select></div>
@@ -21,6 +21,12 @@
 <div class="field"><label for="targetAttackRate">목표 공격력 보정 비율 (%)</label><select id="targetAttackRate"></select></div>
 <div class="field"><label for="stageRate">단계당 추가 공격력 비율 (%)</label><select id="stageRate"></select></div></div>
 <p class="hint">강화 단계에 따른 실제 공식은 확인되지 않아 단계당 증가율을 직접 선택하는 비교 모델입니다. 기본 공격력에는 이 모델의 증가분이 아직 포함되지 않은 값을 입력하세요.</p><h3>현재 장신구 룬 (3개)</h3><div class="three" id="runeInputs"></div>
+</div><h3>착용 장비 · 10개 슬롯</h3>
+<p class="hint">방어구 5부위를 독립적으로 선택해요. 룬을 바꾸면 현재 옵션 합계가 다시 계산돼요. ‘기타 룬 직접 추가’도 지원합니다.</p>
+<div class="field"><label for="v2Base">장비 옵션 적용 전 공격력 (선택)</label><input id="v2Base" type="number" min="0" inputmode="numeric" placeholder="모르면 비워두세요"></div>
+<div id="v2Slots"></div>
+<div class="banner" id="v2Summary"></div>
+<p class="hint">룬 효과의 공격력 증가율과 강화 단계별 수치를 무조건 자동 추정하지 않습니다. 선택한 장비에 표시된 <strong>상시 공격력 증가 %</strong>를 입력하면 합산합니다. 지속시간·중첩·조건부 효과는 제외하고, 실제 최종 공격력이나 DPS와는 다를 수 있어요.</p>
 <div class="grid"><div class="field"><label for="myMods">사용 중인 개조 (예: 135)</label><input id="myMods" maxlength="15" placeholder="135"></div>
 <div class="field"><label for="style">플레이 스타일</label><select id="style"><option>범용</option><option>보스 중심</option><option>사냥 중심</option><option>자동 사냥</option><option>수동 조작</option></select></div></div>
 <h3>보석 세공 태그 (최대 3줄)</h3><div class="three" id="tagInputs"></div>
@@ -107,5 +113,71 @@ $('backup').addEventListener('click',()=>{save();const url=URL.createObjectURL(n
 $('restore').addEventListener('click',()=>$('restoreFile').click());
 $('restoreFile').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const obj=JSON.parse(reader.result);if(obj.schema!==1||!obj.builds||typeof obj.builds!=='object')throw Error('format');store=obj.builds;persist();load();alert('세팅을 복원했어요.')}catch(err){alert('올바른 백업 파일이 아닙니다.')}};reader.readAsText(file)});
 fillGroup();
+})();
+</script><script>
+(function(){
+'use strict';
+const CAT={"weapon":["가시 덩굴","거대한 분노","검무+","대군주","바위 칼날","죽음","물결","타오르는 영광","만 갈래 물길","메아리치는 진노","불꽃으로 새긴 문장","가속","가속+"],"armor":["가라앉은 왕국","무형","사슬로 묶은 법전","여신","용 사냥꾼","유폐된 어둠","검게 물든 후광","그림자로 엮은 회랑","닫힌 운명","타오르는 심장","빗발치는 화염","열의","공허","금 간 봉인","교차하는 사슬","서광","승전","칼바람","첫 번째 서약","무너진 경계","용의 문장 2세트","공세+","침식","날선 적의","용사냥꾼","잠들지 않는 불","별바라기","긍지","비늘 덮인 현자","바다뱀","계승자","모래 폭풍","무도가+","무한한 탐욕","바위 거인","방랑 기사","봉인술사","분쇄+","불사","영원","이름 없는 혼돈"],"emblem":["여신의 가호","여신의 권능","백금 천칭","위대함","초월","영원한 밤","해방","가호"],"accessory":["가호+","간결함+","갈채+","감쌈+","감전+","강격+","강화+","개화+","검투사+","겨울+","격돌+","격파+","결속+","결의+","고갈+","고동침+","고드름+","공명+","관통+","광기+","광륜+","광전사+","광휘+","교차+","교활함+","구속+","균열+","극점+","급습+","기만+","기본+","깜빡임+"]};
+const ITEMS=[['무기','weapon'],['투구','armor'],['상의','armor'],['하의','armor'],['장갑','armor'],['신발','armor'],['엠블럼','emblem'],['장신구 1','accessory'],['장신구 2','accessory'],['장신구 3','accessory']];
+const KEY='snow-gear-v2',CUSTOM='snow-gear-custom-v2',OLD='snow-builds-v1';
+const el=id=>document.getElementById(id);
+function read(key){try{return JSON.parse(localStorage.getItem(key)||'{}')}catch(e){return {}}}
+let store=read(KEY),custom=read(CUSTOM),old=read(OLD),job='';
+function getJob(){return el('job').value}
+function blank(){return {base:'',slots:ITEMS.map(()=>({rune:'',level:0,atk:0}))}}
+function load(){
+ job=getJob();let v=store[job];
+ if(!v||!Array.isArray(v.slots)||v.slots.length!==ITEMS.length){
+ v=blank();let previous=old[job]||{};
+ v.slots[0].rune=previous.weapon||'';v.slots[1].rune=previous.armor||'';v.slots[6].rune=previous.emblem||'';
+ (previous.runes||[]).slice(0,3).forEach((x,i)=>{v.slots[7+i].rune=x||''});
+ store[job]=v;
+ }
+ draw();write();
+}
+function write(){try{localStorage.setItem(KEY,JSON.stringify(store));localStorage.setItem(CUSTOM,JSON.stringify(custom))}catch(e){}}
+function option(value,selected){let o=document.createElement('option');o.value=value;o.textContent=value||'미선택';o.selected=value===selected;return o}
+function num(v){const n=Number(v);return Number.isFinite(n)?n:0}
+function draw(){
+ const v=store[job],root=el('v2Slots');root.replaceChildren();el('v2Base').value=v.base||'';
+ ITEMS.forEach(([name,type],i)=>{
+ const row=document.createElement('div');row.className='gear-v2';
+ const head=document.createElement('div');head.className='gear-v2-head';
+ const title=document.createElement('strong');title.textContent=name;const sub=document.createElement('small');sub.textContent='각 부위 개별 설정';head.append(title,sub);
+ const cols=document.createElement('div');cols.className='v2-cols';
+ const f1=document.createElement('div');f1.className='field',l1=document.createElement('label');l1.textContent='착용 룬';const sel=document.createElement('select');sel.dataset.index=i;sel.dataset.field='rune';
+ const all=[...new Set(['',...(CAT[type]||[]),...(custom[type]||[]),...(v.slots[i].rune?[v.slots[i].rune]:[])])].sort((a,b)=>a.localeCompare(b,'ko'));
+ all.forEach(x=>sel.append(option(x,v.slots[i].rune)));
+ sel.append(option('__add__',''));sel.lastChild.textContent='＋ 목록에 없는 룬 추가';f1.append(l1,sel);
+ const f2=document.createElement('div');f2.className='field',l2=document.createElement('label');l2.textContent='강화 단계';const level=document.createElement('select');level.dataset.index=i;level.dataset.field='level';
+ for(let n=0;n<=30;n++){const o=document.createElement('option');o.value=n;o.textContent='+'+n;o.selected=n===num(v.slots[i].level);level.append(o)}f2.append(l2,level);
+ const f3=document.createElement('div');f3.className='field',l3=document.createElement('label');l3.textContent='상시 공격력 증가(%)';const atk=document.createElement('input');atk.type='number';atk.step='0.1';atk.min='-100';atk.max='500';atk.inputMode='decimal';atk.dataset.index=i;atk.dataset.field='atk';atk.value=v.slots[i].atk||0;f3.append(l3,atk);cols.append(f1,f2,f3);row.append(head,cols);root.append(row);
+ });
+ summary();
+}
+function summary(){
+ const v=store[job],total=v.slots.reduce((s,x)=>s+num(x.atk),0);
+ const base=num(v.base),fmt=x=>x.toLocaleString('ko-KR',{maximumFractionDigits:2});
+ const root=el('v2Summary');root.replaceChildren();
+ const title=document.createElement('div');title.className='muted';title.textContent='현재 착용한 장비 10개 슬롯의 상시 공격력 증가율 합계';
+ const value=document.createElement('div');value.className='v2-metric';value.textContent=(total>0?'+':'')+fmt(total)+'%';
+ root.append(title,value);
+ if(base>0){const note=document.createElement('div');note.className='muted';note.textContent='옵션 반영 전 공격력 '+fmt(base)+' → 단순 환산 '+fmt(base*(1+total/100));root.append(note)}
+ const explanation=document.createElement('div');explanation.className='muted';explanation.textContent='실제 공격력 계산식이 아닌 사용자 입력 옵션의 단순 합산입니다.';root.append(explanation);
+}
+el('v2Slots').addEventListener('change',function(e){
+ const i=Number(e.target.dataset.index),field=e.target.dataset.field;
+ if(!field||!Number.isInteger(i))return;
+ if(field==='rune'&&e.target.value==='__add__'){
+ const type=ITEMS[i][1],name=prompt('룬 이름을 입력하세요');
+ if(name&&name.trim()){const v=name.trim().slice(0,60);custom[type]=[...new Set([...(custom[type]||[]),v])];store[job].slots[i].rune=v;write();}
+ draw();return;
+ }
+ store[job].slots[i][field]=field==='rune'?e.target.value:num(e.target.value);write();summary();
+});
+el('v2Slots').addEventListener('input',function(e){if(e.target.dataset.field!=='atk')return;const i=Number(e.target.dataset.index);store[job].slots[i].atk=num(e.target.value);write();summary()});
+el('v2Base').addEventListener('input',function(e){store[job].base=e.target.value;write();summary()});
+el('job').addEventListener('change',load);el('group').addEventListener('change',()=>setTimeout(load,0));
+load();
 })();
 </script></body></html>
