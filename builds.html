@@ -30,7 +30,7 @@ button{background:#3c68a7;border:1px solid #608fc3;padding:12px;cursor:pointer}b
 <section class="panel"><h2 id="recommendTitle">직업 추천</h2><div id="recommend"></div><div class="buttons"><button id="applyRec" class="secondary" type="button">추천 장신구 룬을 내 세팅에 적용</button></div></section>
 <section class="panel"><h2>현재 착용 장비</h2><p class="note">방어구 5개 부위를 독립적으로 선택하고, 착용 장비의 룬·강화 단계·룬 데이터에서 효과를 자동 불러와. 선택 가능한 룬이 없으면 직접 추가할 수 있어.</p>
 <div class="notice note">룬의 참고 효과는 별도 <b>runes.json</b>에서 불러와. 같은 이름의 등급·별 개수별 효과가 다르면 해당 룬 변형을 선택해야 해. 조건부 효과는 상시 공격력에 더하지 않아.</div>
-<p id="runeDataStatus" class="note" role="status">룬 데이터 불러오는 중...</p><div class="grid" style="margin-top:12px"><div><label for="baseAttack">옵션 반영 전 기준 공격력 (선택)</label><input id="baseAttack" type="number" min="0" inputmode="decimal" placeholder="예: 12000"></div><div><label for="style">플레이 스타일</label><select id="style"><option>범용</option><option>보스 중심</option><option>사냥 중심</option><option>자동 사냥</option><option>수동 조작</option></select></div></div>
+<p class="note">룬 선택지는 전설·신화 등급만 표시합니다. 기존 세팅에 저장된 낮은 등급 룬은 표시되더라도 자동 효과 계산에서 제외됩니다.</p><p id="runeDataStatus" class="note" role="status">룬 데이터 불러오는 중...</p><div class="grid" style="margin-top:12px"><div><label for="baseAttack">옵션 반영 전 기준 공격력 (선택)</label><input id="baseAttack" type="number" min="0" inputmode="decimal" placeholder="예: 12000"></div><div><label for="style">플레이 스타일</label><select id="style"><option>범용</option><option>보스 중심</option><option>사냥 중심</option><option>자동 사냥</option><option>수동 조작</option></select></div></div>
 <h3>무기 · 투구 · 상의 · 하의 · 장갑 · 신발 · 엠블럼 · 장신구</h3><div class="slots" id="slots"></div>
 <div class="grid"><div><label for="mods">스킬 개조</label><select id="mods"></select></div><div><label for="tag0">보석 세공 태그 1</label><select id="tag0"></select></div><div><label for="tag1">보석 세공 태그 2</label><select id="tag1"></select></div><div><label for="tag2">보석 세공 태그 3</label><select id="tag2"></select></div></div>
 <div class="buttons" style="margin-top:13px"><button id="save" type="button">현재 세팅 저장</button></div><p id="savedStatus" class="note"></p></section>
@@ -86,11 +86,10 @@ function options(values,selected){
 }
 let RUNE_DATA=[],RUNE_STATUS='loading';
 function catalog(type,selected){
- const recommended=type==='accessory'?JOBS.flatMap(x=>x.runes):[];
- const list=unique([...(CAT[type]||[]),...RUNE_DATA.filter(x=>x.slot===type).map(x=>x.name),...recommended,...(custom[type]||[]),selected]);
+ const list=unique([...RUNE_DATA.filter(x=>x.slot===type&&['전설','신화'].includes(x.rarity)).map(x=>x.name),...(selected?[selected]:[])]);
  return ['',...list.sort((a,b)=>a.localeCompare(b,'ko'))];
 }
-function variants(type,name){return RUNE_DATA.filter(x=>x.slot===type&&x.name===name)}
+function variants(type,name){return RUNE_DATA.filter(x=>x.slot===type&&x.name===name&&['전설','신화'].includes(x.rarity))}
 function selectedRune(type,slot){
  const entries=variants(type,slot.rune);
  if(entries.length===1)return entries[0];
@@ -113,7 +112,7 @@ function effectLabel(stat){
 }
 function runeEffects(type,slot){
  const rune=selectedRune(type,slot);
- if(!rune)return {rune:null,always:[],other:[]};
+ if(!rune||!['전설','신화'].includes(rune.rarity))return {rune:null,always:[],other:[]};
  const always=[],other=[];
  if(rune.verified){
   for(const x of rune.effects||[]){
@@ -208,7 +207,7 @@ $('slots').addEventListener('change',e=>{
  const id=e.target.dataset.id,field=e.target.dataset.field;
  if(!id||!field)return;
  if(field==='rune'&&e.target.value==='__custom__'){
-  const type=SLOT_DEF.find(x=>x[0]===id)[2],answer=prompt('룬 이름을 입력해 줘');
+  const type=SLOT_DEF.find(x=>x[0]===id)[2],answer=prompt('전설 또는 신화 룬 이름을 입력해 줘. 아직 데이터에 없는 룬은 효과를 계산하지 않아.');
   if(answer&&answer.trim()){const name=answer.trim().slice(0,60);custom[type]=unique([...(custom[type]||[]),name]);current().slots[id].rune=name;current().slots[id].variant='';persist();}
   renderSlots();renderAnalysis();return;
  }
@@ -244,11 +243,11 @@ $('restoreFile').addEventListener('change',e=>{
 });
 async function loadRuneData(){
  try{
-  const response=await fetch('./runes.json?v=20261117-2',{cache:'no-cache'});
+  const response=await fetch('./runes.json?v=20261117-legendary-1',{cache:'no-cache'});
   if(!response.ok)throw Error('HTTP '+response.status);
   const raw=await response.json();
   if(!raw||!Array.isArray(raw.runes))throw Error('룬 데이터 형식 오류');
-  RUNE_DATA=raw.runes.filter(x=>x&&x.name&&x.slot);
+  RUNE_DATA=raw.runes.filter(x=>x&&x.name&&x.slot&&['전설','신화'].includes(x.rarity));
   RUNE_STATUS='loaded';
   $('runeDataStatus').textContent='룬 데이터 '+RUNE_DATA.length+'개 항목 연결 완료 · 참고 효과 등록 '+RUNE_DATA.filter(x=>x.verified).length+'개 · 나머지 효과 미확인. 등록된 수치는 게임 내 옵션과 대조해 주세요.';
   Object.keys(profiles).forEach(name=>SLOT_DEF.forEach(([id,,type])=>{
