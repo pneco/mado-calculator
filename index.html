@@ -25,6 +25,12 @@
 @keyframes snowfloat{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-9px) rotate(6deg)}}
 @media(prefers-reduced-motion:reduce){.snowflake{animation:none}}
 @media(max-width:480px){.snow-landing{padding:30px 12px;min-height:410px}}
+.chat-status-box{background:#0f1d32;border:1px solid #3c526f;border-radius:10px;padding:12px;color:#a7dcce;font-size:12px;min-height:46px}
+.chat-messages{height:min(52vh,490px);min-height:240px;overflow-y:auto;align-content:start;padding:10px;border:1px solid #374e6c;border-radius:12px;background:#0f1d32;margin-top:12px}
+.chat-compose{margin-top:14px}
+.chat-compose textarea{width:100%;display:block;resize:vertical;font:inherit;color:inherit;border-radius:11px;background:#101d32;border:1px solid #445877;padding:12px;font-size:16px;line-height:1.5;margin-bottom:10px}
+.chat-compose .actions button:last-child{background:#416eac}
+.chat-empty{padding:30px 8px;text-align:center;color:#b7cce6}
 </style>
 </head>
 <body>
@@ -57,11 +63,15 @@
 <p class="hint small">현재 장비와 목표 장비의 종류·감정 단계를 선택하세요. 단계별 마도 저항이 자동 계산됩니다.</p>
 <div id="gearList"></div></div></section>
 <section id="chat" class="hidden"><div class="card">
-<h2>❄️ 눈송이 전용 채팅방</h2>
-<p class="hint small">누구나 대화를 읽을 수 있어요. 글을 남기려면 무료 GitHub 로그인이 필요해요. 공개 채팅방이므로 개인정보를 올리지 마세요.</p>
-<div class="actions"><button type="button" id="chatRefresh">↻ 새로고침</button><button type="button" id="chatPost">✍️ 메시지 작성</button></div>
-<p class="hint small" id="chatStatus" role="status"></p><div id="chatMessages" class="chat-messages"></div>
-<p class="note">메시지 작성 버튼을 누르면 GitHub 댓글 페이지로 이동해요. 등록 후 새로고침을 누르면 계산기에서도 확인할 수 있어요.</p>
+<h2>❄️ 눈송이 실시간 채팅방</h2>
+<p class="hint small">닉네임을 입력하면 GitHub 계정 없이 채팅할 수 있어요. 메시지는 모든 접속자에게 실시간 공유되며 공개 저장됩니다.</p>
+<div class="two"><div class="field"><label for="chatNickname">닉네임 (최대 20자)</label><input id="chatNickname" maxlength="20" placeholder="눈송이"></div>
+<div class="field"><label>연결 상태</label><div class="chat-status-box" id="chatStatus" role="status">연결 전</div></div></div>
+<div id="chatMessages" class="chat-messages" aria-live="polite"></div>
+<div class="chat-compose"><label for="chatInput">메시지 (최대 300자)</label><textarea id="chatInput" maxlength="300" rows="2" placeholder="눈송이들과 이야기해요..."></textarea>
+<div class="actions"><button type="button" id="chatRefresh">↻ 기록 새로고침</button><button type="button" id="chatSend">전송 ❄️</button></div></div>
+<p class="note">무료 버전: 동시 연결 200개, 월 실시간 메시지 200만 건, DB 500MB, 월 Egress 5GB. 메시지 하나가 연결된 여러 이용자에게 전달되면 전달 인원만큼 사용량이 늘어요. <a href="https://supabase.com/pricing" target="_blank" rel="noopener noreferrer" style="color:#b9d8ff">무료 플랜 상세</a></p>
+<p class="note">공개 채팅은 로그인 없이 누구나 글을 쓸 수 있어 스팸이나 닉네임 사칭 위험이 있습니다. 개인정보를 공유하지 마세요.</p>
 </div></section>
 <section id="setting" class="hidden"><div class="card"><h2>지옥 조건 수정</h2>
 <p class="hint small">게임 업데이트에 따라 요구 수치가 달라질 수 있어요. 아래 값은 검증 전 참고값이므로 게임 내 최신 수치로 수정해 주세요.</p><div id="stages"></div></div>
@@ -115,45 +125,6 @@ initialize();
 })();
 </script>
 <script>if('serviceWorker' in navigator && location.protocol==='https:'){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js').catch(function(){})})}</script>
-<script>
-(function(){
-'use strict';
-const endpoint='https://api.github.com/repos/pneco/mado-calculator/issues/1/comments?per_page=100';
-const issue='https://github.com/pneco/mado-calculator/issues/1';
-let lastLoaded=0;
-function showTab(id){
- document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));
- ['landing','home','gear','setting','chat'].forEach(name=>document.getElementById(name).classList.toggle('hidden',id!==name));
- document.querySelector('nav.tabs').classList.toggle('hidden',id==='landing');
- if(id==='chat')window.loadSnowChat();
-}
-document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.go)));
-document.getElementById('chatPost').addEventListener('click',()=>window.open(issue,'_blank','noopener,noreferrer'));
-document.getElementById('chatRefresh').addEventListener('click',()=>window.loadSnowChat(true));
-window.loadSnowChat=async function(force){
- const status=document.getElementById('chatStatus');
- const root=document.getElementById('chatMessages');
- if(!force&&Date.now()-lastLoaded<30000)return;
- status.textContent='메시지를 불러오는 중...';
- try{
-  const r=await fetch(endpoint,{headers:{Accept:'application/vnd.github+json'},cache:'no-store'});
-  if(!r.ok)throw Error(String(r.status));
-  const comments=await r.json();
-  if(!Array.isArray(comments))throw Error('Invalid response');
-  root.replaceChildren();
-  if(!comments.length){const empty=document.createElement('p');empty.className='hint';empty.textContent='첫 번째 메시지를 남겨 주세요!';root.appendChild(empty)}
-  comments.forEach(m=>{
-   const article=document.createElement('article');article.className='chat-message';
-   const meta=document.createElement('div');meta.className='chat-meta';
-   const name=document.createElement('strong');name.textContent=m.user?.login||'사용자';
-   const date=document.createElement('span');date.textContent=m.created_at?new Date(m.created_at).toLocaleString('ko-KR'):'';
-   const body=document.createElement('div');body.className='chat-text';body.textContent=m.body||'';
-   meta.append(name,date);article.append(meta,body);root.append(article);
-  });
-  lastLoaded=Date.now();
-  status.textContent=comments.length+'개 메시지 · 새 메시지는 새로고침으로 확인하세요.';
- }catch(error){status.textContent='메시지를 불러오지 못했습니다. 네트워크 또는 GitHub API 제한을 확인해 주세요.'}
-};
-})();
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./snow-chat.js"></script>
 </body></html>
