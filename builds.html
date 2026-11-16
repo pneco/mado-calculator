@@ -164,6 +164,24 @@ function summary(){
  root.append(title,value);
  if(base>0){const note=document.createElement('div');note.className='muted';note.textContent='옵션 반영 전 공격력 '+fmt(base)+' → 단순 환산 '+fmt(base*(1+total/100));root.append(note)}
  const explanation=document.createElement('div');explanation.className='muted';explanation.textContent='실제 공격력 계산식이 아닌 사용자 입력 옵션의 단순 합산입니다.';root.append(explanation);
+ const comparison=el('comparison');
+ if(comparison){
+  const jobInfo=Array.isArray(jobs)?jobs.find(x=>x.name===job):null;
+  const selectedAccessory=v.slots.slice(7,10).map(x=>x.rune);
+  const rec=jobInfo?jobInfo.runes:[];
+  const matching=rec.filter(x=>selectedAccessory.includes(x));
+  comparison.replaceChildren();
+  const title=document.createElement('h3');title.textContent='현재 선택 장신구 vs 직업 추천';
+  const desc=document.createElement('p');desc.className='muted';desc.textContent='추천 장신구 룬 일치 '+matching.length+' / '+rec.length+'개 · 실제 DPS 순위는 아님';
+  comparison.append(title,desc);
+  rec.forEach(function(name){
+   const line=document.createElement('div');line.className='row';
+   const label=document.createElement('span');label.textContent=name;
+   const value=document.createElement('strong');const yes=selectedAccessory.includes(name);
+   value.className=yes?'good':'warn';value.textContent=yes?'착용 중':'미착용';
+   line.append(label,value);comparison.append(line);
+  });
+ }
 }
 el('v2Slots').addEventListener('change',function(e){
  const i=Number(e.target.dataset.index),field=e.target.dataset.field;
