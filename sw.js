@@ -1,4 +1,4 @@
-const CACHE = 'mado-calculator-v1';
+const CACHE = 'mado-calculator-v2';
 const OFFLINE = ['./','./index.html','./manifest.webmanifest'];
 self.addEventListener('install',event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(OFFLINE)).then(() => self.skipWaiting()));
