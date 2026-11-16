@@ -28,9 +28,9 @@ button{background:#3c68a7;border:1px solid #608fc3;padding:12px;cursor:pointer}b
 <section class="panel"><h2>직업 선택</h2><div class="grid"><div><label for="group">직업 계열</label><select id="group"></select></div><div><label for="job">전직 클래스</label><select id="job"></select></div></div>
 <p class="note">직업별 추천은 커뮤니티 참고 후보이며, 게임 버전과 운용 방식에 따라 달라질 수 있어.</p></section>
 <section class="panel"><h2 id="recommendTitle">직업 추천</h2><div id="recommend"></div><div class="buttons"><button id="applyRec" class="secondary" type="button">추천 장신구 룬을 내 세팅에 적용</button></div></section>
-<section class="panel"><h2>현재 착용 장비</h2><p class="note">방어구 5개 부위를 독립적으로 선택하고, 착용 장비의 룬·강화 단계·상시 공격력 증가 수치를 입력해. 선택 가능한 룬이 없으면 직접 추가할 수 있어.</p>
-<div class="notice note">강화 단계는 장비 기록용이야. 공격력 증가율을 자동 추측하지 않아. 직접 입력한 <b>상시 공격력 증가 옵션</b>만 합산해 표시해.</div>
-<div class="grid" style="margin-top:12px"><div><label for="baseAttack">옵션 반영 전 기준 공격력 (선택)</label><input id="baseAttack" type="number" min="0" inputmode="decimal" placeholder="예: 12000"></div><div><label for="style">플레이 스타일</label><select id="style"><option>범용</option><option>보스 중심</option><option>사냥 중심</option><option>자동 사냥</option><option>수동 조작</option></select></div></div>
+<section class="panel"><h2>현재 착용 장비</h2><p class="note">방어구 5개 부위를 독립적으로 선택하고, 착용 장비의 룬·강화 단계·룬 데이터에서 효과를 자동 불러와. 선택 가능한 룬이 없으면 직접 추가할 수 있어.</p>
+<div class="notice note">룬의 기본 효과는 별도 <b>runes.json</b>에서 불러와. 같은 이름의 등급·별 개수별 효과가 다르면 해당 룬 변형을 선택해야 해. 조건부 효과는 상시 공격력에 더하지 않아.</div>
+<p id="runeDataStatus" class="note" role="status">룬 데이터 불러오는 중...</p><div class="grid" style="margin-top:12px"><div><label for="baseAttack">옵션 반영 전 기준 공격력 (선택)</label><input id="baseAttack" type="number" min="0" inputmode="decimal" placeholder="예: 12000"></div><div><label for="style">플레이 스타일</label><select id="style"><option>범용</option><option>보스 중심</option><option>사냥 중심</option><option>자동 사냥</option><option>수동 조작</option></select></div></div>
 <h3>무기 · 투구 · 상의 · 하의 · 장갑 · 신발 · 엠블럼 · 장신구</h3><div class="slots" id="slots"></div>
 <div class="grid"><div><label for="mods">스킬 개조</label><select id="mods"></select></div><div><label for="tag0">보석 세공 태그 1</label><select id="tag0"></select></div><div><label for="tag1">보석 세공 태그 2</label><select id="tag1"></select></div><div><label for="tag2">보석 세공 태그 3</label><select id="tag2"></select></div></div>
 <div class="buttons" style="margin-top:13px"><button id="save" type="button">현재 세팅 저장</button></div><p id="savedStatus" class="note"></p></section>
@@ -38,7 +38,7 @@ button{background:#3c68a7;border:1px solid #608fc3;padding:12px;cursor:pointer}b
 <section class="panel"><h2>내 세팅 기록 및 백업</h2><label for="memo">세팅 메모</label><textarea id="memo" rows="3" maxlength="700" placeholder="보스 테스트, 다른 룬 후보, 개조 기록 등"></textarea>
 <div class="buttons" style="margin-top:12px"><button id="backup" type="button">JSON 백업</button><button id="restore" class="secondary" type="button">JSON 복원</button></div><input id="restoreFile" type="file" accept=".json,application/json" class="hidden">
 <p class="note">설정은 이 기기의 브라우저에 직업별로 자동 저장돼. 브라우저 데이터가 삭제될 수 있으니 JSON 백업을 권장해.</p></section>
-<footer class="note">표시되는 공격력 보정 합계는 사용자가 입력한 옵션의 단순 합이야. 게임 내부 곱연산·조건부 발동·룬 계수·실제 DPS를 뜻하지 않아. 룬 목록은 계속 보완되는 후보 목록이며 게임 전체 룬 목록을 보장하지 않아.</footer>
+<footer class="note">표시되는 공격력 보정 합계는 사용자가 입력한 옵션의 단순 합이야. 게임 내부 곱연산·조건부 발동·룬 계수·실제 DPS를 뜻하지 않아. 룬 데이터는 단계적으로 검증 중이며, 아직 효과가 확인되지 않은 룬은 계산에서 제외돼. 새로운 효과는 runes.json 파일에 등록할 수 있어.</footer>
 </main><script>
 (function(){
 'use strict';
@@ -56,12 +56,12 @@ const unique=arr=>[...new Set(arr.filter(v=>text(v).trim()))];
 const format=v=>(Number(v)||0).toLocaleString('ko-KR',{maximumFractionDigits:2});
 function read(k){try{return JSON.parse(localStorage.getItem(k)||'null')}catch(e){return null}}
 let profiles=read(KEY)||{},old1=read(OLD1)||{},old2=read(OLD2)||{},custom=read(CUSTOM)||{},jobName='';
-function defaultSlot(){return {rune:'',level:0,attackPercent:0}}
+function defaultSlot(){return {rune:'',variant:'',level:0}}
 function fresh(){return {slots:Object.fromEntries(SLOT_DEF.map(([id])=>[id,defaultSlot()])),baseAttack:'',style:'범용',mods:'',tags:['미설정','미설정','미설정'],memo:''}}
 function migrate(name){
  const v=fresh(),a=old1[name]||{},b=old2[name]||{};
  if(Array.isArray(b.slots)&&b.slots.length===10){
-  SLOT_DEF.forEach(([id],i)=>{const t=b.slots[i]||{};v.slots[id]={rune:text(t.rune||''),level:clamp(t.level,0,30),attackPercent:clamp(t.atk,-100,500)}});
+  SLOT_DEF.forEach(([id],i)=>{const t=b.slots[i]||{};v.slots[id]={rune:text(t.rune||''),level:clamp(t.level,0,30),variant:'',level:clamp(t.level,0,20)}});
   v.baseAttack=b.base||'';
  }else{
   v.slots.weapon.rune=text(a.weapon||'');v.slots.weapon.level=clamp(a.weaponLevel,0,30);
@@ -75,7 +75,7 @@ function migrate(name){
 function normalized(name){
  let v=profiles[name];if(!v||!v.slots)v=migrate(name);
  const next=fresh();
- SLOT_DEF.forEach(([id])=>{const x=v.slots?.[id]||{};next.slots[id]={rune:text(x.rune||''),level:clamp(x.level,0,30),attackPercent:clamp(x.attackPercent,-100,500)}});
+ SLOT_DEF.forEach(([id])=>{const x=v.slots?.[id]||{};next.slots[id]={rune:text(x.rune||''),variant:text(x.variant||''),level:clamp(x.level,0,20)}});
  next.baseAttack=v.baseAttack??'';next.style=v.style||'범용';next.mods=v.mods||'';next.tags=Array.isArray(v.tags)?v.tags.slice(0,3):next.tags;next.memo=v.memo||'';
  profiles[name]=next;return next;
 }
@@ -84,19 +84,62 @@ const current=()=>profiles[jobName];const job=()=>JOBS.find(j=>j.name===jobName)
 function options(values,selected){
  return values.map(v=>'<option value="'+esc(v)+'"'+(text(v)===text(selected)?' selected':'')+'>'+esc(v===''?'미선택':v)+'</option>').join('');
 }
+let RUNE_DATA=[],RUNE_STATUS='loading';
 function catalog(type,selected){
  const recommended=type==='accessory'?JOBS.flatMap(x=>x.runes):[];
- const list=unique([...(CAT[type]||[]),...recommended,...(custom[type]||[]),selected]);
+ const list=unique([...(CAT[type]||[]),...RUNE_DATA.filter(x=>x.slot===type).map(x=>x.name),...recommended,...(custom[type]||[]),selected]);
  return ['',...list.sort((a,b)=>a.localeCompare(b,'ko'))];
+}
+function variants(type,name){return RUNE_DATA.filter(x=>x.slot===type&&x.name===name)}
+function selectedRune(type,slot){
+ const entries=variants(type,slot.rune);
+ if(entries.length===1)return entries[0];
+ if(!slot.variant)return null;
+ return entries.find(x=>x.id===slot.variant)||null;
+}
+function variantOptions(type,slot){
+ const records=variants(type,slot.rune);
+ if(!slot.rune)return '<option value="">룬 먼저 선택</option>';
+ if(!records.length)return '<option value="">효과 데이터 미등록</option>';
+ return options(['',...records.map(x=>x.id)],slot.variant).replace('>미선택</option>','>등급·별 선택</option>').replace(/<option value="([^"]+)">([^<]+)<\/option>/g,function(full,value,label){
+  if(!value)return full;
+  const x=records.find(r=>r.id===value);
+  return x?'<option value="'+esc(x.id)+'"'+(slot.variant===x.id?' selected':'')+'>'+esc((x.rarity||'등급 미확인')+' · '+(x.stars===null?'★ 미확인':x.stars+'★')+(x.verified?'':' · 효과 미확인'))+'</option>':full;
+ });
+}
+function effectLabel(stat){
+ return ({attack_pct:'공격력 증가',attack_flat:'공격력 고정 증가',damage_dealt_pct:'주는 피해 증가',final_damage_pct:'최종 피해 증가',skill_damage_pct:'스킬 피해 증가',ultimate_damage_pct:'궁극기 피해 증가',damage_taken_pct:'받는 피해 증가',crit_chance_pct:'치명타 확률',cooldown_reduction_pct:'재사용 대기시간 감소',cooldown_recovery_pct:'쿨타임 회복',smash_damage_pct:'강타 피해 증가',multi_hit_damage_pct:'연타 피해 증가',bonus_hp_flat:'생명력 증가',defense_pct:'방어력 증가'})[stat]||stat;
+}
+function runeEffects(type,slot){
+ const rune=selectedRune(type,slot);
+ if(!rune)return {rune:null,always:[],other:[]};
+ const always=[],other=[];
+ if(rune.verified){
+  for(const x of rune.effects||[]){
+   const entry={...x,enhancement:false};
+   if(x.mode==='always')always.push(entry);else other.push(entry);
+  }
+  for(const x of rune.enhancementBonuses||[]){
+   const entry={...x,enhancement:true,condition:'각인 강화 +'+x.level+' 이상'};
+   if(slot.level>=x.level)always.push(entry);
+   else other.push({...entry,mode:'not_active'});
+  }
+ }
+ return {rune,always,other};
 }
 function renderSlots(){
  const v=current();
  $('slots').innerHTML=SLOT_DEF.map(([id,label,type])=>{
-  const slot=v.slots[id];
+  const slot=v.slots[id],info=runeEffects(type,slot);
+  const badges=info.rune&&info.rune.verified
+   ? info.always.map(x=>effectLabel(x.stat)+' '+(x.value>=0?'+':'')+x.value+(x.stat.endsWith('_flat')?'':'%')).join(' / ')||'상시 공격력 옵션 없음'
+   : (slot.rune?'효과 미확인 · 출처 확인 필요':'룬 미선택');
+  const other=info.other.length?'<div class="note">조건부·미적용 효과: '+info.other.map(x=>esc(effectLabel(x.stat)+' '+(x.value>=0?'+':'')+x.value+'% '+(x.condition||''))).join(' / ')+'</div>':'';
   return '<div class="slot"><div class="slot-header"><span class="slot-title">'+esc(label)+'</span><small>현재 착용</small></div><div class="slot-fields">'+
    '<div class="full"><label>착용 룬</label><select data-id="'+id+'" data-field="rune">'+options(catalog(type,slot.rune),slot.rune)+'<option value="__custom__">＋ 목록에 없는 룬 추가</option></select></div>'+
-   '<div><label>강화 단계</label><select data-id="'+id+'" data-field="level">'+options(Array.from({length:31},(_,i)=>i),slot.level)+'</select></div>'+
-   '<div><label>상시 공격력 증가 (%)</label><input data-id="'+id+'" data-field="attackPercent" type="number" inputmode="decimal" step="0.1" min="-100" max="500" value="'+esc(slot.attackPercent)+'"></div></div></div>';
+   '<div><label>등급 · 별 개수</label><select data-id="'+id+'" data-field="variant">'+variantOptions(type,slot)+'</select></div>'+
+   '<div><label>각인 강화</label><select data-id="'+id+'" data-field="level">'+options(Array.from({length:21},(_,i)=>i),slot.level)+'</select></div></div>'+
+   '<p class="note">'+esc(badges)+'</p>'+other+'</div>';
  }).join('');
 }
 function renderOther(){
@@ -113,17 +156,35 @@ function renderOther(){
 }
 function line(label,value){return '<div class="line"><span>'+label+'</span><strong>'+value+'</strong></div>'}
 function renderAnalysis(){
- const v=current(),sum=SLOT_DEF.reduce((n,[id])=>n+v.slots[id].attackPercent,0),base=Number(v.baseAttack),j=job();
- const rings=['ring1','ring2','ring3'].map(id=>v.slots[id].rune);
- const matched=j.runes.filter(r=>rings.includes(r));
- let html='<div class="banner"><div class="muted">현재 착용 장비 상시 공격력 증가 옵션 · 단순 합계</div><div class="value">'+(sum>0?'+':'')+format(sum)+'%</div></div>';
- if(Number.isFinite(base)&&base>0)html+=line('옵션 반영 전 기준 공격력',format(base))+line('단순 환산 공격력',format(base*(1+sum/100)));
- else html+='<p class="note">기준 공격력을 입력하면 단순 환산 공격력도 표시돼.</p>';
- html+=line('장신구 추천 룬 일치',matched.length+' / '+j.runes.length)+line('세공 추천 태그 일치',v.tags.filter(t=>j.tags.includes(t)).length+' / 3')+
- line('개조 추천 여부',j.mods.includes(v.mods)&&v.mods?'<span class="good">후보와 일치</span>':'<span class="warn">미선택 또는 후보 외</span>');
- html+='<h3>부위별 입력한 공격력 옵션</h3>';
- SLOT_DEF.forEach(([id,label])=>{const s=v.slots[id];html+=line(label+' · '+esc(s.rune||'미선택')+' · +'+s.level,(s.attackPercent>=0?'+':'')+format(s.attackPercent)+'%')});
- html+='<p class="note">입력한 수치가 서로 동일한 합연산 그룹이라고 가정한 값이야. 룬 효과·강화 스탯·조건부 피해 증가량은 자동 계산하지 않아.</p>';
+ const v=current(),j=job(),totals={},unknown=[],other=[];
+ SLOT_DEF.forEach(([id,label,type])=>{
+  const slot=v.slots[id];if(!slot.rune)return;
+  const info=runeEffects(type,slot);
+  if(!info.rune||!info.rune.verified){unknown.push(label+': '+slot.rune);return;}
+  info.always.forEach(x=>{totals[x.stat]=(totals[x.stat]||0)+Number(x.value||0)});
+  info.other.forEach(x=>other.push(label+': '+effectLabel(x.stat)+' '+x.value+'% ('+(x.condition||x.mode||'조건부')+')'));
+ });
+ const attack=totals.attack_pct||0,base=Number(v.baseAttack);
+ const rings=['ring1','ring2','ring3'].map(id=>v.slots[id].rune),matched=j.runes.filter(r=>rings.includes(r));
+ let html='<div class="banner"><div class="muted">룬 데이터 기준 확인된 상시 공격력 증가율 (단순 합)</div><div class="value">'+(attack>0?'+':'')+format(attack)+'%</div></div>';
+ if(Number.isFinite(base)&&base>0)html+=line('사용자 입력 기준 공격력',format(base))+line('상시 공격력 증가율만 반영한 환산',format(base*(1+attack/100)));
+ else html+='<p class="note">공격력 숫자를 입력하지 않아도 룬별 효과는 확인할 수 있어.</p>';
+ html+=line('장신구 추천 룬 일치',matched.length+' / '+j.runes.length)+line('세공 추천 태그 일치',v.tags.filter(t=>j.tags.includes(t)).length+' / 3');
+ for(const [stat,value] of Object.entries(totals)){
+  if(stat==='attack_pct')continue;
+  html+=line(effectLabel(stat)+' · 단순 합계',(value>=0?'+':'')+format(value)+(stat.endsWith('_flat')?'':'%'));
+ }
+ html+='<h3>부위별 룬 자동 분석</h3>';
+ SLOT_DEF.forEach(([id,label,type])=>{
+  const slot=v.slots[id];if(!slot.rune)return;
+  const info=runeEffects(type,slot);
+  if(!info.rune||!info.rune.verified){html+=line(label+' · '+esc(slot.rune),'효과 정보 없음');return}
+  html+=line(label+' · '+esc(slot.rune)+' '+(info.rune.stars===null?'':info.rune.stars+'★'),
+    (info.always.map(x=>effectLabel(x.stat)+' '+(x.value>=0?'+':'')+x.value+(x.stat.endsWith('_flat')?'':'%')).map(esc).join(' / ')||'확인된 상시 옵션 없음'));
+ });
+ if(unknown.length)html+='<p class="note warn">효과 미확인 · 계산 제외: '+unknown.map(esc).join(', ')+'</p>';
+ if(other.length)html+='<h3>별도 표시: 조건부·중첩·미적용 효과</h3><p class="note">'+other.map(esc).join('<br>')+'</p>';
+ html+='<p class="note">공격력/최종 피해/스킬 피해 등은 계산 그룹이 서로 다르므로 한 번에 합치지 않아. 같은 그룹 합산도 실제 게임 공식과 다를 수 있어. 수치가 없는 룬에 0% 효과가 있다는 뜻이 아니라 아직 데이터를 확보하지 못했다는 뜻이야.</p>';
  $('analysis').innerHTML=html;
 }
 function redraw(){renderSlots();renderOther();renderAnalysis()}
@@ -147,15 +208,13 @@ $('slots').addEventListener('change',e=>{
  if(!id||!field)return;
  if(field==='rune'&&e.target.value==='__custom__'){
   const type=SLOT_DEF.find(x=>x[0]===id)[2],answer=prompt('룬 이름을 입력해 줘');
-  if(answer&&answer.trim()){const name=answer.trim().slice(0,60);custom[type]=unique([...(custom[type]||[]),name]);current().slots[id].rune=name;persist();}
+  if(answer&&answer.trim()){const name=answer.trim().slice(0,60);custom[type]=unique([...(custom[type]||[]),name]);current().slots[id].rune=name;current().slots[id].variant='';persist();}
   renderSlots();renderAnalysis();return;
  }
- current().slots[id][field]=field==='rune'?e.target.value:clamp(e.target.value,field==='level'?0:-100,field==='level'?30:500);
- persist();renderAnalysis();
-});
-$('slots').addEventListener('input',e=>{
- const id=e.target.dataset.id,field=e.target.dataset.field;
- if(!id||field!=='attackPercent')return;current().slots[id].attackPercent=clamp(e.target.value,-100,500);persist();renderAnalysis();
+ current().slots[id][field]=field==='level'?clamp(e.target.value,0,20):e.target.value;
+ if(field==='rune')current().slots[id].variant='';
+ if(field==='rune'||field==='variant'){const x=variants(SLOT_DEF.find(z=>z[0]===id)[2],current().slots[id].rune);if(x.length===1)current().slots[id].variant=x[0].id;}
+ persist();renderSlots();renderAnalysis();
 });
 ['baseAttack','style','mods','memo','tag0','tag1','tag2'].forEach(id=>$(id).addEventListener('input',saveChanges));
 $('applyRec').addEventListener('click',()=>{
@@ -182,6 +241,26 @@ $('restoreFile').addEventListener('change',e=>{
  }catch(error){alert('지원하지 않는 JSON 백업 파일이야.')}};
  reader.readAsText(f);
 });
+async function loadRuneData(){
+ try{
+  const response=await fetch('./runes.json?v=20261117-1',{cache:'no-cache'});
+  if(!response.ok)throw Error('HTTP '+response.status);
+  const raw=await response.json();
+  if(!raw||!Array.isArray(raw.runes))throw Error('룬 데이터 형식 오류');
+  RUNE_DATA=raw.runes.filter(x=>x&&x.name&&x.slot);
+  RUNE_STATUS='loaded';
+  $('runeDataStatus').textContent='룬 데이터 '+RUNE_DATA.length+'개 항목 연결 완료 · 효과 확인된 변형 '+RUNE_DATA.filter(x=>x.verified).length+'개. 나머지는 데이터 확인 중.';
+  Object.keys(profiles).forEach(name=>SLOT_DEF.forEach(([id,,type])=>{
+   const slot=profiles[name].slots[id],v=variants(type,slot.rune);
+   if(v.length===1&&!slot.variant)slot.variant=v[0].id;
+  }));
+  persist();renderSlots();renderAnalysis();
+ }catch(err){
+  RUNE_STATUS='error';
+  $('runeDataStatus').textContent='룬 데이터 로딩 실패 · 기존 장비 선택과 저장은 가능하지만 자동 효과 계산은 잠시 사용할 수 없어. 페이지 새로고침 또는 네트워크 연결을 확인해 줘.';
+ }
+}
 setup();
+loadRuneData();
 })();
 </script></body></html>
