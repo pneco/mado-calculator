@@ -27,7 +27,8 @@ button{background:#3c68a7;border:1px solid #608fc3;padding:12px;cursor:pointer}b
 <a href="./">❄️ 눈송이 홈으로 돌아가기</a><h1>💎 직업별 세팅 연구소</h1><p class="muted">직업별 추천 · 장비 10개 슬롯 · 장착 장비 옵션 합산</p>
 <section class="panel"><h2>직업 선택</h2><div class="grid"><div><label for="group">직업 계열</label><select id="group"></select></div><div><label for="job">전직 클래스</label><select id="job"></select></div></div>
 <p class="note">직업별 추천은 커뮤니티 참고 후보이며, 게임 버전과 운용 방식에 따라 달라질 수 있어.</p></section>
-<section class="panel"><h2 id="recommendTitle">직업 추천</h2><div id="recommend"></div><div class="buttons"><button id="applyRec" class="secondary" type="button">추천 장신구 룬을 내 세팅에 적용</button></div></section>
+<section class="panel"><h2 id="recommendTitle">직업 추천</h2><div id="recommend"></div><div class="buttons"><button id="applyRec" class="secondary" type="button">추천 장비 전체 적용 (무기·방어구 5부위·엠블럼·장신구)</button></div>
+<p class="note">추천 데이터가 있는 부위만 교체하며 기존 강화 단계는 유지해. 추천은 채용 후보 기준으로 실제 최고의 DPS를 보장하지 않아.</p></section>
 <section class="panel"><h2>현재 착용 장비</h2><p class="note">방어구 5개 부위를 독립적으로 선택하고, 착용 장비의 룬·강화 단계·룬 데이터에서 효과를 자동 불러와. 선택 가능한 룬이 없으면 직접 추가할 수 있어.</p>
 <div class="notice note">룬의 참고 효과는 별도 <b>runes.json</b>에서 불러와. 같은 이름의 등급·별 개수별 효과가 다르면 해당 룬 변형을 선택해야 해. 조건부 효과는 상시 공격력에 더하지 않아.</div>
 <p class="note">룬 선택지는 전설·신화 등급만 표시합니다. 기존 세팅에 저장된 낮은 등급 룬은 표시되더라도 자동 효과 계산에서 제외됩니다.</p><p id="runeDataStatus" class="note" role="status">룬 데이터 불러오는 중...</p><div class="grid" style="margin-top:12px"><div><label for="baseAttack">옵션 반영 전 기준 공격력 (선택)</label><input id="baseAttack" type="number" min="0" inputmode="decimal" placeholder="예: 12000"></div><div><label for="style">플레이 스타일</label><select id="style"><option>범용</option><option>보스 중심</option><option>사냥 중심</option><option>자동 사냥</option><option>수동 조작</option></select></div></div>
@@ -227,10 +228,24 @@ $('slots').addEventListener('change',e=>{
  persist();renderSlots();renderAnalysis();
 });
 ['baseAttack','style','mods','memo','tag0','tag1','tag2'].forEach(id=>$(id).addEventListener('input',saveChanges));
+function recommendSlots(){
+ const rec=CLASS_RECS[jobName];
+ if(!rec)return null;
+ const out=[];
+ function push(id,type,name){if(!name)return;const found=RUNE_DATA.find(x=>x.slot===type&&x.name===name);out.push({id,type,name,variant:found?found.id:''});}
+ (rec.weapon||[]).slice(0,1).forEach(x=>push('weapon','weapon',x));
+ (rec.armor||[]).slice(0,5).forEach((x,i)=>push(['helmet','chest','pants','gloves','boots'][i],'armor',x));
+ (rec.emblem||[]).slice(0,1).forEach(x=>push('emblem','emblem',x));
+ (rec.accessory||[]).slice(0,3).forEach((x,i)=>push('ring'+(i+1),'accessory',x));
+ return out;
+}
 $('applyRec').addEventListener('click',()=>{
- if(!confirm('현재 장신구 3개 룬만 추천 후보로 바꿀까? 기존 강화 단계와 공격력 옵션은 유지돼.'))return;
- (CLASS_RECS[jobName]?.accessory||job().runes).slice(0,3).forEach((r,i)=>{current().slots['ring'+(i+1)].rune=r;current().slots['ring'+(i+1)].variant='';});
+ const list=recommendSlots();
+ if(!list||!list.length){$('savedStatus').textContent='이 직업은 검증 가능한 추천 장비 후보가 아직 등록되지 않았어. 기존 세팅은 유지돼.';return;}
+ if(!confirm(jobName+'의 추천 후보 '+list.length+'개를 장착 세팅에 적용할까? 기존 강화 단계는 유지해.'))return;
+ list.forEach(x=>{const slot=current().slots[x.id];slot.rune=x.name;slot.variant=x.variant;});
  persist();renderSlots();renderAnalysis();
+ $('savedStatus').textContent=jobName+' 추천 장비 후보 '+list.length+'개 적용 완료 · 무기/방어구/엠블럼/장신구';
 });
 $('save').addEventListener('click',()=>{saveChanges();$('savedStatus').textContent='저장 완료 · '+jobName});
 $('backup').addEventListener('click',()=>{
