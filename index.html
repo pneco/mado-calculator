@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#11192b">
+<meta name="description" content="마비노기 모바일 마도 저항 및 잔영·해연 장비 세팅 계산기">
+<link rel="manifest" href="./manifest.webmanifest">
+<title>마도 저항 계산기</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#eff4ff;background:#0f1726;font-synthesis:none}*{box-sizing:border-box}body{margin:0}main{max-width:860px;margin:auto;padding:24px 15px 75px}h1{margin:0;font-size:25px;letter-spacing:-.7px}h2{font-size:17px;margin:0 0 14px}p{line-height:1.6}.sub,.hint,small{color:#9fb2cf}.sub{margin:7px 0 20px;font-size:13px}.tabs{display:flex;gap:8px;margin:18px 0}.tabs button{flex:1}button,input,select{font:inherit;color:inherit;border-radius:11px}button{padding:11px 12px;background:#1b2b47;border:1px solid #394b6b;cursor:pointer}button.active{background:#4267ae;border-color:#658ade}button:active{transform:scale(.99)}input,select{width:100%;min-width:0;background:#101d32;border:1px solid #445877;padding:12px;font-size:16px}input:focus,select:focus{outline:2px solid #79a7f2;outline-offset:1px}label{display:block;color:#b7c7df;font-size:13px;margin-bottom:7px}.card{background:#1b2940;border:1px solid #32435f;border-radius:17px;padding:18px;margin:12px 0;box-shadow:0 7px 22px #080e1924}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.field{margin-bottom:12px}.row{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #32425c;padding:10px 0;align-items:center}.row:last-child{border:0}.row span{color:#bdcbe0;font-size:13px}.row strong{text-align:right}.good{color:#9decc9}.bad{color:#ffd18c}.large{font-size:23px;font-weight:800}.hidden{display:none!important}.gear{border-bottom:1px solid #3a4c68;padding:14px 0}.gear:last-child{border:0}.gearhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px;gap:8px}.pill{font-size:12px;color:#abf2d6}.small{font-size:12px}.note{margin-top:13px;color:#b4c2d7;font-size:12px;line-height:1.7}.actions{display:flex;gap:9px}.actions button{flex:1}.stage{padding:12px 0;border-bottom:1px solid #364760}.stage:last-child{border:0}.banner{background:#182f45;border:1px solid #2d6272;padding:15px;border-radius:12px;margin-bottom:12px}.eyebrow{color:#99b6d6;font-size:12px;margin-bottom:5px}.banner .large{color:#a5ead1}.progress{height:8px;border-radius:8px;background:#0f1d31;overflow:hidden;margin-top:10px}.progress>div{height:100%;background:#81d7b5;transition:width .2s}footer{font-size:12px;color:#94a9c7;line-height:1.7;margin-top:18px}@media(max-width:480px){main{padding:20px 12px 55px}h1{font-size:22px}.card{padding:14px}.three{grid-template-columns:1fr 1fr}.tabs button{padding:11px 5px;font-size:13px}.gear .two{gap:8px}.gear input,.gear select{padding:11px 8px}} 
+</style>
+</head>
+<body>
+<main>
+<header><h1>⚔️ 마도 저항 계산기</h1><p class="sub">마비노기 모바일 · 지옥 단계 · 잔영 / 해연 장비 시뮬레이터</p></header>
+<nav class="tabs" aria-label="계산기 메뉴">
+<button type="button" class="active" data-tab="home">현황 / 지옥</button>
+<button type="button" data-tab="gear">장비 세팅</button>
+<button type="button" data-tab="setting">기준 / 백업</button>
+</nav>
+<section id="home">
+<div class="card"><h2>캐릭터 정보</h2>
+<div class="two"><div class="field"><label for="cp">전투력</label><input id="cp" type="number" min="0" step="1" inputmode="numeric"></div>
+<div class="field"><label for="res">마도 저항 (게임 표시값)</label><input id="res" type="number" min="0" step="1" inputmode="numeric"></div></div>
+<div class="field"><label for="target">목표 지옥 단계</label><select id="target"></select></div>
+<div class="hint small">입력한 정보와 장비 설정은 이 브라우저에 자동 저장돼요.</div>
+</div>
+<div class="card"><h2>현재 진입 조건</h2><div id="summary"></div></div>
+<div class="card"><h2>장비 변경 시뮬레이션</h2><div id="gearSummary"></div>
+<p class="note">현재 마도 저항은 게임에 표시된 전체 값입니다. 장비 변경 전후의 차이만 전체 저항에 반영해 이중 계산을 방지합니다. 장비 변화에 따른 전투력 증감은 반영하지 않습니다.</p></div>
+<div class="card"><h2>지옥 단계 비교</h2><div id="stageList"></div></div>
+</section>
+<section id="gear" class="hidden"><div class="card"><h2>부위별 잔영 / 해연 설정</h2>
+<p class="hint small">현재 장비와 목표 장비의 종류·감정 단계를 선택하세요. 단계별 마도 저항이 자동 계산됩니다.</p>
+<div id="gearList"></div></div></section>
+<section id="setting" class="hidden"><div class="card"><h2>지옥 조건 수정</h2>
+<p class="hint small">게임 업데이트에 따라 요구 수치가 달라질 수 있어요. 아래 값은 검증 전 참고값이므로 게임 내 최신 수치로 수정해 주세요.</p><div id="stages"></div></div>
+<div class="card"><h2>저장 / 백업</h2><p class="hint small">변경 사항은 자동 저장됩니다. 다른 기기로 옮기거나 Safari 데이터 삭제에 대비하려면 JSON 파일로 백업하세요.</p>
+<div class="actions"><button type="button" id="export">JSON 백업</button><button type="button" id="import">JSON 복원</button></div>
+<input class="hidden" type="file" accept=".json,application/json" id="importFile">
+<div style="margin-top:14px"><button type="button" id="reset">전체 초기화</button></div>
+</div></section>
+<footer>잔영·해연 수치는 커뮤니티 기준 참고 모델입니다. 잔영 1~11단계: 140부터 단계당 +28, 해연 1~21단계: 420부터 단계당 +14, 무기 2배로 가정합니다. 게임 공식 확정 수치가 아니므로 실제 장비 표시값과 대조해 주세요. 마도 피해 증폭은 공개 예시를 근사한 참고값입니다.</footer>
+</main>
+<script>
+(function(){
+'use strict';
+var KEY='mado-simulator-gear-v2';
+var names=['무기','투구','상의','하의','장갑','신발','목걸이','반지 A','반지 B'];
+var defaults=[{name:'지옥 1',cp:87500,need:3500,pressure:4400},{name:'지옥 2',cp:95000,need:6000,pressure:6600},{name:'지옥 3',cp:102500,need:7200,pressure:7800},{name:'지옥 4',cp:110000,need:8500,pressure:9000}];
+function fresh(){return {cp:116000,res:9000,target:3,stages:JSON.parse(JSON.stringify(defaults)),gear:names.map(function(name){return {name:name,kind:'none',level:0,targetKind:'none',targetLevel:0}})}}
+var state=fresh();
+try{var saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved&&Array.isArray(saved.gear)&&saved.gear.length===names.length&&Array.isArray(saved.stages)&&saved.stages.length===4){state=Object.assign(state,saved)}}catch(e){}
+function el(id){return document.getElementById(id)}
+function number(v){return Math.max(0,Number(v)||0)}
+function fmt(n){return Math.round(n).toLocaleString('ko-KR')}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+function max(kind){return kind==='shadow'?11:kind==='abyss'?21:0}
+function resistance(kind,level,weapon){var lvl=Math.min(max(kind),Math.max(0,number(level)));if(!lvl)return 0;return (kind==='shadow'?140+28*(lvl-1):420+14*(lvl-1))*(weapon?2:1)}
+function damage(diff){return diff<0?null:50*(1-Math.pow(.5,diff/4000))}
+function kindOptions(value){return [['none','미설정'],['shadow','잔영'],['abyss','해연']].map(function(x){return '<option value="'+x[0]+'"'+(x[0]===value?' selected':'')+'>'+x[1]+'</option>'}).join('')}
+function levelOptions(kind,value){var result='';for(var i=0;i<=max(kind);i++){result+='<option value="'+i+'"'+(Number(value)===i?' selected':'')+'>'+(i?i+'단계':'0단계 (없음)')+'</option>'}return result}
+function buildGear(){el('gearList').innerHTML=state.gear.map(function(g,i){return '<div class="gear"><div class="gearhead"><strong>'+names[i]+'</strong><span class="pill" id="gval'+i+'"></span></div><div class="two"><div><label>현재 장비</label><select data-index="'+i+'" data-field="kind">'+kindOptions(g.kind)+'</select></div><div><label>현재 단계</label><select data-index="'+i+'" data-field="level">'+levelOptions(g.kind,g.level)+'</select></div><div><label>목표 장비</label><select data-index="'+i+'" data-field="targetKind">'+kindOptions(g.targetKind)+'</select></div><div><label>목표 단계</label><select data-index="'+i+'" data-field="targetLevel">'+levelOptions(g.targetKind,g.targetLevel)+'</select></div></div></div>'}).join('');
+Array.prototype.forEach.call(el('gearList').querySelectorAll('select'),function(s){s.addEventListener('change',function(){var i=Number(s.getAttribute('data-index')),field=s.getAttribute('data-field');state.gear[i][field]=field==='level'||field==='targetLevel'?Number(s.value):s.value;if(field==='kind')state.gear[i].level=0;if(field==='targetKind')state.gear[i].targetLevel=0;save();buildGear();render()})})}
+function buildStages(){el('stages').innerHTML=state.stages.map(function(s,i){return '<div class="stage"><strong>'+defaults[i].name+'</strong><div class="three" style="margin-top:10px"><div><label>전투력</label><input data-stage="'+i+'" data-field="cp" type="number" min="0" value="'+number(s.cp)+'"></div><div><label>입장 저항</label><input data-stage="'+i+'" data-field="need" type="number" min="0" value="'+number(s.need)+'"></div><div><label>마도 압력</label><input data-stage="'+i+'" data-field="pressure" type="number" min="0" value="'+number(s.pressure)+'"></div></div></div>'}).join('');
+Array.prototype.forEach.call(el('stages').querySelectorAll('input'),function(input){input.addEventListener('input',function(){state.stages[Number(input.getAttribute('data-stage'))][input.getAttribute('data-field')]=number(input.value);save();render()})})}
+function row(left,right,cls){return '<div class="row"><span>'+left+'</span><strong'+(cls?' class="'+cls+'"':'')+'>'+right+'</strong></div>'}
+function render(){var stage=state.stages[Number(state.target)]||state.stages[0],cp=number(state.cp),res=number(state.res),can=state.stages.filter(function(s){return cp>=number(s.cp)&&res>=number(s.need)}),delta=res-number(stage.pressure),boost=damage(delta);
+el('summary').innerHTML='<div class="banner"><div class="eyebrow">입장 조건 충족 최고 단계</div><div class="large">'+(can.length?can[can.length-1].name:'조건 미달')+'</div></div>'+
+row('목표 단계',stage.name)+row('전투력 부족',fmt(Math.max(0,number(stage.cp)-cp)))+row('입장 저항 부족',fmt(Math.max(0,number(stage.need)-res)))+row('마도 압력까지 부족',fmt(Math.max(0,number(stage.pressure)-res)))+row('마도 압력 대비 저항', (delta>=0?'+':'')+fmt(delta),delta>=0?'good':'bad')+row('마도 피해 증폭 (근사)',boost===null?'압력 미달 · 미산출':boost.toFixed(2)+'%');
+var current=0,goal=0;state.gear.forEach(function(g,i){var c=resistance(g.kind,g.level,i===0),t=resistance(g.targetKind,g.targetLevel,i===0);current+=c;goal+=t;var out=el('gval'+i);if(out)out.textContent=fmt(c)+' → '+fmt(t)+' ('+(t-c>=0?'+':'')+fmt(t-c)+')'});
+var gain=goal-current,after=res+gain,newBoost=damage(after-number(stage.pressure)),canAfter=cp>=number(stage.cp)&&after>=number(stage.need);
+el('gearSummary').innerHTML=row('현재 설정 장비 합계',fmt(current))+row('목표 설정 장비 합계',fmt(goal))+row('장비 변경 증가량',(gain>=0?'+':'')+fmt(gain),gain>=0?'good':'bad')+row('변경 후 예상 마도 저항',fmt(after),'large')+row('변경 후 목표 입장',canAfter?'충족':'미충족',canAfter?'good':'bad')+row('변경 후 피해 증폭 (근사)',newBoost===null?'압력 미달 · 미산출':newBoost.toFixed(2)+'%');
+el('stageList').innerHTML=state.stages.map(function(s){var ok=cp>=number(s.cp)&&res>=number(s.need);return row(s.name+' · 전투력 '+fmt(s.cp)+' / 저항 '+fmt(s.need),ok?'충족':'미충족',ok?'good':'bad')}).join('')}
+function initialize(){el('cp').value=state.cp;el('res').value=state.res;el('target').innerHTML=state.stages.map(function(s,i){return '<option value="'+i+'">'+defaults[i].name+'</option>'}).join('');el('target').value=state.target;
+['cp','res','target'].forEach(function(id){el(id).addEventListener('input',function(){state[id]=number(el(id).value);save();render()})});
+Array.prototype.forEach.call(document.querySelectorAll('[data-tab]'),function(btn){btn.addEventListener('click',function(){Array.prototype.forEach.call(document.querySelectorAll('[data-tab]'),function(b){b.classList.toggle('active',b===btn)});['home','gear','setting'].forEach(function(id){el(id).classList.toggle('hidden',btn.getAttribute('data-tab')!==id)})})});
+el('export').addEventListener('click',function(){var blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='mado-settings.json';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},1500)});
+el('import').addEventListener('click',function(){el('importFile').click()});
+el('importFile').addEventListener('change',function(){var file=this.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(){try{var obj=JSON.parse(reader.result);if(!obj||!Array.isArray(obj.gear)||obj.gear.length!==9||!Array.isArray(obj.stages)||obj.stages.length!==4)throw Error('백업 형식 오류');state=Object.assign(fresh(),obj);save();location.reload()}catch(e){alert('올바른 백업 JSON 파일이 아닙니다.')}};reader.readAsText(file)});
+el('reset').addEventListener('click',function(){if(confirm('저장한 전투력, 장비 설정, 기준값을 모두 초기화할까요?')){localStorage.removeItem(KEY);location.reload()}});
+buildGear();buildStages();render();
+}
+initialize();
+})();
+</script>
+<script>if('serviceWorker' in navigator && location.protocol==='https:'){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js').catch(function(){})})}</script>
+</body></html>
