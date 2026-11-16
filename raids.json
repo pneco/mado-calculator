@@ -1,6 +1,6 @@
 {
-  "version": "2026-11-17",
-  "description": "Raid entry and mado pressure thresholds. null indicates no verified mado threshold, not zero.",
+  "version": "2026-11-17-raid2",
+  "description": "Hard and Very Hard modes for currently accessible raids as of 2026-11-17. null means unknown; no readiness claim when a required value is unknown. Kavrak Very Hard opens November 23, and is not included yet.",
   "raids": [
     {
       "id": "scath-vh",
@@ -55,7 +55,19 @@
       "overpowerCp": 57500,
       "need": null,
       "pressure": null,
-      "source": "https://wiki.kanotype.net/ko/%EB%A7%88%EB%B9%84%EB%85%B8%EA%B8%B0_%EB%AA%A8%EB%B0%94%EC%9D%BC/%EC%97%90%EC%9D%B4%EB%A0%90_%EB%A0%88%EC%9D%B4%EB%93%9C"
+      "source": "https://mabinogimobile.nexon.com/News/update/3345587"
+    },
+    {
+      "id": "succubus-hard",
+      "name": "화이트 서큐버스",
+      "difficulty": "어려움",
+      "cp": null,
+      "recommendedCp": 27000,
+      "overpowerCp": 31100,
+      "need": null,
+      "pressure": null,
+      "source": "https://dark.namu.moe/w/%EB%A7%88%EB%B9%84%EB%85%B8%EA%B8%B0%20%EB%AA%A8%EB%B0%94%EC%9D%BC/%EB%A0%88%EC%9D%B4%EB%93%9C/%ED%99%94%EC%9D%B4%ED%8A%B8%20%EC%84%9C%ED%81%90%EB%B2%84%EC%8A%A4",
+      "note": "어려움 입장 필요 전투력은 공식 값 미확인; 권장 27,000·압도 31,100만 참고"
     }
   ]
 }
