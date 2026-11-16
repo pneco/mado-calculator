@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101c31">
+<title>눈송이 · 직업별 세팅 연구소</title><style>
+*{box-sizing:border-box}body{margin:0;background:#0f1727;color:#edf5ff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:920px;margin:0 auto;padding:18px 15px 65px}a{color:#a6d2ff}h1{font-size:23px;margin:12px 0 5px}h2{font-size:17px;margin:0 0 13px}h3{font-size:15px;margin:18px 0 8px}p{line-height:1.6}small,.muted{color:#9db2d0}.muted{font-size:13px}.card{background:#1b2a42;border:1px solid #334962;border-radius:16px;padding:17px;margin:13px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.field{margin:10px 0}label{display:block;color:#bdcde4;font-size:13px;margin:0 0 7px}select,input,button,textarea{font:inherit;color:inherit;border-radius:10px}select,input,textarea{width:100%;background:#101f35;border:1px solid #4b6180;padding:12px;font-size:16px}button{cursor:pointer;background:#3a659b;padding:12px;border:1px solid #6189b5}button.secondary{background:#1a3555}.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #32435c}.row:last-child{border:0}.row span{font-size:13px;color:#bed0e8}.good{color:#9ee4c1}.warn{color:#ffd998}.chip{display:inline-block;border:1px solid #4b698b;background:#213b5d;border-radius:8px;font-size:12px;margin:3px 3px 3px 0;padding:6px 9px}.chip.good{border-color:#4e9d84}.banner{border-radius:13px;background:#132b46;padding:14px;margin-bottom:12px}.score{font-size:28px;font-weight:800}.flex{display:flex;gap:10px;flex-wrap:wrap}.flex>button{flex:1}.hint{font-size:12px;line-height:1.7;color:#afc1d9}.headerlink{text-decoration:none}.progress{height:8px;border-radius:5px;background:#0c192b;overflow:hidden;margin:9px 0}.progress i{display:block;height:100%;background:#80d7b3}.subheading{color:#cae9ff}.hidden{display:none!important}@media(max-width:560px){.grid{grid-template-columns:1fr 1fr}.three{grid-template-columns:1fr}.card{padding:14px}h1{font-size:21px}}
+</style></head><body><main>
+<a class="headerlink" href="./">❄️ 눈송이 홈으로 돌아가기</a><h1>직업별 세팅 연구소</h1>
+<p class="muted">직업 선택 → 추천 장신구 룬·세공 확인 → 내 세팅과 비교 → 교체 우선순위</p>
+<section class="card"><div class="grid">
+<div><label for="group">직업 계열</label><select id="group"></select></div>
+<div><label for="job">전직 클래스</label><select id="job"></select></div>
+</div><p class="hint">추천 자료는 2026년 시즌 2 커뮤니티 후보를 참고합니다. 공식 종결 조합이나 확정 딜 순위가 아닙니다.</p></section>
+<section class="card"><h2 id="recommendTitle">추천 세팅</h2><div id="recommend"></div></section>
+<section class="card"><h2>내 장비 세팅</h2>
+<p class="muted">장신구 룬 3개를 직접 입력하고 세공 태그와 스킬 개조를 선택해 비교할 수 있어요. 데이터는 이 브라우저에 직업별 자동 저장됩니다.</p>
+<h3>현재 장신구 룬 (3개)</h3><div class="three" id="runeInputs"></div>
+<div class="grid"><div class="field"><label for="myMods">사용 중인 개조 (예: 135)</label><input id="myMods" maxlength="15" placeholder="135"></div>
+<div class="field"><label for="style">플레이 스타일</label><select id="style"><option>범용</option><option>보스 중심</option><option>사냥 중심</option><option>자동 사냥</option><option>수동 조작</option></select></div></div>
+<h3>보석 세공 태그 (최대 3줄)</h3><div class="three" id="tagInputs"></div>
+<div class="flex"><button id="save">이 직업 세팅 저장</button><button class="secondary" id="prefill">추천 세팅 적용</button></div>
+<p id="saveInfo" class="hint"></p>
+</section>
+<section class="card"><h2>현재 세팅 vs 추천 세팅</h2><div id="comparison"></div></section>
+<section class="card"><h2>내 세팅 메모</h2><textarea id="memo" rows="3" maxlength="700" placeholder="룬 옵션, 장비 이름, 테스트 결과 등을 기록하세요."></textarea>
+<div class="flex" style="margin-top:10px"><button id="backup">전체 직업 세팅 JSON 백업</button><button class="secondary" id="restore">JSON 복원</button></div><input id="restoreFile" type="file" accept=".json,application/json" class="hidden">
+<p class="hint">현재는 룬 일치도·세공 우선순위·개조 조합만 비교합니다. 검증된 전투 공식을 확보하기 전까지 실제 DPS 상승률을 임의로 산출하지 않습니다.</p></section>
+<footer class="hint">추천 기준: <a target="_blank" rel="noopener noreferrer" href="https://www.kakao.gg/games/mabinogi-mobile/%EB%A7%88%EB%B9%84%EB%85%B8%EA%B8%B0-%EB%AA%A8%EB%B0%94%EC%9D%BC-%EC%A7%81%EC%97%85%EB%B3%84-%EC%B6%94%EC%B2%9C-%EC%84%B8%ED%8C%85-%EC%9E%A5%EC%8B%A0%EA%B5%AC-%EB%A3%AC%C2%B7%EC%8A%A4%ED%82%AC-%EA%B0%9C%EC%A1%B0%C2%B7%EB%B3%B4%EC%84%9D-%EC%84%B8%EA%B3%B5-%EC%A0%95%EB%A6%AC">시즌2 직업별 추천 세팅 정리 (2026.09)</a> · 게임 패치에 따라 변경될 수 있습니다.</footer>
+</main><script>
+(function(){
+'use strict';
+const jobs=[{"group":"전사","name":"기사","runes":["용기","돌파","지진"],"mods":["135"],"tags":["강타","보조","생존","연타","소환"]},{"group":"전사","name":"전사","runes":["붕괴","돌격","패기"],"mods":["246"],"tags":["강타","방해","이동","생존"]},{"group":"전사","name":"대검전사","runes":["탄력","광전사","절단"],"mods":["456"],"tags":["강타","보조","강타쿨","보조쿨"]},{"group":"전사","name":"검술사","runes":["관통","평정","일섬"],"mods":["456"],"tags":["강타","연타","이동","보조"]},{"group":"궁수","name":"궁수","runes":["닻","매","몰아침"],"mods":["156"],"tags":["연타","강타","방해"]},{"group":"궁수","name":"장궁병","runes":["초음파","돌개","호응"],"mods":["234","236"],"tags":["강타","방해","연타"]},{"group":"궁수","name":"석궁사수","runes":["꿰뚫음","화약","산탄"],"mods":["146","346"],"tags":["원소","강타","연타"]},{"group":"마법사","name":"마법사","runes":["운석","우레","서리가시"],"mods":["123"],"tags":["원소","방해","강타"]},{"group":"마법사","name":"빙결술사","runes":["빙하","설원","북풍"],"mods":["456"],"tags":["원소","소환","생존","강타"]},{"group":"마법사","name":"화염술사","runes":["폭격","분출","청염"],"mods":["136"],"tags":["원소","강타","연타","방해"]},{"group":"마법사","name":"전격술사","runes":["섬광","폭풍우","도관"],"mods":["245"],"tags":["원소","강타","보조","방해","보조쿨"]},{"group":"힐러","name":"힐러","runes":["광륜","가호","물결"],"mods":["345"],"tags":["보조","연타","보조쿨","소환"]},{"group":"힐러","name":"사제","runes":["심판","집행","성전"],"mods":["135","235","345"],"tags":["보조","강타","방해"]},{"group":"힐러","name":"수도사","runes":["인과","등불","뇌정"],"mods":["123"],"tags":["보조","연타","이동","방해"]},{"group":"힐러","name":"암흑술사","runes":["구속","절제","광기"],"mods":["135"],"tags":["소환","방해","연타","보조","강타"]},{"group":"도적","name":"도적","runes":["폭발","덫","땅거미"],"mods":["134","234"],"tags":["방해","강타","이동"]},{"group":"도적","name":"듀얼블레이드","runes":["천침","교차","강화"],"mods":["145"],"tags":["연타","이동","보조","강타"]},{"group":"도적","name":"격투가","runes":["승천","전진","강격"],"mods":["145","456"],"tags":["강타","이동","보조"]},{"group":"음유시인","name":"악사","runes":["조율","종장","순환"],"mods":["345"],"tags":["방해","강타","연타"]},{"group":"음유시인","name":"음유시인","runes":["무아","합주","변주"],"mods":["134"],"tags":["방해","보조","연타","강타"]},{"group":"음유시인","name":"댄서","runes":["발걸음","전환","환호"],"mods":["135","356"],"tags":["연타","이동","보조","강타"]}];
+const TAGS=['미설정','강타','연타','원소','방해','이동','보조','소환','생존','강타쿨','보조쿨','연타쿨','원소쿨','방해쿨','이동쿨','소환쿨'];
+const KEY='snow-builds-v1',SELECT='snow-selected-job-v1';const $=id=>document.getElementById(id);
+let store={};try{store=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){}
+let jobName='';
+const clean=v=>String(v||'').trim();
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(store));localStorage.setItem(SELECT,jobName)}catch(e){}}
+function selected(){return jobs.find(x=>x.name===jobName)||jobs[0]}
+function empty(){return {runes:['','',''],tags:['미설정','미설정','미설정'],mods:'',style:'범용',memo:''}}
+function current(){return store[jobName]||empty()}
+function groups(){return [...new Set(jobs.map(x=>x.group))]}
+function fillGroup(){const selectedName=localStorage.getItem(SELECT);const selectedJob=jobs.find(x=>x.name===selectedName)||jobs[0];$('group').innerHTML=groups().map(g=>'<option value="'+esc(g)+'">'+esc(g)+'</option>').join('');$('group').value=selectedJob.group;fillJob(selectedJob.name)}
+function fillJob(want){const items=jobs.filter(x=>x.group===$('group').value);$('job').innerHTML=items.map(x=>'<option value="'+esc(x.name)+'">'+esc(x.name)+'</option>').join('');if(want&&items.some(x=>x.name===want))$('job').value=want;jobName=$('job').value;load();}
+function tagOptions(value){return TAGS.map(t=>'<option value="'+esc(t)+'"'+(t===value?' selected':'')+'>'+esc(t)+'</option>').join('')}
+function load(){
+ const x=current();
+ $('runeInputs').innerHTML=[0,1,2].map(i=>'<div><label>장신구 룬 '+(i+1)+'</label><input data-rune="'+i+'" maxlength="30" value="'+esc(x.runes[i]||'')+'" placeholder="룬 이름"></div>').join('');
+ $('tagInputs').innerHTML=[0,1,2].map(i=>'<div><label>세공 '+(i+1)+'순위</label><select data-tag="'+i+'">'+tagOptions(x.tags[i]||'미설정')+'</select></div>').join('');
+ $('myMods').value=x.mods||'';$('style').value=x.style||'범용';$('memo').value=x.memo||'';render();
+}
+function snapshot(){
+ return {runes:[...document.querySelectorAll('[data-rune]')].map(e=>clean(e.value).slice(0,30)),tags:[...document.querySelectorAll('[data-tag]')].map(e=>e.value),mods:clean($('myMods').value).slice(0,15),style:$('style').value,memo:$('memo').value.slice(0,700)};
+}
+function save(){store[jobName]=snapshot();persist();render();}
+function chips(values){return values.map(t=>'<span class="chip">'+esc(t)+'</span>').join('')}
+function row(label,val){return '<div class="row"><span>'+label+'</span><strong>'+val+'</strong></div>'}
+function render(){
+ const x=selected(),c=current(),recommended=new Set(x.runes);
+ const matched=x.runes.filter(t=>c.runes.map(clean).includes(t)).length;
+ const tagMatched=c.tags.filter(t=>x.tags.includes(t)).length;
+ const modMatch=x.mods.includes(clean(c.mods))&&clean(c.mods)!=='';
+ const missing=x.runes.filter(t=>!c.runes.includes(t));
+ $('recommendTitle').textContent=x.group+' · '+x.name+' 추천 세팅';
+ $('recommend').innerHTML='<div class="banner"><strong>추천 장신구 룬</strong><div>'+chips(x.runes)+'</div></div>'+row('스킬 개조 후보',x.mods.map(esc).join(' 또는 '))+row('세공 우선순위',x.tags.map(esc).join(' → '))+'<p class="hint">보유 장비와 콘텐츠에 따라 다른 조합이 더 좋을 수 있습니다.</p>';
+ $('comparison').innerHTML='<div class="grid"><div class="banner"><div class="muted">장신구 룬 일치</div><div class="score">'+matched+' / 3</div><div class="progress"><i style="width:'+(matched/3*100)+'%"></i></div></div><div class="banner"><div class="muted">세공 우선 태그 일치</div><div class="score">'+tagMatched+' / 3</div><div class="progress"><i style="width:'+(tagMatched/3*100)+'%"></i></div></div></div>'+
+ row('개조 후보',modMatch?'<span class="good">추천 후보와 일치</span>':'<span class="warn">개조 검토 필요</span>')+
+ row('확보하면 좋은 장신구 룬',missing.length?chips(missing):'<span class="good">추천 후보 모두 보유</span>')+
+ row('우선 검토할 세공 태그',chips(x.tags.filter(t=>!c.tags.includes(t)).slice(0,3)))+
+ '<p class="hint">일치도가 높다고 실제 DPS가 비례해 증가하는 것은 아닙니다. 세공/룬의 옵션 수치와 운용 사이클을 따로 검증해야 합니다.</p>';
+}
+$('group').addEventListener('change',()=>fillJob());
+$('job').addEventListener('change',()=>{jobName=$('job').value;persist();load()});
+$('save').addEventListener('click',()=>{save();$('saveInfo').textContent='저장 완료 · '+jobName+' 세팅이 이 브라우저에 저장됐어요.'});
+$('prefill').addEventListener('click',()=>{const x=selected();store[jobName]={...current(),runes:x.runes.slice(),mods:x.mods[0],tags:x.tags.slice(0,3)};persist();load();$('saveInfo').textContent='추천 후보를 입력란에 적용했어요. 실제 아이템 보유 여부를 확인하세요.'});
+['runeInputs','tagInputs','myMods','style','memo'].forEach(id=>$(id).addEventListener('input',save));
+$('backup').addEventListener('click',()=>{save();const url=URL.createObjectURL(new Blob([JSON.stringify({schema:1,builds:store},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='snow-builds.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)});
+$('restore').addEventListener('click',()=>$('restoreFile').click());
+$('restoreFile').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const obj=JSON.parse(reader.result);if(obj.schema!==1||!obj.builds||typeof obj.builds!=='object')throw Error('format');store=obj.builds;persist();load();alert('세팅을 복원했어요.')}catch(err){alert('올바른 백업 파일이 아닙니다.')}};reader.readAsText(file)});
+fillGroup();
+})();
+</script></body></html>
