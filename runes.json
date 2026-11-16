@@ -1,0 +1,1533 @@
+{
+  "version": "2026-11-17-initial",
+  "notes": "Community data, manually curated partial catalogue. No bulk copied third party descriptions. Only confirmed effect numbers are automatically calculated. Conditional, stack and transcend-level effects are not included in always-on totals.",
+  "sourceLinks": [
+    "https://erinn.kr/codex?type=rune",
+    "https://mobilab.me/mobidex/runes/",
+    "https://mabinogimobile.nexon.com/Info/Guide/2751136"
+  ],
+  "runes": [
+    {
+      "id": "r001",
+      "name": "가라앉은 왕국",
+      "slot": "armor",
+      "rarity": "신화",
+      "stars": 10,
+      "season": "S2",
+      "effects": [
+        {
+          "stat": "attack_pct",
+          "value": 15,
+          "mode": "always"
+        },
+        {
+          "stat": "ultimate_damage_pct",
+          "value": 10,
+          "mode": "always"
+        },
+        {
+          "stat": "cooldown_recovery_pct",
+          "value": 8,
+          "mode": "conditional",
+          "condition": "궁극기 사용 후 30초"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r002",
+      "name": "가시 덩굴",
+      "slot": "weapon",
+      "rarity": "전설",
+      "stars": 6,
+      "season": "",
+      "effects": [
+        {
+          "stat": "damage_dealt_pct",
+          "value": 25,
+          "mode": "always"
+        },
+        {
+          "stat": "damage_taken_pct",
+          "value": 25,
+          "mode": "always"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r003",
+      "name": "가호",
+      "slot": "emblem",
+      "rarity": "전설",
+      "stars": 6,
+      "season": "",
+      "effects": [
+        {
+          "stat": "damage_dealt_pct",
+          "value": 25,
+          "mode": "conditional",
+          "condition": "전투 시작 또는 궁극기 사용 후 30초"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r004",
+      "name": "가속",
+      "slot": "weapon",
+      "rarity": "고급",
+      "stars": null,
+      "season": "",
+      "effects": [
+        {
+          "stat": "attack_flat",
+          "value": 48,
+          "mode": "always"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r005",
+      "name": "가속+",
+      "slot": "weapon",
+      "rarity": "고급",
+      "stars": 2,
+      "season": "",
+      "effects": [
+        {
+          "stat": "attack_flat",
+          "value": 207,
+          "mode": "always"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r006",
+      "name": "가속+",
+      "slot": "weapon",
+      "rarity": "고급",
+      "stars": 4,
+      "season": "",
+      "effects": [
+        {
+          "stat": "attack_flat",
+          "value": 608,
+          "mode": "always"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r007",
+      "name": "거대한 분노",
+      "slot": "weapon",
+      "rarity": "전설",
+      "stars": 10,
+      "season": "",
+      "effects": [
+        {
+          "stat": "damage_dealt_pct",
+          "value": 21,
+          "mode": "always"
+        },
+        {
+          "stat": "skill_damage_pct",
+          "value": 3,
+          "mode": "stack",
+          "maxStacks": 4,
+          "condition": "강타 적중 시 중첩, 다른 공격 적중 시 해제"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r008",
+      "name": "검게 물든 후광",
+      "slot": "armor",
+      "rarity": "신화",
+      "stars": 8,
+      "season": "S2",
+      "effects": [
+        {
+          "stat": "damage_dealt_pct",
+          "value": 15,
+          "mode": "always"
+        },
+        {
+          "stat": "damage_taken_pct",
+          "value": 15,
+          "mode": "conditional",
+          "condition": "회복 사용 시 일정 시간 무효"
+        }
+      ],
+      "enhancementBonuses": [
+        {
+          "level": 10,
+          "stat": "damage_dealt_pct",
+          "value": 6
+        },
+        {
+          "level": 15,
+          "stat": "damage_dealt_pct",
+          "value": 6
+        }
+      ],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r009",
+      "name": "검무+",
+      "slot": "weapon",
+      "rarity": "전설",
+      "stars": 8,
+      "season": "",
+      "effects": [
+        {
+          "stat": "attack_pct",
+          "value": 2,
+          "mode": "stack",
+          "maxStacks": 10,
+          "condition": "공격 적중 때마다 10초 중첩"
+        },
+        {
+          "stat": "crit_chance_pct",
+          "value": 1,
+          "mode": "stack",
+          "maxStacks": 10,
+          "condition": "공격 적중 때마다 10초 중첩"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r010",
+      "name": "검무",
+      "slot": "weapon",
+      "rarity": "에픽",
+      "stars": 7,
+      "season": "",
+      "effects": [
+        {
+          "stat": "attack_pct",
+          "value": 2,
+          "mode": "stack",
+          "maxStacks": 10,
+          "condition": "공격 적중 때마다 10초 중첩"
+        },
+        {
+          "stat": "crit_chance_pct",
+          "value": 1,
+          "mode": "stack",
+          "maxStacks": 10,
+          "condition": "공격 적중 때마다 10초 중첩"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r011",
+      "name": "검사",
+      "slot": "weapon",
+      "rarity": "레어",
+      "stars": 6,
+      "season": "",
+      "effects": [
+        {
+          "stat": "attack_flat",
+          "value": 1335,
+          "mode": "always"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r012",
+      "name": "개전",
+      "slot": "armor",
+      "rarity": "엘리트",
+      "stars": 8,
+      "season": "",
+      "effects": [
+        {
+          "stat": "attack_pct",
+          "value": 23,
+          "mode": "conditional",
+          "condition": "전투 시작 후 30초"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r013",
+      "name": "격노",
+      "slot": "weapon",
+      "rarity": "에픽",
+      "stars": 5,
+      "season": "",
+      "effects": [
+        {
+          "stat": "attack_flat",
+          "value": 991,
+          "mode": "always"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r014",
+      "name": "결투+",
+      "slot": "weapon",
+      "rarity": "전설",
+      "stars": 6,
+      "season": "",
+      "effects": [
+        {
+          "stat": "attack_pct",
+          "value": 18,
+          "mode": "always"
+        },
+        {
+          "stat": "multi_hit_damage_pct",
+          "value": -6,
+          "mode": "always"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r015",
+      "name": "결핍",
+      "slot": "armor",
+      "rarity": "에픽",
+      "stars": 5,
+      "season": "",
+      "effects": [
+        {
+          "stat": "attack_pct",
+          "value": 9,
+          "mode": "conditional",
+          "condition": "보유 자원 0.5 미만"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r016",
+      "name": "계승자",
+      "slot": "armor",
+      "rarity": "전설",
+      "stars": 10,
+      "season": "",
+      "effects": [
+        {
+          "stat": "damage_dealt_pct",
+          "value": 13,
+          "mode": "always"
+        },
+        {
+          "stat": "skill_damage_pct",
+          "value": 7,
+          "mode": "stack",
+          "maxStacks": 5,
+          "condition": "스킬 사용 시 중첩, 초과 시 초기화"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r017",
+      "name": "경이+",
+      "slot": "weapon",
+      "rarity": "전설",
+      "stars": 6,
+      "season": "",
+      "effects": [
+        {
+          "stat": "cooldown_reduction_pct",
+          "value": 8,
+          "mode": "conditional",
+          "condition": "기본 공격 적중 시"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r018",
+      "name": "불사",
+      "slot": "armor",
+      "rarity": "전설",
+      "stars": null,
+      "season": "",
+      "effects": [
+        {
+          "stat": "damage_dealt_pct",
+          "value": 18,
+          "mode": "always"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r019",
+      "name": "강인한+",
+      "slot": "emblem",
+      "rarity": "엘리트",
+      "stars": 6,
+      "season": "",
+      "effects": [
+        {
+          "stat": "attack_pct",
+          "value": 1,
+          "mode": "stack",
+          "maxStacks": 10,
+          "condition": "공격 적중 후 5초마다 누적"
+        },
+        {
+          "stat": "defense_pct",
+          "value": 1,
+          "mode": "stack",
+          "maxStacks": 10,
+          "condition": "공격 적중 후 5초마다 누적"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r020",
+      "name": "강타",
+      "slot": "weapon",
+      "rarity": "엘리트",
+      "stars": 6,
+      "season": "",
+      "effects": [
+        {
+          "stat": "smash_damage_pct",
+          "value": 18,
+          "mode": "conditional",
+          "condition": "직접 피해를 받은 뒤 5초"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r021",
+      "name": "결정",
+      "slot": "weapon",
+      "rarity": "전설",
+      "stars": 8,
+      "season": "",
+      "effects": [
+        {
+          "stat": "attack_flat",
+          "value": 1756,
+          "mode": "always"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r022",
+      "name": "결투",
+      "slot": "weapon",
+      "rarity": "에픽",
+      "stars": 5,
+      "season": "",
+      "effects": [
+        {
+          "stat": "attack_flat",
+          "value": 991,
+          "mode": "always"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r023",
+      "name": "가호+",
+      "slot": "accessory",
+      "rarity": "전설",
+      "stars": 10,
+      "season": "S2",
+      "effects": [
+        {
+          "stat": "bonus_hp_flat",
+          "value": 3921,
+          "mode": "always"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r024",
+      "name": "강격+",
+      "slot": "accessory",
+      "rarity": "전설",
+      "stars": 8,
+      "season": "S2",
+      "effects": [
+        {
+          "stat": "final_damage_pct",
+          "value": 1.5,
+          "mode": "per_transcend_level",
+          "condition": "초월 각인 단계마다"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r025",
+      "name": "강화+",
+      "slot": "accessory",
+      "rarity": "전설",
+      "stars": 8,
+      "season": "S2",
+      "effects": [
+        {
+          "stat": "final_damage_pct",
+          "value": 1.5,
+          "mode": "per_transcend_level",
+          "condition": "초월 각인 단계마다"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r026",
+      "name": "개화+",
+      "slot": "accessory",
+      "rarity": "전설",
+      "stars": 8,
+      "season": "S2",
+      "effects": [
+        {
+          "stat": "final_damage_pct",
+          "value": 1.5,
+          "mode": "per_transcend_level",
+          "condition": "초월 각인 단계마다"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "r027",
+      "name": "겨울+",
+      "slot": "accessory",
+      "rarity": "전설",
+      "stars": 8,
+      "season": "S2",
+      "effects": [
+        {
+          "stat": "final_damage_pct",
+          "value": 1.5,
+          "mode": "per_transcend_level",
+          "condition": "초월 각인 단계마다"
+        }
+      ],
+      "enhancementBonuses": [],
+      "source": "https://erinn.kr/codex?type=rune",
+      "verified": true
+    },
+    {
+      "id": "u028",
+      "name": "대군주",
+      "slot": "weapon",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u029",
+      "name": "바위 칼날",
+      "slot": "weapon",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u030",
+      "name": "죽음",
+      "slot": "weapon",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u031",
+      "name": "물결",
+      "slot": "weapon",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u032",
+      "name": "타오르는 영광",
+      "slot": "weapon",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u033",
+      "name": "만 갈래 물길",
+      "slot": "weapon",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u034",
+      "name": "메아리치는 진노",
+      "slot": "weapon",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u035",
+      "name": "불꽃으로 새긴 문장",
+      "slot": "weapon",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u036",
+      "name": "무형",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u037",
+      "name": "사슬로 묶은 법전",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u038",
+      "name": "여신",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u039",
+      "name": "용 사냥꾼",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u040",
+      "name": "유폐된 어둠",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u041",
+      "name": "그림자로 엮은 회랑",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u042",
+      "name": "닫힌 운명",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u043",
+      "name": "타오르는 심장",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u044",
+      "name": "빗발치는 화염",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u045",
+      "name": "열의",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u046",
+      "name": "공허",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u047",
+      "name": "금 간 봉인",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u048",
+      "name": "교차하는 사슬",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u049",
+      "name": "서광",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u050",
+      "name": "승전",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u051",
+      "name": "칼바람",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u052",
+      "name": "첫 번째 서약",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u053",
+      "name": "무너진 경계",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u054",
+      "name": "용의 문장 2세트",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u055",
+      "name": "공세+",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u056",
+      "name": "침식",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u057",
+      "name": "날선 적의",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u058",
+      "name": "용사냥꾼",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u059",
+      "name": "잠들지 않는 불",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u060",
+      "name": "별바라기",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u061",
+      "name": "긍지",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u062",
+      "name": "비늘 덮인 현자",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u063",
+      "name": "바다뱀",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u064",
+      "name": "모래 폭풍",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u065",
+      "name": "무도가+",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u066",
+      "name": "무한한 탐욕",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u067",
+      "name": "바위 거인",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u068",
+      "name": "방랑 기사",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u069",
+      "name": "봉인술사",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u070",
+      "name": "분쇄+",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u071",
+      "name": "영원",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u072",
+      "name": "이름 없는 혼돈",
+      "slot": "armor",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u073",
+      "name": "여신의 가호",
+      "slot": "emblem",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u074",
+      "name": "여신의 권능",
+      "slot": "emblem",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u075",
+      "name": "백금 천칭",
+      "slot": "emblem",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u076",
+      "name": "위대함",
+      "slot": "emblem",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u077",
+      "name": "초월",
+      "slot": "emblem",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u078",
+      "name": "영원한 밤",
+      "slot": "emblem",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u079",
+      "name": "해방",
+      "slot": "emblem",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u080",
+      "name": "간결함+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u081",
+      "name": "갈채+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u082",
+      "name": "감쌈+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u083",
+      "name": "감전+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u084",
+      "name": "검투사+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u085",
+      "name": "격돌+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u086",
+      "name": "격파+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u087",
+      "name": "결속+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u088",
+      "name": "결의+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u089",
+      "name": "고갈+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u090",
+      "name": "고동침+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u091",
+      "name": "고드름+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u092",
+      "name": "공명+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u093",
+      "name": "관통+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u094",
+      "name": "광기+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u095",
+      "name": "광륜+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u096",
+      "name": "광전사+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u097",
+      "name": "광휘+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u098",
+      "name": "교차+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u099",
+      "name": "교활함+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u100",
+      "name": "구속+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u101",
+      "name": "균열+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u102",
+      "name": "극점+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u103",
+      "name": "급습+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u104",
+      "name": "기만+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u105",
+      "name": "기본+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    },
+    {
+      "id": "u106",
+      "name": "깜빡임+",
+      "slot": "accessory",
+      "rarity": null,
+      "stars": null,
+      "season": null,
+      "effects": [],
+      "enhancementBonuses": [],
+      "source": "https://mobilab.me/mobidex/runes/",
+      "verified": false
+    }
+  ]
+}
