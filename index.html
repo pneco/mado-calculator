@@ -58,6 +58,11 @@ body:has(#home:target) nav.tabs,body:has(#chat:target) nav.tabs,body:has(#gear:t
 <div class="hint small">입력한 정보와 장비 설정은 이 브라우저에 자동 저장돼요.</div>
 </div>
 <div class="card"><h2>현재 진입 조건</h2><div id="summary"></div></div>
+<div class="card"><h2>레이드 입장 조건 · 어려움 / 매우 어려움</h2>
+<div class="field"><label for="raidTarget">비교할 레이드 선택</label><select id="raidTarget"><option value="">레이드 데이터 불러오는 중...</option></select></div>
+<div id="raidSummary" aria-live="polite">레이드 기준 데이터 확인 중...</div>
+<p class="note">필요 전투력과 입장 저항은 별개 조건이야. 마도 압력이 확인된 레이드는 압력 대비 저항도 표시하고, 공개 기준이 확인되지 않은 항목은 임의로 0 처리하지 않아.</p>
+</div>
 <div class="card"><h2>장비 변경 시뮬레이션</h2><div id="gearSummary"></div>
 <p class="note">현재 마도 저항은 게임에 표시된 전체 값입니다. 장비 변경 전후의 차이만 전체 저항에 반영해 이중 계산을 방지합니다. 장비 변화에 따른 전투력 증감은 반영하지 않습니다.</p></div>
 <div class="card"><h2>지옥 단계 비교</h2><div id="stageList"></div></div>
@@ -93,6 +98,7 @@ var names=['무기','투구','상의','하의','장갑','신발','목걸이','�
 var defaults=[{name:'지옥 1',cp:87500,need:3500,pressure:4400},{name:'지옥 2',cp:95000,need:6000,pressure:6600},{name:'지옥 3',cp:102500,need:7200,pressure:7800},{name:'지옥 4',cp:110000,need:8500,pressure:9000}];
 function fresh(){return {cp:116000,res:9000,target:3,stages:JSON.parse(JSON.stringify(defaults)),gear:names.map(function(name){return {name:name,kind:'none',level:0,targetKind:'none',targetLevel:0}})}}
 var state=fresh();
+var raidData=[];
 try{var saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved&&Array.isArray(saved.gear)&&saved.gear.length===names.length&&Array.isArray(saved.stages)&&saved.stages.length===4){state=Object.assign(state,saved)}}catch(e){}
 function el(id){return document.getElementById(id)}
 function number(v){return Math.max(0,Number(v)||0)}
@@ -108,11 +114,57 @@ Array.prototype.forEach.call(el('gearList').querySelectorAll('select'),function(
 function buildStages(){el('stages').innerHTML=state.stages.map(function(s,i){return '<div class="stage"><strong>'+defaults[i].name+'</strong><div class="three" style="margin-top:10px"><div><label>전투력</label><input data-stage="'+i+'" data-field="cp" type="number" min="0" value="'+number(s.cp)+'"></div><div><label>입장 저항</label><input data-stage="'+i+'" data-field="need" type="number" min="0" value="'+number(s.need)+'"></div><div><label>마도 압력</label><input data-stage="'+i+'" data-field="pressure" type="number" min="0" value="'+number(s.pressure)+'"></div></div></div>'}).join('');
 Array.prototype.forEach.call(el('stages').querySelectorAll('input'),function(input){input.addEventListener('input',function(){state.stages[Number(input.getAttribute('data-stage'))][input.getAttribute('data-field')]=number(input.value);save();render()})})}
 function row(left,right,cls){return '<div class="row"><span>'+left+'</span><strong'+(cls?' class="'+cls+'"':'')+'>'+right+'</strong></div>'}
+function renderRaids(cp,res,gain){
+ var target=document.getElementById('raidTarget'),out=document.getElementById('raidSummary');
+ if(!target||!out)return;
+ if(!raidData.length){out.innerHTML='<p class="note">레이드 기준 파일을 불러오지 못했어. 네트워크를 확인해 줘.</p>';return;}
+ var selected=raidData.find(function(x){return x.id===target.value})||raidData[0];
+ var needCp=Number(selected.cp),after=res+gain;
+ var knownNeed=selected.need!==null&&selected.need!==undefined;
+ var knownPressure=selected.pressure!==null&&selected.pressure!==undefined;
+ var okCurrent=cp>=needCp&&(!knownNeed||res>=Number(selected.need));
+ var okAfter=cp>=needCp&&(!knownNeed||after>=Number(selected.need));
+ function status(ok){return ok?'확인된 기준 충족':'조건 미달'}
+ var sourceLink='<a href="'+selected.source+'" target="_blank" rel="noopener noreferrer">기준 출처 보기</a>';
+ out.innerHTML='<div class="banner"><div class="eyebrow">'+selected.name+' · '+selected.difficulty+'</div><div class="large">'+status(okCurrent)+'</div></div>'+
+ row('필요 전투력',fmt(needCp))+row('권장 전투력',fmt(selected.recommendedCp))+
+ row('현재 전투력',fmt(cp),cp>=needCp?'good':'bad')+
+ row('전투력 부족',fmt(Math.max(0,needCp-cp)))+
+ row('필요 마도 저항',knownNeed?fmt(selected.need):'별도 기준 미확인')+
+ row('마도 압력',knownPressure?fmt(selected.pressure):'별도 기준 미확인')+
+ (knownNeed?row('현재 입장 저항 부족',fmt(Math.max(0,Number(selected.need)-res))):'')+
+ (knownPressure?row('현재 압력까지 부족',fmt(Math.max(0,Number(selected.pressure)-res))):'')+
+ row('장비 변경 후 예상 저항',fmt(after))+
+ row('장비 변경 후 입장',status(okAfter),okAfter?'good':'bad')+
+ (knownPressure?row('변경 후 압력 대비', (after>=selected.pressure?'+':'')+fmt(after-selected.pressure),after>=selected.pressure?'good':'bad'):'')+
+ '<p class="note">'+sourceLink+(knownNeed?'':' · 저항 수치는 미확인이라 전투력만 판정했어.')+'</p>';
+ var all=raidData.map(function(x){
+  var cpOK=cp>=Number(x.cp),resOK=x.need==null||res>=Number(x.need);
+  var label=x.name+' '+x.difficulty;
+  return row(label+' · 전투력 '+fmt(x.cp)+(x.need==null?'':' / 저항 '+fmt(x.need)),cpOK&&resOK?'충족':'미충족',cpOK&&resOK?'good':'bad');
+ }).join('');
+ out.innerHTML+='<details style="margin-top:14px"><summary>전체 레이드 입장 조건 비교</summary>'+all+'</details>';
+}
+async function loadRaidData(){
+ var select=document.getElementById('raidTarget');
+ try{
+  var response=await fetch('./raids.json?v=20261117-raid1',{cache:'no-cache'});
+  if(!response.ok)throw Error('HTTP '+response.status);
+  var json=await response.json();
+  if(!json||!Array.isArray(json.raids))throw Error('Invalid data');
+  raidData=json.raids;
+  select.innerHTML=raidData.map(function(x){return '<option value="'+x.id+'">'+x.name+' · '+x.difficulty+'</option>'}).join('');
+  var savedId=state.raidTarget||'scath-vh';if(raidData.some(function(x){return x.id===savedId}))select.value=savedId;
+  render();
+ }catch(err){document.getElementById('raidSummary').textContent='레이드 기준 파일을 불러오지 못했어: '+err.message;}
+}
+
 function render(){var stage=state.stages[Number(state.target)]||state.stages[0],cp=number(state.cp),res=number(state.res),can=state.stages.filter(function(s){return cp>=number(s.cp)&&res>=number(s.need)}),delta=res-number(stage.pressure),boost=damage(delta);
 el('summary').innerHTML='<div class="banner"><div class="eyebrow">입장 조건 충족 최고 단계</div><div class="large">'+(can.length?can[can.length-1].name:'조건 미달')+'</div></div>'+
 row('목표 단계',stage.name)+row('전투력 부족',fmt(Math.max(0,number(stage.cp)-cp)))+row('입장 저항 부족',fmt(Math.max(0,number(stage.need)-res)))+row('마도 압력까지 부족',fmt(Math.max(0,number(stage.pressure)-res)))+row('마도 압력 대비 저항', (delta>=0?'+':'')+fmt(delta),delta>=0?'good':'bad')+row('마도 피해 증폭 (근사)',boost===null?'압력 미달 · 미산출':boost.toFixed(2)+'%');
 var current=0,goal=0;state.gear.forEach(function(g,i){var c=resistance(g.kind,g.level,i===0),t=resistance(g.targetKind,g.targetLevel,i===0);current+=c;goal+=t;var out=el('gval'+i);if(out)out.textContent=fmt(c)+' → '+fmt(t)+' ('+(t-c>=0?'+':'')+fmt(t-c)+')'});
 var gain=goal-current,after=res+gain,newBoost=damage(after-number(stage.pressure)),canAfter=cp>=number(stage.cp)&&after>=number(stage.need);
+renderRaids(cp,res,gain);
 el('gearSummary').innerHTML=row('현재 설정 장비 합계',fmt(current))+row('목표 설정 장비 합계',fmt(goal))+row('장비 변경 증가량',(gain>=0?'+':'')+fmt(gain),gain>=0?'good':'bad')+row('변경 후 예상 마도 저항',fmt(after),'large')+row('변경 후 목표 입장',canAfter?'충족':'미충족',canAfter?'good':'bad')+row('변경 후 피해 증폭 (근사)',newBoost===null?'압력 미달 · 미산출':newBoost.toFixed(2)+'%');
 el('stageList').innerHTML=state.stages.map(function(s){var ok=cp>=number(s.cp)&&res>=number(s.need);return row(s.name+' · 전투력 '+fmt(s.cp)+' / 저항 '+fmt(s.need),ok?'충족':'미충족',ok?'good':'bad')}).join('')}
 function initialize(){el('cp').value=state.cp;el('res').value=state.res;el('target').innerHTML=state.stages.map(function(s,i){return '<option value="'+i+'">'+defaults[i].name+'</option>'}).join('');el('target').value=state.target;
@@ -122,7 +174,8 @@ el('export').addEventListener('click',function(){var blob=new Blob([JSON.stringi
 el('import').addEventListener('click',function(){el('importFile').click()});
 el('importFile').addEventListener('change',function(){var file=this.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(){try{var obj=JSON.parse(reader.result);if(!obj||!Array.isArray(obj.gear)||obj.gear.length!==9||!Array.isArray(obj.stages)||obj.stages.length!==4)throw Error('백업 형식 오류');state=Object.assign(fresh(),obj);save();location.reload()}catch(e){alert('올바른 백업 JSON 파일이 아닙니다.')}};reader.readAsText(file)});
 el('reset').addEventListener('click',function(){if(confirm('저장한 전투력, 장비 설정, 기준값을 모두 초기화할까요?')){localStorage.removeItem(KEY);location.reload()}});
-buildGear();buildStages();render();
+el('raidTarget').addEventListener('change',function(){state.raidTarget=this.value;save();render();});
+buildGear();buildStages();render();loadRaidData();
 }
 initialize();
 })();
