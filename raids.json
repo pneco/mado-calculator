@@ -1,0 +1,61 @@
+{
+  "version": "2026-11-17",
+  "description": "Raid entry and mado pressure thresholds. null indicates no verified mado threshold, not zero.",
+  "raids": [
+    {
+      "id": "scath-vh",
+      "name": "적월의 스카스",
+      "difficulty": "매우 어려움",
+      "cp": 104500,
+      "recommendedCp": 110000,
+      "overpowerCp": 126500,
+      "need": 3400,
+      "pressure": 4000,
+      "source": "https://mabinogimobile.nexon.com/News/Update/3575034"
+    },
+    {
+      "id": "kavrak-hard",
+      "name": "카브락",
+      "difficulty": "어려움",
+      "cp": 90000,
+      "recommendedCp": 95000,
+      "overpowerCp": 109000,
+      "need": 3100,
+      "pressure": 3700,
+      "source": "https://mabinogimobile.nexon.com/News/Update/3521707"
+    },
+    {
+      "id": "airel-vh",
+      "name": "에이렐",
+      "difficulty": "매우 어려움",
+      "cp": 88500,
+      "recommendedCp": 93000,
+      "overpowerCp": 107000,
+      "need": 3000,
+      "pressure": 3500,
+      "source": "https://mabinogimobile.nexon.com/News/Update/3545062"
+    },
+    {
+      "id": "succubus-vh",
+      "name": "화이트 서큐버스",
+      "difficulty": "매우 어려움",
+      "cp": 50000,
+      "recommendedCp": 57500,
+      "overpowerCp": 64000,
+      "need": null,
+      "pressure": null,
+      "source": "https://mabinogimobile.nexon.com/News/Update/3407267"
+    },
+    {
+      "id": "airel-hard",
+      "name": "에이렐",
+      "difficulty": "어려움",
+      "cp": 43500,
+      "recommendedCp": 50000,
+      "overpowerCp": 57500,
+      "need": null,
+      "pressure": null,
+      "source": "https://wiki.kanotype.net/ko/%EB%A7%88%EB%B9%84%EB%85%B8%EA%B8%B0_%EB%AA%A8%EB%B0%94%EC%9D%BC/%EC%97%90%EC%9D%B4%EB%A0%90_%EB%A0%88%EC%9D%B4%EB%93%9C"
+    }
+  ]
+}
