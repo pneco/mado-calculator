@@ -9,17 +9,39 @@
 <title>마도 저항 계산기</title>
 <style>
 :root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#eff4ff;background:#0f1726;font-synthesis:none}*{box-sizing:border-box}body{margin:0}main{max-width:860px;margin:auto;padding:24px 15px 75px}h1{margin:0;font-size:25px;letter-spacing:-.7px}h2{font-size:17px;margin:0 0 14px}p{line-height:1.6}.sub,.hint,small{color:#9fb2cf}.sub{margin:7px 0 20px;font-size:13px}.tabs{display:flex;gap:8px;margin:18px 0}.tabs button{flex:1}button,input,select{font:inherit;color:inherit;border-radius:11px}button{padding:11px 12px;background:#1b2b47;border:1px solid #394b6b;cursor:pointer}button.active{background:#4267ae;border-color:#658ade}button:active{transform:scale(.99)}input,select{width:100%;min-width:0;background:#101d32;border:1px solid #445877;padding:12px;font-size:16px}input:focus,select:focus{outline:2px solid #79a7f2;outline-offset:1px}label{display:block;color:#b7c7df;font-size:13px;margin-bottom:7px}.card{background:#1b2940;border:1px solid #32435f;border-radius:17px;padding:18px;margin:12px 0;box-shadow:0 7px 22px #080e1924}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.field{margin-bottom:12px}.row{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #32425c;padding:10px 0;align-items:center}.row:last-child{border:0}.row span{color:#bdcbe0;font-size:13px}.row strong{text-align:right}.good{color:#9decc9}.bad{color:#ffd18c}.large{font-size:23px;font-weight:800}.hidden{display:none!important}.gear{border-bottom:1px solid #3a4c68;padding:14px 0}.gear:last-child{border:0}.gearhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px;gap:8px}.pill{font-size:12px;color:#abf2d6}.small{font-size:12px}.note{margin-top:13px;color:#b4c2d7;font-size:12px;line-height:1.7}.actions{display:flex;gap:9px}.actions button{flex:1}.stage{padding:12px 0;border-bottom:1px solid #364760}.stage:last-child{border:0}.banner{background:#182f45;border:1px solid #2d6272;padding:15px;border-radius:12px;margin-bottom:12px}.eyebrow{color:#99b6d6;font-size:12px;margin-bottom:5px}.banner .large{color:#a5ead1}.progress{height:8px;border-radius:8px;background:#0f1d31;overflow:hidden;margin-top:10px}.progress>div{height:100%;background:#81d7b5;transition:width .2s}footer{font-size:12px;color:#94a9c7;line-height:1.7;margin-top:18px}@media(max-width:480px){main{padding:20px 12px 55px}h1{font-size:22px}.card{padding:14px}.three{grid-template-columns:1fr 1fr}.tabs button{padding:11px 5px;font-size:13px}.gear .two{gap:8px}.gear input,.gear select{padding:11px 8px}} 
+
+.snow-landing{margin:20px 0;min-height:450px;padding:42px 20px;border-radius:24px;border:1px solid #45678b;background:radial-gradient(ellipse at top,#315b90 0%,#162c4a 45%,#0d1728 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.snowflake{font-size:87px;line-height:1.2;text-shadow:0 0 32px #c3e6ff;animation:snowfloat 4s ease-in-out infinite}
+.snow-small{color:#b8dafa;font-size:11px;letter-spacing:3px;margin:24px 0 7px}
+.snow-title{font-size:38px;letter-spacing:3px;margin:0;color:#eaf6ff}
+.snow-desc{max-width:280px;color:#b7cfea;font-size:14px}
+.snow-actions{display:grid;gap:12px;width:100%;max-width:345px;margin:19px 0 24px}
+.snow-actions button{padding:16px;background:#416eac;border-color:#79ade4;font-weight:700}
+.snow-actions button+button{background:#234469}
+.chat-messages{display:grid;gap:10px;margin-top:16px}
+.chat-message{background:#14243d;border:1px solid #38516f;border-radius:12px;padding:13px;overflow-wrap:anywhere}
+.chat-meta{display:flex;justify-content:space-between;gap:9px;color:#a9c6e5;font-size:12px;margin-bottom:9px}
+.chat-text{white-space:pre-wrap;line-height:1.5;font-size:14px}
+@keyframes snowfloat{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-9px) rotate(6deg)}}
+@media(prefers-reduced-motion:reduce){.snowflake{animation:none}}
+@media(max-width:480px){.snow-landing{padding:30px 12px;min-height:410px}}
 </style>
 </head>
 <body>
 <main>
 <header><h1>⚔️ 마도 저항 계산기</h1><p class="sub">마비노기 모바일 · 지옥 단계 · 잔영 / 해연 장비 시뮬레이터</p></header>
-<nav class="tabs" aria-label="계산기 메뉴">
+<section id="landing" class="snow-landing">
+<div class="snowflake">❄️</div><div class="snow-small">MABINOGI MOBILE</div>
+<h2 class="snow-title">눈송이</h2>
+<p class="snow-desc">마도 저항을 계산하고 눈송이 채팅방에서 이야기해요.</p>
+<div class="snow-actions"><button data-go="home">⚔️ 마도 저항 계산기</button><button data-go="chat">💬 눈송이 전용 채팅방</button></div>
+<small>iPhone · iPad · Android · PC</small></section>
+<nav class="tabs hidden" aria-label="계산기 메뉴"><button type="button" data-tab="landing">❄️ 처음</button>
 <button type="button" class="active" data-tab="home">현황 / 지옥</button>
 <button type="button" data-tab="gear">장비 세팅</button>
 <button type="button" data-tab="setting">기준 / 백업</button>
 </nav>
-<section id="home">
+<section id="home" class="hidden">
 <div class="card"><h2>캐릭터 정보</h2>
 <div class="two"><div class="field"><label for="cp">전투력</label><input id="cp" type="number" min="0" step="1" inputmode="numeric"></div>
 <div class="field"><label for="res">마도 저항 (게임 표시값)</label><input id="res" type="number" min="0" step="1" inputmode="numeric"></div></div>
@@ -34,6 +56,13 @@
 <section id="gear" class="hidden"><div class="card"><h2>부위별 잔영 / 해연 설정</h2>
 <p class="hint small">현재 장비와 목표 장비의 종류·감정 단계를 선택하세요. 단계별 마도 저항이 자동 계산됩니다.</p>
 <div id="gearList"></div></div></section>
+<section id="chat" class="hidden"><div class="card">
+<h2>❄️ 눈송이 전용 채팅방</h2>
+<p class="hint small">누구나 대화를 읽을 수 있어요. 글을 남기려면 무료 GitHub 로그인이 필요해요. 공개 채팅방이므로 개인정보를 올리지 마세요.</p>
+<div class="actions"><button type="button" id="chatRefresh">↻ 새로고침</button><button type="button" id="chatPost">✍️ 메시지 작성</button></div>
+<p class="hint small" id="chatStatus" role="status"></p><div id="chatMessages" class="chat-messages"></div>
+<p class="note">메시지 작성 버튼을 누르면 GitHub 댓글 페이지로 이동해요. 등록 후 새로고침을 누르면 계산기에서도 확인할 수 있어요.</p>
+</div></section>
 <section id="setting" class="hidden"><div class="card"><h2>지옥 조건 수정</h2>
 <p class="hint small">게임 업데이트에 따라 요구 수치가 달라질 수 있어요. 아래 값은 검증 전 참고값이므로 게임 내 최신 수치로 수정해 주세요.</p><div id="stages"></div></div>
 <div class="card"><h2>저장 / 백업</h2><p class="hint small">변경 사항은 자동 저장됩니다. 다른 기기로 옮기거나 Safari 데이터 삭제에 대비하려면 JSON 파일로 백업하세요.</p>
@@ -75,7 +104,7 @@ el('gearSummary').innerHTML=row('현재 설정 장비 합계',fmt(current))+row(
 el('stageList').innerHTML=state.stages.map(function(s){var ok=cp>=number(s.cp)&&res>=number(s.need);return row(s.name+' · 전투력 '+fmt(s.cp)+' / 저항 '+fmt(s.need),ok?'충족':'미충족',ok?'good':'bad')}).join('')}
 function initialize(){el('cp').value=state.cp;el('res').value=state.res;el('target').innerHTML=state.stages.map(function(s,i){return '<option value="'+i+'">'+defaults[i].name+'</option>'}).join('');el('target').value=state.target;
 ['cp','res','target'].forEach(function(id){el(id).addEventListener('input',function(){state[id]=number(el(id).value);save();render()})});
-Array.prototype.forEach.call(document.querySelectorAll('[data-tab]'),function(btn){btn.addEventListener('click',function(){Array.prototype.forEach.call(document.querySelectorAll('[data-tab]'),function(b){b.classList.toggle('active',b===btn)});['home','gear','setting'].forEach(function(id){el(id).classList.toggle('hidden',btn.getAttribute('data-tab')!==id)})})});
+Array.prototype.forEach.call(document.querySelectorAll('[data-tab]'),function(btn){btn.addEventListener('click',function(){Array.prototype.forEach.call(document.querySelectorAll('[data-tab]'),function(b){b.classList.toggle('active',b===btn)});['landing','home','gear','setting','chat'].forEach(function(id){el(id).classList.toggle('hidden',btn.getAttribute('data-tab')!==id)});document.querySelector('nav.tabs').classList.toggle('hidden',btn.getAttribute('data-tab')==='landing');if(btn.getAttribute('data-tab')==='chat')window.loadSnowChat()})});
 el('export').addEventListener('click',function(){var blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='mado-settings.json';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},1500)});
 el('import').addEventListener('click',function(){el('importFile').click()});
 el('importFile').addEventListener('change',function(){var file=this.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(){try{var obj=JSON.parse(reader.result);if(!obj||!Array.isArray(obj.gear)||obj.gear.length!==9||!Array.isArray(obj.stages)||obj.stages.length!==4)throw Error('백업 형식 오류');state=Object.assign(fresh(),obj);save();location.reload()}catch(e){alert('올바른 백업 JSON 파일이 아닙니다.')}};reader.readAsText(file)});
@@ -86,4 +115,45 @@ initialize();
 })();
 </script>
 <script>if('serviceWorker' in navigator && location.protocol==='https:'){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js').catch(function(){})})}</script>
+<script>
+(function(){
+'use strict';
+const endpoint='https://api.github.com/repos/pneco/mado-calculator/issues/1/comments?per_page=100';
+const issue='https://github.com/pneco/mado-calculator/issues/1';
+let lastLoaded=0;
+function showTab(id){
+ document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));
+ ['landing','home','gear','setting','chat'].forEach(name=>document.getElementById(name).classList.toggle('hidden',id!==name));
+ document.querySelector('nav.tabs').classList.toggle('hidden',id==='landing');
+ if(id==='chat')window.loadSnowChat();
+}
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.go)));
+document.getElementById('chatPost').addEventListener('click',()=>window.open(issue,'_blank','noopener,noreferrer'));
+document.getElementById('chatRefresh').addEventListener('click',()=>window.loadSnowChat(true));
+window.loadSnowChat=async function(force){
+ const status=document.getElementById('chatStatus');
+ const root=document.getElementById('chatMessages');
+ if(!force&&Date.now()-lastLoaded<30000)return;
+ status.textContent='메시지를 불러오는 중...';
+ try{
+  const r=await fetch(endpoint,{headers:{Accept:'application/vnd.github+json'},cache:'no-store'});
+  if(!r.ok)throw Error(String(r.status));
+  const comments=await r.json();
+  if(!Array.isArray(comments))throw Error('Invalid response');
+  root.replaceChildren();
+  if(!comments.length){const empty=document.createElement('p');empty.className='hint';empty.textContent='첫 번째 메시지를 남겨 주세요!';root.appendChild(empty)}
+  comments.forEach(m=>{
+   const article=document.createElement('article');article.className='chat-message';
+   const meta=document.createElement('div');meta.className='chat-meta';
+   const name=document.createElement('strong');name.textContent=m.user?.login||'사용자';
+   const date=document.createElement('span');date.textContent=m.created_at?new Date(m.created_at).toLocaleString('ko-KR'):'';
+   const body=document.createElement('div');body.className='chat-text';body.textContent=m.body||'';
+   meta.append(name,date);article.append(meta,body);root.append(article);
+  });
+  lastLoaded=Date.now();
+  status.textContent=comments.length+'개 메시지 · 새 메시지는 새로고침으로 확인하세요.';
+ }catch(error){status.textContent='메시지를 불러오지 못했습니다. 네트워크 또는 GitHub API 제한을 확인해 주세요.'}
+};
+})();
+</script>
 </body></html>
