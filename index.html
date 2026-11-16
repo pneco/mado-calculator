@@ -123,7 +123,7 @@ function renderRaids(cp,res,gain){
  var after=res+gain,cpOk=cpKnown&&cp>=Number(selected.cp);
  var currentOk=cpOk&&(!needKnown||res>=Number(selected.need)),futureOk=cpOk&&(!needKnown||after>=Number(selected.need));
  var known=cpKnown&&needKnown;
- var status=function(ok){return known?(ok?'확인된 조건 충족':'조건 미달'):(cpKnown&&cpOk?'확인된 전투력 조건 충족 · 기타 확인 필요':'입장 조건 일부 미확인')};
+ var status=function(ok){return known?(ok?'확인된 조건 충족':'조건 미달'):(cpKnown&&!cpOk?'전투력 조건 미달':cpKnown?'전투력 충족 · 기타 조건 확인 필요':'입장 조건 일부 미확인')};
  var sourceLink='<a href="'+selected.source+'" target="_blank" rel="noopener noreferrer">기준 출처 보기</a>';
  out.innerHTML='<div class="banner"><div class="eyebrow">'+selected.name+' · '+selected.difficulty+'</div><div class="large">'+status(currentOk)+'</div></div>'+
  row('필요 전투력',cpKnown?fmt(selected.cp):'공식 값 미확인')+
