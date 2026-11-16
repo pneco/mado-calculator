@@ -118,6 +118,7 @@ fillGroup();
 (function(){
 'use strict';
 const CAT={"weapon":["가시 덩굴","거대한 분노","검무+","대군주","바위 칼날","죽음","물결","타오르는 영광","만 갈래 물길","메아리치는 진노","불꽃으로 새긴 문장","가속","가속+"],"armor":["가라앉은 왕국","무형","사슬로 묶은 법전","여신","용 사냥꾼","유폐된 어둠","검게 물든 후광","그림자로 엮은 회랑","닫힌 운명","타오르는 심장","빗발치는 화염","열의","공허","금 간 봉인","교차하는 사슬","서광","승전","칼바람","첫 번째 서약","무너진 경계","용의 문장 2세트","공세+","침식","날선 적의","용사냥꾼","잠들지 않는 불","별바라기","긍지","비늘 덮인 현자","바다뱀","계승자","모래 폭풍","무도가+","무한한 탐욕","바위 거인","방랑 기사","봉인술사","분쇄+","불사","영원","이름 없는 혼돈"],"emblem":["여신의 가호","여신의 권능","백금 천칭","위대함","초월","영원한 밤","해방","가호"],"accessory":["가호+","간결함+","갈채+","감쌈+","감전+","강격+","강화+","개화+","검투사+","겨울+","격돌+","격파+","결속+","결의+","고갈+","고동침+","고드름+","공명+","관통+","광기+","광륜+","광전사+","광휘+","교차+","교활함+","구속+","균열+","극점+","급습+","기만+","기본+","깜빡임+"]};
+const RECS=[{"name":"기사","runes":["용기","돌파","지진"]},{"name":"전사","runes":["붕괴","돌격","패기"]},{"name":"대검전사","runes":["탄력","광전사","절단"]},{"name":"검술사","runes":["관통","평정","일섬"]},{"name":"궁수","runes":["닻","매","몰아침"]},{"name":"장궁병","runes":["초음파","돌개","호응"]},{"name":"석궁사수","runes":["꿰뚫음","화약","산탄"]},{"name":"마법사","runes":["운석","우레","서리가시"]},{"name":"빙결술사","runes":["빙하","설원","북풍"]},{"name":"화염술사","runes":["폭격","분출","청염"]},{"name":"전격술사","runes":["섬광","폭풍우","도관"]},{"name":"힐러","runes":["광륜","가호","물결"]},{"name":"사제","runes":["심판","집행","성전"]},{"name":"수도사","runes":["인과","등불","뇌정"]},{"name":"암흑술사","runes":["구속","절제","광기"]},{"name":"도적","runes":["폭발","덫","땅거미"]},{"name":"듀얼블레이드","runes":["천침","교차","강화"]},{"name":"격투가","runes":["승천","전진","강격"]},{"name":"악사","runes":["조율","종장","순환"]},{"name":"음유시인","runes":["무아","합주","변주"]},{"name":"댄서","runes":["발걸음","전환","환호"]}];
 const ITEMS=[['무기','weapon'],['투구','armor'],['상의','armor'],['하의','armor'],['장갑','armor'],['신발','armor'],['엠블럼','emblem'],['장신구 1','accessory'],['장신구 2','accessory'],['장신구 3','accessory']];
 const KEY='snow-gear-v2',CUSTOM='snow-gear-custom-v2',OLD='snow-builds-v1';
 const el=id=>document.getElementById(id);
@@ -166,7 +167,7 @@ function summary(){
  const explanation=document.createElement('div');explanation.className='muted';explanation.textContent='실제 공격력 계산식이 아닌 사용자 입력 옵션의 단순 합산입니다.';root.append(explanation);
  const comparison=el('comparison');
  if(comparison){
-  const jobInfo=Array.isArray(jobs)?jobs.find(x=>x.name===job):null;
+  const jobInfo=RECS.find(x=>x.name===job);
   const selectedAccessory=v.slots.slice(7,10).map(x=>x.rune);
   const rec=jobInfo?jobInfo.runes:[];
   const matching=rec.filter(x=>selectedAccessory.includes(x));
