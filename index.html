@@ -88,7 +88,7 @@ body:has(#home:target) nav.tabs,body:has(#chat:target) nav.tabs,body:has(#gear:t
 <input class="hidden" type="file" accept=".json,application/json" id="importFile">
 <div style="margin-top:14px"><button type="button" id="reset">전체 초기화</button></div>
 </div></section>
-<footer>잔영·해연 수치는 커뮤니티 기준 참고 모델입니다. 잔영 1~11단계: 140부터 단계당 +28, 해연 1~21단계: 420부터 단계당 +14, 무기 2배로 가정합니다. 게임 공식 확정 수치가 아니므로 실제 장비 표시값과 대조해 주세요. 마도 피해 증폭은 공개 예시를 근사한 참고값입니다.</footer>
+<footer>잔영·해연 수치는 커뮤니티 기준 참고 모델입니다. 잔영 1~11단계: 140부터 단계당 +28, 해연 1~21단계: 420부터 단계당 +14, 무기 2배로 가정합니다. 게임 공식 확정 수치가 아니므로 실제 장비 표시값과 대조해 주세요. 마도 피해 변화는 검증되지 않은 참고 근사식입니다. 마도 압력보다 저항이 낮으면 음수(피해 감소 추정)로 표시하며, 실제 게임의 피해 감소율과 일치한다는 보장은 없습니다.</footer>
 </main>
 <script>
 (function(){
@@ -106,7 +106,8 @@ function fmt(n){return Math.round(n).toLocaleString('ko-KR')}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
 function max(kind){return kind==='shadow'?11:kind==='abyss'?21:0}
 function resistance(kind,level,weapon){var lvl=Math.min(max(kind),Math.max(0,number(level)));if(!lvl)return 0;return (kind==='shadow'?140+28*(lvl-1):420+14*(lvl-1))*(weapon?2:1)}
-function damage(diff){return diff<0?null:50*(1-Math.pow(.5,diff/4000))}
+function damage(diff){return 50*(1-Math.pow(.5,diff/4000))}
+function damageText(value){return (value>0?'+':'')+value.toFixed(2)+'%'+(value<0?' (피해 감소 추정)':value>0?' (피해 증가 추정)':' (변화 없음)')}
 function kindOptions(value){return [['none','미설정'],['shadow','잔영'],['abyss','해연']].map(function(x){return '<option value="'+x[0]+'"'+(x[0]===value?' selected':'')+'>'+x[1]+'</option>'}).join('')}
 function levelOptions(kind,value){var result='';for(var i=0;i<=max(kind);i++){result+='<option value="'+i+'"'+(Number(value)===i?' selected':'')+'>'+(i?i+'단계':'0단계 (없음)')+'</option>'}return result}
 function buildGear(){el('gearList').innerHTML=state.gear.map(function(g,i){return '<div class="gear"><div class="gearhead"><strong>'+names[i]+'</strong><span class="pill" id="gval'+i+'"></span></div><div class="two"><div><label>현재 장비</label><select data-index="'+i+'" data-field="kind">'+kindOptions(g.kind)+'</select></div><div><label>현재 단계</label><select data-index="'+i+'" data-field="level">'+levelOptions(g.kind,g.level)+'</select></div><div><label>목표 장비</label><select data-index="'+i+'" data-field="targetKind">'+kindOptions(g.targetKind)+'</select></div><div><label>목표 단계</label><select data-index="'+i+'" data-field="targetLevel">'+levelOptions(g.targetKind,g.targetLevel)+'</select></div></div></div>'}).join('');
@@ -132,6 +133,8 @@ function renderRaids(cp,res,gain){
  (cpKnown?row('전투력 부족',fmt(Math.max(0,Number(selected.cp)-cp))):'')+
  row('필요 마도 저항',needKnown?fmt(selected.need):'별도 기준 미확인')+
  row('마도 압력',pressureKnown?fmt(selected.pressure):'별도 기준 미확인')+
+ (pressureKnown?row('현재 마도 피해 변화 (근사)',damageText(damage(res-Number(selected.pressure))),res>=Number(selected.pressure)?'good':'bad'):'')+
+ (pressureKnown?row('변경 후 마도 피해 변화 (근사)',damageText(damage(after-Number(selected.pressure))),after>=Number(selected.pressure)?'good':'bad'):'')+
  (needKnown?row('현재 입장 저항 부족',fmt(Math.max(0,Number(selected.need)-res))):'')+
  (pressureKnown?row('현재 압력까지 부족',fmt(Math.max(0,Number(selected.pressure)-res))):'')+
  row('장비 변경 후 예상 저항',fmt(after))+
@@ -163,11 +166,11 @@ async function loadRaidData(){
 
 function render(){var stage=state.stages[Number(state.target)]||state.stages[0],cp=number(state.cp),res=number(state.res),can=state.stages.filter(function(s){return cp>=number(s.cp)&&res>=number(s.need)}),delta=res-number(stage.pressure),boost=damage(delta);
 el('summary').innerHTML='<div class="banner"><div class="eyebrow">입장 조건 충족 최고 단계</div><div class="large">'+(can.length?can[can.length-1].name:'조건 미달')+'</div></div>'+
-row('목표 단계',stage.name)+row('전투력 부족',fmt(Math.max(0,number(stage.cp)-cp)))+row('입장 저항 부족',fmt(Math.max(0,number(stage.need)-res)))+row('마도 압력까지 부족',fmt(Math.max(0,number(stage.pressure)-res)))+row('마도 압력 대비 저항', (delta>=0?'+':'')+fmt(delta),delta>=0?'good':'bad')+row('마도 피해 증폭 (근사)',boost===null?'압력 미달 · 미산출':boost.toFixed(2)+'%');
+row('목표 단계',stage.name)+row('전투력 부족',fmt(Math.max(0,number(stage.cp)-cp)))+row('입장 저항 부족',fmt(Math.max(0,number(stage.need)-res)))+row('마도 압력까지 부족',fmt(Math.max(0,number(stage.pressure)-res)))+row('마도 압력 대비 저항', (delta>=0?'+':'')+fmt(delta),delta>=0?'good':'bad')+row('마도 피해 변화 (근사)',damageText(boost),boost>=0?'good':'bad');
 var current=0,goal=0;state.gear.forEach(function(g,i){var c=resistance(g.kind,g.level,i===0),t=resistance(g.targetKind,g.targetLevel,i===0);current+=c;goal+=t;var out=el('gval'+i);if(out)out.textContent=fmt(c)+' → '+fmt(t)+' ('+(t-c>=0?'+':'')+fmt(t-c)+')'});
 var gain=goal-current,after=res+gain,newBoost=damage(after-number(stage.pressure)),canAfter=cp>=number(stage.cp)&&after>=number(stage.need);
 renderRaids(cp,res,gain);
-el('gearSummary').innerHTML=row('현재 설정 장비 합계',fmt(current))+row('목표 설정 장비 합계',fmt(goal))+row('장비 변경 증가량',(gain>=0?'+':'')+fmt(gain),gain>=0?'good':'bad')+row('변경 후 예상 마도 저항',fmt(after),'large')+row('변경 후 목표 입장',canAfter?'충족':'미충족',canAfter?'good':'bad')+row('변경 후 피해 증폭 (근사)',newBoost===null?'압력 미달 · 미산출':newBoost.toFixed(2)+'%');
+el('gearSummary').innerHTML=row('현재 설정 장비 합계',fmt(current))+row('목표 설정 장비 합계',fmt(goal))+row('장비 변경 증가량',(gain>=0?'+':'')+fmt(gain),gain>=0?'good':'bad')+row('변경 후 예상 마도 저항',fmt(after),'large')+row('변경 후 목표 입장',canAfter?'충족':'미충족',canAfter?'good':'bad')+row('변경 후 피해 변화 (근사)',damageText(newBoost),newBoost>=0?'good':'bad');
 el('stageList').innerHTML=state.stages.map(function(s){var ok=cp>=number(s.cp)&&res>=number(s.need);return row(s.name+' · 전투력 '+fmt(s.cp)+' / 저항 '+fmt(s.need),ok?'충족':'미충족',ok?'good':'bad')}).join('')}
 function initialize(){el('cp').value=state.cp;el('res').value=state.res;el('target').innerHTML=state.stages.map(function(s,i){return '<option value="'+i+'">'+defaults[i].name+'</option>'}).join('');el('target').value=state.target;
 ['cp','res','target'].forEach(function(id){el(id).addEventListener('input',function(){state[id]=number(el(id).value);save();render()})});
