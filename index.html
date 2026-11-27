@@ -42,8 +42,8 @@ body:has(#home:target) nav.tabs,body:has(#chat:target) nav.tabs,body:has(#gear:t
 <section id="landing" class="snow-landing">
 <div class="snowflake">❄️</div><div class="snow-small">MABINOGI MOBILE</div>
 <h2 class="snow-title">눈송이</h2>
-<p class="snow-desc">마도 저항을 계산하고 눈송이 채팅방에서 이야기해요.</p>
-<div class="snow-actions"><a class="snow-action" href="./guide.html">📖 뉴비 성장 가이드</a><a class="snow-action" href="#home">⚔️ 마도 저항 계산기</a><a class="snow-action" href="./builds.html?v=20261117-raid-recommend-1">💎 직업별 세팅 연구소</a><a class="snow-action" href="#chat">💬 눈송이 전용 채팅방</a></div>
+<p class="snow-desc">마도 저항 계산부터 성장 가이드까지, 오른쪽 하단에서 함께 이야기해요.</p>
+<div class="snow-actions"><a class="snow-action" href="./guide.html">📖 뉴비 성장 가이드</a><a class="snow-action" href="#home">⚔️ 마도 저항 계산기</a><a class="snow-action" href="./builds.html?v=20261117-raid-recommend-1">💎 직업별 세팅 연구소</a></div>
 <small>iPhone · iPad · Android · PC</small></section>
 <nav class="tabs hidden" aria-label="계산기 메뉴"><button type="button" data-tab="landing">❄️ 처음</button>
 <button type="button" class="active" data-tab="home">현황 / 지옥</button>
@@ -70,17 +70,7 @@ body:has(#home:target) nav.tabs,body:has(#chat:target) nav.tabs,body:has(#gear:t
 <section id="gear" class="hidden"><div class="card"><h2>부위별 잔영 / 해연 설정</h2>
 <p class="hint small">현재 장비와 목표 장비의 종류·감정 단계를 선택하세요. 단계별 마도 저항이 자동 계산됩니다.</p>
 <div id="gearList"></div></div></section>
-<section id="chat" class="hidden"><div class="card">
-<h2>❄️ 눈송이 실시간 채팅방</h2>
-<p class="hint small">닉네임을 입력하면 GitHub 계정 없이 채팅할 수 있어요. 메시지는 모든 접속자에게 실시간 공유되며 공개 저장됩니다.</p>
-<div class="two"><div class="field"><label for="chatNickname">닉네임 (최대 20자)</label><input id="chatNickname" maxlength="20" placeholder="눈송이"></div>
-<div class="field"><label>연결 상태</label><div class="chat-status-box" id="chatStatus" role="status">연결 전</div></div></div>
-<div id="chatMessages" class="chat-messages" aria-live="polite"></div>
-<div class="chat-compose"><label for="chatInput">메시지 (최대 300자)</label><textarea id="chatInput" maxlength="300" rows="2" placeholder="눈송이들과 이야기해요..."></textarea>
-<div class="actions"><button type="button" id="chatRefresh">↻ 기록 새로고침</button><button type="button" id="chatSend">전송 ❄️</button></div></div>
-<p class="note">무료 버전: 동시 연결 200개, 월 실시간 메시지 200만 건, DB 500MB, 월 Egress 5GB. 메시지 하나가 연결된 여러 이용자에게 전달되면 전달 인원만큼 사용량이 늘어요. <a href="https://supabase.com/pricing" target="_blank" rel="noopener noreferrer" style="color:#b9d8ff">무료 플랜 상세</a></p>
-<p class="note">공개 채팅은 로그인 없이 누구나 글을 쓸 수 있어 스팸이나 닉네임 사칭 위험이 있습니다. 개인정보를 공유하지 마세요.</p>
-</div></section>
+
 <section id="setting" class="hidden"><div class="card"><h2>지옥 조건 수정</h2>
 <p class="hint small">게임 업데이트에 따라 요구 수치가 달라질 수 있어요. 아래 값은 검증 전 참고값이므로 게임 내 최신 수치로 수정해 주세요.</p><div id="stages"></div></div>
 <div class="card"><h2>저장 / 백업</h2><p class="hint small">변경 사항은 자동 저장됩니다. 다른 기기로 옮기거나 Safari 데이터 삭제에 대비하려면 JSON 파일로 백업하세요.</p>
@@ -174,7 +164,7 @@ el('gearSummary').innerHTML=row('현재 설정 장비 합계',fmt(current))+row(
 el('stageList').innerHTML=state.stages.map(function(s){var ok=cp>=number(s.cp)&&res>=number(s.need);return row(s.name+' · 전투력 '+fmt(s.cp)+' / 저항 '+fmt(s.need),ok?'충족':'미충족',ok?'good':'bad')}).join('')}
 function initialize(){el('cp').value=state.cp;el('res').value=state.res;el('target').innerHTML=state.stages.map(function(s,i){return '<option value="'+i+'">'+defaults[i].name+'</option>'}).join('');el('target').value=state.target;
 ['cp','res','target'].forEach(function(id){el(id).addEventListener('input',function(){state[id]=number(el(id).value);save();render()})});
-Array.prototype.forEach.call(document.querySelectorAll('[data-tab]'),function(btn){btn.addEventListener('click',function(){Array.prototype.forEach.call(document.querySelectorAll('[data-tab]'),function(b){b.classList.toggle('active',b===btn)});['landing','home','gear','setting','chat'].forEach(function(id){el(id).classList.toggle('hidden',btn.getAttribute('data-tab')!==id)});document.querySelector('nav.tabs').classList.toggle('hidden',btn.getAttribute('data-tab')==='landing');if(btn.getAttribute('data-tab')==='chat')window.loadSnowChat()})});
+Array.prototype.forEach.call(document.querySelectorAll('[data-tab]'),function(btn){btn.addEventListener('click',function(){Array.prototype.forEach.call(document.querySelectorAll('[data-tab]'),function(b){b.classList.toggle('active',b===btn)});['landing','home','gear','setting'].forEach(function(id){el(id).classList.toggle('hidden',btn.getAttribute('data-tab')!==id)});document.querySelector('nav.tabs').classList.toggle('hidden',btn.getAttribute('data-tab')==='landing');})});
 el('export').addEventListener('click',function(){var blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='mado-settings.json';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},1500)});
 el('import').addEventListener('click',function(){el('importFile').click()});
 el('importFile').addEventListener('change',function(){var file=this.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(){try{var obj=JSON.parse(reader.result);if(!obj||!Array.isArray(obj.gear)||obj.gear.length!==9||!Array.isArray(obj.stages)||obj.stages.length!==4)throw Error('백업 형식 오류');state=Object.assign(fresh(),obj);save();location.reload()}catch(e){alert('올바른 백업 JSON 파일이 아닙니다.')}};reader.readAsText(file)});
@@ -189,14 +179,11 @@ initialize();
 (function(){
  function navigate(){
   var id=location.hash.slice(1);
-  if(!['home','gear','setting','chat'].includes(id))id='landing';
-  ['landing','home','gear','setting','chat'].forEach(function(name){var e=document.getElementById(name);if(e)e.classList.toggle('hidden',name!==id)});
+  if(!['home','gear','setting'].includes(id))id='landing';
+  ['landing','home','gear','setting'].forEach(function(name){var e=document.getElementById(name);if(e)e.classList.toggle('hidden',name!==id)});
   var nav=document.querySelector('nav.tabs');if(nav)nav.classList.toggle('hidden',id==='landing');
   document.querySelectorAll('[data-tab]').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-tab')===id)});
-  if(id==='chat'){
-   if(typeof window.loadSnowChat==='function')window.loadSnowChat();
-   else{var st=document.getElementById('chatStatus');if(st)st.textContent='채팅 모듈 로딩 중입니다. 새로고침을 눌러주세요.';}
-  }
+
  }
  window.addEventListener('hashchange',navigate);
  document.addEventListener('DOMContentLoaded',navigate);
@@ -208,6 +195,7 @@ initialize();
 })();
 </script>
 <script>if('serviceWorker' in navigator && location.protocol==='https:'){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js').catch(function(){})})}</script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./snow-chat-widget.js"></script>
 <script src="./snow-chat.js"></script>
+
 </body></html>
