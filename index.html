@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#11192b">
-<meta name="description" content="마비노기 모바일 마도 저항 및 잔영·해연 장비 세팅 계산기">
+<meta name="description" content="눈송이 길드를 위한 몰리당의 공부방 — 마비노기 모바일 성장 가이드, 장비 세팅 및 마도 저항 계산기">
 <link rel="manifest" href="./manifest.webmanifest">
 <title>몰리당의 공부방</title>
 <style>
@@ -34,17 +34,28 @@
 .snow-actions .snow-action{display:block;padding:16px;border-radius:11px;background:#416eac;border:1px solid #79ade4;color:#fff;text-decoration:none;font-weight:700}.snow-actions .snow-action+.snow-action{background:#234469}
 body:has(#home:target) #landing,body:has(#chat:target) #landing,body:has(#gear:target) #landing,body:has(#setting:target) #landing{display:none!important}
 body:has(#home:target) #home,body:has(#chat:target) #chat,body:has(#gear:target) #gear,body:has(#setting:target) #setting{display:block!important}
-body:has(#home:target) nav.tabs,body:has(#chat:target) nav.tabs,body:has(#gear:target) nav.tabs,body:has(#setting:target) nav.tabs{display:flex!important}.tabs .builds-nav{display:flex;flex:1;justify-content:center;align-items:center;background:#234369;color:#e3f4ff;border:1px solid #435d7d;border-radius:11px;padding:10px 8px;font-size:13px;text-decoration:none}@media(max-width:560px){.tabs{flex-wrap:wrap}.tabs button,.tabs .builds-nav{flex:1 1 31%;font-size:12px}}</style>
+body:has(#home:target) nav.tabs,body:has(#chat:target) nav.tabs,body:has(#gear:target) nav.tabs,body:has(#setting:target) nav.tabs{display:flex!important}.tabs .builds-nav{display:flex;flex:1;justify-content:center;align-items:center;background:#234369;color:#e3f4ff;border:1px solid #435d7d;border-radius:11px;padding:10px 8px;font-size:13px;text-decoration:none}@media(max-width:560px){.tabs{flex-wrap:wrap}.tabs button,.tabs .builds-nav{flex:1 1 31%;font-size:12px}} 
+#landing.snow-landing{display:grid;grid-template-columns:minmax(180px,0.85fr) minmax(0,1.15fr);gap:28px;align-items:center;padding:30px;background:radial-gradient(ellipse at 10% 15%,#28565d 0%,#182f48 48%,#0d1728 100%);text-align:left}
+#landing .molli-portrait{display:flex;justify-content:center;align-items:center}
+#landing .molli-portrait img{display:block;width:180px;max-width:100%;height:auto;border-radius:18px;border:1px solid #88c9ca;box-shadow:0 12px 34px #06121b80}
+#landing .molli-copy{min-width:0}
+#landing .snow-small{letter-spacing:1.8px;margin:0 0 10px}
+#landing .snow-title{font-size:clamp(25px,4.5vw,38px);letter-spacing:-1px;line-height:1.25}
+#landing .snow-desc{max-width:350px;line-height:1.8}
+#landing .snow-actions{max-width:none}
+#landing .snow-action{text-align:center}
+@media(max-width:560px){#landing.snow-landing{grid-template-columns:1fr;text-align:center;padding:24px 16px;gap:20px}#landing .molli-portrait img{width:150px}#landing .snow-desc{margin:12px auto}#landing .snow-actions{margin:18px auto}}
+</style>
 </head>
 <body>
 <main>
-<header><h1>⚔️ 마도 저항 계산기</h1><p class="sub">마비노기 모바일 · 지옥 단계 · 잔영 / 해연 장비 시뮬레이터</p></header>
+<header><h1>몰리당의 공부방</h1><p class="sub">❄️ 눈송이 길드 · 마비노기 모바일 성장 도우미</p></header>
 <section id="landing" class="snow-landing">
-<div class="snowflake">❄️</div><div class="snow-small">MABINOGI MOBILE</div>
+<div class="molli-portrait"><img src="./assets/molli-character.webp" alt="마비노기 모바일 캐릭터 몰리당" width="180" height="390"></div><div class="molli-copy"><div class="snow-small">MABINOGI MOBILE · 눈송이 GUILD</div>
 <h2 class="snow-title">몰리당의 공부방</h2>
-<p class="snow-desc">마도 저항 계산부터 성장 가이드까지, 오른쪽 하단의 오픈채팅 또는 눈송이 채팅에서 함께 이야기해요.</p>
+<p class="snow-desc">눈송이 길드를 위한 마비노기 모바일 공부방. 성장 가이드와 직업 세팅, 마도 저항 계산을 한곳에서 확인하고 함께 이야기해요.</p>
 <div class="snow-actions"><a class="snow-action" href="./guide.html">📖 뉴비 성장 가이드</a><a class="snow-action" href="#home">⚔️ 마도 저항 계산기</a><a class="snow-action" href="./builds.html?v=20261117-raid-recommend-1">💎 직업별 세팅 연구소</a></div>
-<small>iPhone · iPad · Android · PC</small></section>
+<small>iPhone · iPad · Android · PC</small></div></section>
 <nav class="tabs hidden" aria-label="계산기 메뉴"><button type="button" data-tab="landing">❄️ 처음</button>
 <button type="button" class="active" data-tab="home">현황 / 지옥</button>
 <button type="button" data-tab="gear">장비 세팅</button>

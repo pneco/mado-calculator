@@ -1,7 +1,7 @@
 {
   "name": "몰리당의 공부방",
   "short_name": "몰리당 공부방",
-  "description": "마비노기 모바일 마도 저항 및 잔영·해연 장비 시뮬레이터",
+  "description": "눈송이 길드를 위한 마비노기 모바일 성장 도우미",
   "lang": "ko",
   "start_url": "./",
   "scope": "./",
