@@ -1,7 +1,7 @@
-/* IP-only visit logging. Disabled until the private database migration and access checks succeed. */
+/* IP-only visit logging. Private IP-only visit logging. */
 (function(){
 'use strict';
-const ENABLED = false;
+const ENABLED = true;
 if(!ENABLED || location.origin !== 'https://pneco.github.io') return;
 function record(){
  if(document.visibilityState === 'hidden' || !navigator.onLine) return;
